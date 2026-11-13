@@ -1,44 +1,30 @@
-# Estado local de SDD
-.sdd-state.json
-
-# Skills agentes instalados (referencias externas)
-.agents/
-
-# Specs generados
-specs/
-*.generated.md
-
-# Node.js (si hay ejemplos)
+# Dependencies
 node_modules/
-package-lock.json
-yarn.lock
-npm-debug.log
 
-# Python (si hay ejemplos)
-__pycache__/
-*.pyc
-*.pyo
-.env
-venv/
-.venv/
+# Test coverage
+coverage/
+*.lcov
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
-logs/
+# SDD State
+.sdd-state.json
 
-# Temporales
-tmp/
-temp/
+# SDD Review
+.sdd-review/
+
+# Agent state
+.agents/
+
+# Temporary files
 *.tmp
 *.temp
+*.log

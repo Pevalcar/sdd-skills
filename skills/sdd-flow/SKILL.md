@@ -120,14 +120,22 @@ Por iteración:
 7. Marca `[x] Tn` en tasks.md
 8. **PAUSED:** "Tarea Tn completada. ¿Continuar con T(n+1)?"
 
-### Phase 6: Validación final
+### Phase 6: Revisión de decisiones (opcional)
+**Invoca:** `/sdd-review`
+- Análisis de suposiciones no cubiertas por sdd-clarify
+- Preguntas de doubt-driven development
+- Alternativas técnicas para decisiones clave
+- Producir `specs/001-xxx/review.md`
+- **OPCIONAL:** Para decisiones técnicas complejas
+
+### Phase 7: Validación final
 **Invoca:** `/sdd-validate`
 - Recorrido RF por RF
 - Qué test cubre cada uno
 - Estado: ✅ PASA / ❌ FALLA / ⚠️ SIN TEST
 - Veredicto: "✅ Spec cumplida" o lista pendientes
 
-### Phase 7: Variants (opcional)
+### Phase 8: Variants (opcional)
 **Invoca:** `/sdd-variants`
 - Generar N variantes de implementación
 - Evaluar vs AC/constitución/simplicidad
@@ -149,17 +157,19 @@ Por iteración:
 El wizard respeta los gates de verificación:
 
 ```
-SETUP → SPEC → PLAN → TASKS → IMPLEMENT
-   │        │        │        │         │
-   ▼        ▼        ▼        ▼         ▼
- HUMAN    HUMAN    HUMAN    HUMAN     HUMAN
- REVIEW   REVIEW   REVIEW   REVIEW    REVIEW
+SETUP → SPEC → PLAN → REVIEW → TASKS → IMPLEMENT → VALIDATE → VARIANTS
+   │        │        │        │          │           │          │
+   ▼        ▼        ▼        ▼          ▼           ▼          ▼
+ HUMAN    HUMAN    HUMAN    HUMAN      HUMAN       HUMAN      HUMAN
+ REVIEW   REVIEW   REVIEW   REVIEW     REVIEW      REVIEW     REVIEW
 ```
 
 Cada fase tiene un checklist de verificación que debe pasarse:
 - **sdd-setup:** AGENT.md + constitution creados y aprobados
 - **sdd-spec:** 6 áreas core completadas
+- **sdd-clarify:** QA automático pasado
 - **sdd-plan:** Arquitectura validada
+- **sdd-review:** (opcional) decisiones críticas revisadas
 - **sdd-tasks:** Tasks son accionables
 - **sdd-implement:** Tests pasan, code review hecho
 - **sdd-validate:** DoD checklist pasado
@@ -172,6 +182,7 @@ Al finalizar, tendrás:
 - `docs/constitution.md`
 - `specs/001-xxx/spec.md`
 - `specs/001-xxx/plan.md`
+- `specs/001-xxx/review.md` (opcional, si se usa sdd-review)
 - `specs/001-xxx/tasks.md`
 - Tests pasando 100%
 - Código mínimo que cumple spec

@@ -32,10 +32,10 @@ Esto:
 ## El Flow SDD
 
 ```
-Setup → Spec → Clarify → Plan → Tasks → Implement → Validate → Variants
-   ↓      ↓        ↓       ↓       ↓          ↓          ↓        ↓
-sdd-     sdd-spec  sdd-    sdd-plan sdd-tasks sdd-      sdd-     sdd-variants
-setup  clarify   clarify        (loop)             implement  validate (optional)
+Setup → Spec → Clarify → Plan → Review → Tasks → Implement → Validate → Variants
+   ↓      ↓        ↓       ↓        ↓       ↓          ↓          ↓        ↓
+sdd-     sdd-spec  sdd-    sdd-plan sdd-    sdd-tasks  sdd-       sdd-     sdd-variants
+setup  clarify   clarify        review         implement  validate (optional)
 ```
 
 Los `✓` marcan approval gates donde human verification es requerida.
@@ -50,6 +50,7 @@ Los `✓` marcan approval gates donde human verification es requerida.
 | `/sdd-constitution` | Crear constitutional | `docs/constitution.md` |
 | `/sdd-spec` | Generar especificación RF-EARS | `specs/NNN-xxx/spec.md` |
 | `/sdd-clarify` | Revisión QA automática | Notas en spec.md |
+| `/sdd-review` | Review de suposiciones y decisiones | `specs/NNN-xxx/review.md` |
 | `/sdd-plan` | Diseño técnico con pseudocódigo | `specs/NNN-xxx/plan.md` |
 | `/sdd-tasks` | Descomposición en tareas | `specs/NNN-xxx/tasks.md` |
 | `/sdd-implement` | Implementación TDD por tarea | Código + tests, Tn marcada |

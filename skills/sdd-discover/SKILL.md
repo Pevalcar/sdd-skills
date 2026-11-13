@@ -25,10 +25,11 @@ For a complete SDD workflow, the typical skill sequence is:
 2.  sdd-spec                    → Define what we're building (RF-EARS)
 3.  sdd-clarify                 → Review and refine spec (loop until clear)
 4.  sdd-plan                    → Design technical implementation
-5.  sdd-tasks                   → Break into verifiable tasks
-6.  sdd-implement               → Build slice by slice (TDD)
-7.  sdd-validate                → Verify RF→Test coverage, DoD
-8.  (optional) sdd-variants       → Multi-variant exploration and ranking
+5.  (optional) sdd-review      → Review assumptions and alternatives
+6.  sdd-tasks                   → Break into verifiable tasks
+7.  sdd-implement               → Build slice by slice (TDD)
+8.  sdd-validate                → Verify RF→Test coverage, DoD
+9.  (optional) sdd-variants      → Multi-variant exploration and ranking
 ```
 
 Not every task needs every skill. A bug fix might only need:
@@ -37,10 +38,10 @@ Not every task needs every skill. A bug fix might only need:
 ### Your SDD Flow
 
 ```
-Setup → Spec → Clarify → Plan → Tasks → Implement → Validate → Variants
-   ↓       ↓        ↓       ↓       ↓          ↓          ↓        ↓
-sdd-     sdd-spec  sdd-    sdd-plan sdd-tasks sdd-      sdd-     sdd-variants
-setup    clarify   clarify        (loop)             implement  validate (optional)
+Setup → Spec → Clarify → Plan → Review → Tasks → Implement → Validate → Variants
+   ↓       ↓        ↓       ↓        ↓       ↓          ↓          ↓        ↓
+sdd-     sdd-spec  sdd-    sdd-plan sdd-    sdd-tasks  sdd-       sdd-     sdd-variants
+setup    clarify   clarify        review         implement  validate (optional)
 
 ## Skill Router Table
 
@@ -51,6 +52,7 @@ setup    clarify   clarify        (loop)             implement  validate (option
 | **Define** | Need specs | `sdd-spec` |
 | **Define** | Need to clarify spec | `sdd-clarify` |
 | **Plan** | Have a spec, need plan | `sdd-plan` |
+| **Review** | Need to review assumptions | `sdd-review` |
 | **Build** | Need tasks from plan | `sdd-tasks` |
 | **Build** | Need to implement | `incremental-implementation` |
 | **Verify** | Implement complete | `sdd-validate` |
@@ -64,6 +66,7 @@ setup    clarify   clarify        (loop)             implement  validate (option
    - `specs/NNN-xxx/spec.md` existe? ❌ No → `/sdd-spec`
    - Spec clarificada? ❌ No → `/sdd-clarify`
    - `plan.md` existe? ❌ No → `/sdd-plan`
+   - Decisions reviewed? ❌ No → `/sdd-review` (opcional)
    - `tasks.md` existe? ❌ No → `/sdd-tasks`
    - Tasks implementadas? ❌ No → `/sdd-implement`
    - Implementación validada? ❌ No → `/sdd-validate`
@@ -86,6 +89,7 @@ setup    clarify   clarify        (loop)             implement  validate (option
 | **Define** | sdd-spec | Generate spec with RF-EARS |
 | **Define** | sdd-clarify | Review and refine spec |
 | **Plan** | sdd-plan | Design technical implementation |
+| **Review** | sdd-review | Review assumptions and alternatives |
 | **Build** | sdd-tasks | Break into verifiable tasks |
 | **Build** | sdd-implement | Implement with TDD |
 | **Verify** | sdd-validate | Verify RF→Test coverage |
@@ -118,6 +122,7 @@ Muestra al usuario el estado actual del proyecto:
    - /sdd-spec → Crear especificación
    - /sdd-clarify → Revisar espec
    - /sdd-plan → Crear plan técnico
+   - /sdd-review → Revisar suposiciones (opcional)
    - /sdd-tasks → Generar tareas
    - /sdd-implement → Implementar (TDD)
    - /sdd-validate → Validar implementación
@@ -134,6 +139,7 @@ Muestra al usuario el estado actual del proyecto:
    - `specs/NNN-xxx/spec.md` existe? ❌ No → `/sdd-spec`
    - Spec clarificada? ❌ No → `/sdd-clarify`
    - `plan.md` existe? ❌ No → `/sdd-plan`
+   - Decisions reviewed? ❌ No → `/sdd-review` (opcional)
    - `tasks.md` existe? ❌ No → `/sdd-tasks`
    - Tasks implementadas? ❌ No → `/sdd-implement`
    - Implementación validada? ❌ No → `/sdd-validate`
@@ -156,6 +162,7 @@ Muestra al usuario el estado actual del proyecto:
 | **Define** | sdd-spec | Generate spec with RF-EARS |
 | **Define** | sdd-clarify | Review and refine spec |
 | **Plan** | sdd-plan | Design technical implementation |
+| **Review** | sdd-review | Review assumptions and alternatives |
 | **Build** | sdd-tasks | Break into verifiable tasks |
 | **Build** | sdd-implement | Implement with TDD |
 | **Verify** | sdd-validate | Verify RF→Test coverage |
