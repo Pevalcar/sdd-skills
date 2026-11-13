@@ -1,18 +1,19 @@
 ---
 name: sdd-implement
-description: Implementa una sola tarea de tasks.md con tests primero. Pausa al terminar.
+description: "Implementa una sola tarea de tasks.md con tests primero. Pausa al terminar. Usa el ciclo incremental: Implement → Test → Verify → Commit."
 disable-model-invocation: true
 ---
 
 # Implementador SDD — Una tarea a la vez
 
-Implementa tareas pequeñas siguiendo TDD y el plan.
+Implementa tareas pequeñas siguiendo TDD y el plan. Usa el ciclo incremental: Implement → Test → Verify → Commit.
 
 ## 🛡️ ASUMPTIONS I'M MAKING:
 
 1. La tarea Tn existe en `specs/NNN-xxx/tasks.md` y no tiene otros trabajos pendientes
 2. El test framework está configurado (pytest/Jest/GUT según perfil detectado)
 3. Las dependencias necesarias ya existen en el proyecto
+4. La spec y el plan están aprobados por el humano
 → Correct me now or I'll proceed.
 
 ## When to Use
@@ -20,22 +21,91 @@ Implementa tareas pequeñas siguiendo TDD y el plan.
 - Task específica marcada para implementar
 - TDD flow requerido (red-green-refactor)
 - Una tarea a la vez, verificar al finalizar
+- Implementation touches more than one file
 
 ## When NOT to Use
 
 - Task ya completada ([x] marcado)
 - Múltiples tareas pendientes (hacer una a la vez)
 - Sin task list disponible (/sdd-tasks first)
+- Single-line fix where scope is already minimal
+
+## The Increment Cycle
+
+```
+┌──────────────────────────────────────┐
+│                                      │
+│   Implement ──→ Test ──→ Verify ──┐  │
+│       ▲                           │  │
+│       └───── Commit ◄─────────────┘  │
+│              │                       │
+│              ▼                       │
+│          Next slice                  │
+│                                      │
+└──────────────────────────────────────┘
+```
+
+Para cada slice:
+
+1. **Implement** the smallest complete piece of functionality
+2. **Test** — run the test suite (or write a test if none exists)
+3. **Verify** — confirm the slice works as expected (tests pass, build succeeds, manual check)
+4. **Commit** -- save your progress with a descriptive message
+5. **Move to the next slice** — carry forward, don't restart
+
+## Rule 0: Simplicity First
+
+Before writing any code, ask: "What is the simplest thing that could work?"
+
+After writing code, review it against these checks:
+- Can this be done in fewer lines?
+- Are these abstractions earning their complexity?
+- Would a staff engineer look at this and say "why didn't you just..."?
+- Am I building for hypothetical future requirements, or the current task?
+
+**SIMPLICITY CHECK:**
+```
+✗ Generic EventBus with middleware pipeline for one notification
+✓ Simple function call
+
+✗ Abstract factory pattern for two similar components  
+✓ Two straightforward components with shared utilities
+
+✗ Config-driven form builder for three forms
+✓ Three form components
+```
+
+## Rule 0.5: Scope Discipline
+
+Touch only what the task requires.
+
+**Do NOT:**
+- "Clean up" code adjacent to your change
+- Refactor imports in files you're not modifying
+- Remove comments you don't fully understand
+- Add features not in the spec because they "seem useful"
+- Modernize syntax in files you're only reading
+
+If you notice something worth improving outside your task scope, note it — don't fix it:
+
+```
+NOTICED BUT NOT TOUCHING:
+- src/utils/format.ts has an unused import (unrelated to this task)
+- The auth middleware could use better error messages (separate task)
+→ Want me to create tasks for these?
+```
 
 ## Process
 
 1. **Lee la tarea.** `specs/001-xxx/tasks.md`, Tn elegida por el usuario
 2. **Lee el plan.** `specs/001-xxx/plan.md`
 3. **Lee la spec.** `specs/001-xxx/spec.md`
-4. **Escribe test primero.** Crea el test que cubra los RF indicados
-5. **Ejecuta test.** Debe fallar (rojo)
-6. **Escribe código mínimo.** Solo para pasar el test
-7. **Ejecuta test.** Debe pasar (verde)
+4. **Write test first.** Crea el test que cubra los RF indicados. Debe fallar (RED).
+5. **Write minimal code.** Solo para pasar el test (GREEN).
+6. **Run test.** Verifica que pasa.
+7. **Refactor if needed.** Clean up without changing behavior.
+8. **Commit.** Guardar progreso con mensaje descriptivo.
+9. **Verify RF covered.** Menciona qué RF cubiste: `RF cubierto: RF-X, RF-Y`
 
 ## Ejecución de tests
 
@@ -59,13 +129,7 @@ npm test -- --testNamePattern="Tn"
 - Código en `src/` o `habits/` según el proyecto
 - Tests en `test/` o `tests/`
 - tasks.md actualizado con `[x]` Tn
-
-## Reglas
-
-- Solo una tarea a la vez
-- Tests primero, código mínimo
-- Pausa al terminar: "Hecho Tn. ¿Continuar con T(n+1)?"
-- Verifica RF cubiertos: `RF cubierto: RF-X, RF-Y`
+- Cambios commitados con mensaje descriptivo
 
 ## Rationalizations
 
@@ -75,15 +139,34 @@ npm test -- --testNamePattern="Tn"
 | *"Tragamos la excepción para no romper flow"* | Errores ocultos peores que fallos explícitos | Capturar, registrar, fallar controladamente |
 | *"Dejo código comentado, lo limpio después"* | Código muerto degrada mantenibilidad | Eliminar inmediatamente |
 | *"Ignoro warnings del linter"* | Warnings acumulados esconden bugs latentes | Zero-warnings policy obligatorio |
-| *"Parche temporal es más rápido"* | Parches se acumulan y rompen arquitectura | Código limpio desde el inicio |
+| *"Es más rápido hacerlo todo junto"* | Bugs compound. Un bug en Slice 1 hace equivocado Slices 2-5 | Testear cada slice |
+| *"No necesito feature flag"* | Si el feature no está completo, no debe ser visible | Agregar flag ahora |
+
+## Red Flags
+
+- More than 100 lines of code written without running tests
+- Multiple unrelated changes in a single increment
+- "Let me just quickly add this too" scope expansion
+- Skipping the test/verify step to move faster
+- Build or tests broken between increments
+- Large uncommitted changes accumulating
 
 ## Verification
 
 Antes de declarar tarea completada:
 
-- [ ] Test wrote first (RED phase), then code (GREEN phase)
-- [ ] Test passes after implementation (GREEN)
-- [ ] RF specified in task covered by tests
-- [ ] tasks.md updated con `[x] Tn` marked complete
-- [ ] No debug logs o code temporales left behind
+- [ ] The change does one thing and does it completely
+- [ ] Every new behavior has a corresponding test
+- [ ] The full test suite passes (repository's test command)
+- [ ] Build succeeds (repository's build command)
+- [ ] Type checking passes, where applicable (`npx tsc --noEmit`, `mypy`, ...)
+- [ ] Linting passes (repository's lint command)
+- [ ] No tests were skipped or disabled
+- [ ] No debug logs o código temporal dejado atrás
 - [ ] Linter/compiler passes con cero warnings
+- [ ] Changes committed with descriptive message
+- [ ] RF cubiertos documentados
+
+## See Also
+
+Per-skill verification is the local check. Before declaring a task done, apply the project-wide Definition of Done as the final gate, the standing bar every increment clears regardless of the task. See `../../references/definition-of-done.md`.
