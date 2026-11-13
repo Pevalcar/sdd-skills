@@ -1,20 +1,20 @@
 # CLAUDE.md — Configuración para Claude Code
 
-Este archivo define el comportamiento de los agentes AI para trabajar con el sistema SDD V2.
+Este archivo define el comportamiento de los agentes AI para trabajar con el sistema SDD V2.1.0.
 
-## 🎯 Sistema SDD V2 — Resumen Ejecutivo
+## 🎯 Sistema SDD V2.1.0 — Resumen Ejecutivo
 
-**Versión:** 2.0.0 — Tecnología-agnóstico con perfiles adaptativos
+**Versión:** 2.1.0 — Tecnología-agnóstico con perfiles adaptativos
 
 ### Core Principles
 
 1. **Siempre descubrir primero** — `/sdd-discover` antes de cualquier trabajo
 2. **Suposiciones explícitas** — Cada skill lista ASUMPTIONS al inicio
-3. **Nunca parchear** — Código limpio desde el inicio, sin workarounds
+3. **Nunca parchear** — Código limpio sin workarounds
 4. **Verification gates** — Checkpoints obligatorios entre fases
 5. **Definition of Done universal** — Todo cambio cumple DoD antes de merge
 
-### Skills Core (9)
+### Skills Core (12)
 
 | Skill | Uso | Output |
 |-------|-----|--------|
@@ -23,9 +23,11 @@ Este archivo define el comportamiento de los agentes AI para trabajar con el sis
 | `/sdd-spec` | Generar especificación | `specs/NNN-xxx/spec.md` |
 | `/sdd-clarify` | QA automático | Notas en spec.md |
 | `/sdd-plan` | Diseño técnico | `specs/NNN-xxx/plan.md` |
+| `/sdd-review` | Review de suposiciones | `specs/NNN-xxx/review.md` |
 | `/sdd-tasks` | Tareas verificables | `specs/NNN-xxx/tasks.md` |
-| `/sdd-implement` | TDD por tarea | Código + tests |
+| `/sdd-implement` | TDD por tarea | Código + tests, Tn marcada |
 | `/sdd-validate` | RF→Test coverage | Tabla trazabilidad |
+| `/sdd-variants` | Multi-variant exploration | `variants-ranking.md` |
 | `/sdd-flow` | Wizard completo | Pipeline automático |
 
 ### Perfiles Adaptativos (5)
@@ -63,7 +65,7 @@ Este archivo define el comportamiento de los agentes AI para trabajar con el sis
 3. **When to Use/When NOT to Use** claramente separados
 4. **Rationalizations table** adaptada al dominio
 5. **Verification checklist** al final de cada skill
-6. **Version bump a 2.0.0** en skills-lock.json
+6. **Version bump a 2.1.0** en skills-lock.json
 
 ### Quick Commands
 
@@ -87,3 +89,26 @@ npx opencode /sdd-flow "mi funcionalidad"
 ---
 
 *Este archivo se lee automáticamente al iniciar sesión. Las reglas aquí definidas son obligatorias.*
+
+### Configuración adicional
+
+```markdown
+## Proyecto
+<Qué es, en 2-3 frases. Arquitectura, tecnologías..>
+
+## Comandos
+- Ejecutar: `<comando>`
+- Tests: `<comando>`
+- Lint/formato: `<comando>`
+
+## Estilo y convenciones
+<Versión del lenguaje, convenciones de nombres, idioma del código y mensajes.>
+
+## Reglas
+- Lee docs/constitution.md y la spec activa antes de tocar código.
+- No modificar habits.json sin backup previo.
+
+## Al terminar cualquier tarea
+- Ejecutar `pytest -q` y verificar todos los tests pasan.
+- Verificar no hay warnings ni errores.
+```
