@@ -1,6 +1,6 @@
 ---
 name: sdd-spec
-description: Genera specs SDD: entrevista de requisitos y produce spec.md con RF en EARS. Parte del flujo SDD: constitution → spec → clarify → plan → tasks → implement → validate.
+description: "Genera specs SDD: entrevista de requisitos y produce spec.md con RF en EARS. Parte del flujo SDD: constitution → spec → clarify → plan → tasks → implement → validate."
 disable-model-invocation: true
 ---
 

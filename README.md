@@ -37,16 +37,24 @@ constitution → spec → clarify → plan → tasks → implement → validate
 
 ## 📥 Instalación
 
+### Método 1: Desde GitHub (recomendado)
+
 ```bash
-# Instalar todas las skills SDD
-npx skills add .opencode/skills/sdd-*
+# Instalar desde el repositorio
+npx skills add Pevalcar/sdd-skills
+```
 
-# Ver skills instaladas
-npx skills ls
+### Método 2: Localmente
 
-# Usar skills
-/sdd-flow "funcionalidad: login Dofus"
-/sdd-spec "generar reporte de usuarios"
+```bash
+# Copiar las skills al proyecto OpenCode
+cp -r skills/sdd-* .opencode/skills/
+```
+
+### Verificar instalación
+
+```bash
+npx skills ls | grep sdd
 ```
 
 ## 💡 Ejemplos de Uso

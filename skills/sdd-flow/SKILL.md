@@ -1,6 +1,6 @@
 ---
 name: sdd-flow
-description: Orquesta todo el flujo SDD: constitution → spec → clarify → plan → tasks → implement → validate. Un wizard interactivo.
+description: "Orquesta todo el flujo SDD: constitution → spec → clarify → plan → tasks → implement → validate. Un wizard interactivo."
 disable-model-invocation: true
 ---
 
