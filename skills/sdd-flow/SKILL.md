@@ -1,6 +1,6 @@
 ---
 name: sdd-flow
-description: "Orquesta todo el flujo SDD: setup → spec → clarify → plan → tasks → implement → validate. Un wizard interactivo que respeta verification gates."
+description: "Orquesta todo el flujo SDD: setup → spec → clarify → plan → review → tasks → implement → validate → variants. Un wizard interactivo que respeta verification gates."
 disable-model-invocation: true
 ---
 
@@ -99,7 +99,15 @@ Guarda estado en: `.sdd-state.json`
   - Cobertura RF por módulo
 - **PAUSED:** Espera aprobación humana antes de continuar
 
-### Phase 4: Tareas
+### Phase 4: Revisión de decisiones
+**Invoca:** `/sdd-review`
+- Análisis de suposiciones no cubiertas por sdd-clarify
+- Preguntas de doubt-driven development
+- Alternativas técnicas para decisiones clave
+- Producir `specs/001-xxx/review.md`
+- **PAUSED:** ¿Se aprueba el plan de implementación? Sí / No
+
+### Phase 5: Tareas
 **Invoca:** `/sdd-tasks`
 - Genera `specs/001-xxx/tasks.md`
 - Tareas ≤ 30 min cada una
@@ -107,7 +115,7 @@ Guarda estado en: `.sdd-state.json`
 - Checkbox con "Hecho cuando:" verificable
 - **PAUSED:** Espera aprobación humana
 
-### Phase 5: Implementación (TDD por tarea)
+### Phase 6: Implementación (TDD por tarea)
 **Invoca:** `/sdd-implement`
 
 Por iteración:
@@ -120,14 +128,6 @@ Por iteración:
 7. Marca `[x] Tn` en tasks.md
 8. **PAUSED:** "Tarea Tn completada. ¿Continuar con T(n+1)?"
 
-### Phase 6: Revisión de decisiones (opcional)
-**Invoca:** `/sdd-review`
-- Análisis de suposiciones no cubiertas por sdd-clarify
-- Preguntas de doubt-driven development
-- Alternativas técnicas para decisiones clave
-- Producir `specs/001-xxx/review.md`
-- **OPCIONAL:** Para decisiones técnicas complejas
-
 ### Phase 7: Validación final
 **Invoca:** `/sdd-validate`
 - Recorrido RF por RF
@@ -135,12 +135,13 @@ Por iteración:
 - Estado: ✅ PASA / ❌ FALLA / ⚠️ SIN TEST
 - Veredicto: "✅ Spec cumplida" o lista pendientes
 
-### Phase 8: Variants (opcional)
+### Phase 8: Variants (OBLIGATORIO)
 **Invoca:** `/sdd-variants`
 - Generar N variantes de implementación
 - Evaluar vs AC/constitución/simplicidad
 - Producir `variants-ranking.md` con shortlist ranqueada
-- **OPCIONAL:** Solo si el usuario quiere explorar alternativas
+- **PAUSED:** ¿Se aprueba la variante recomendada? Sí / No
+- Actualizar `.sdd-state.json` con la variante elegida
 
 ## Control del wizard
 
@@ -158,10 +159,10 @@ El wizard respeta los gates de verificación:
 
 ```
 SETUP → SPEC → PLAN → REVIEW → TASKS → IMPLEMENT → VALIDATE → VARIANTS
-   │        │        │        │          │           │          │
-   ▼        ▼        ▼        ▼          ▼           ▼          ▼
- HUMAN    HUMAN    HUMAN    HUMAN      HUMAN       HUMAN      HUMAN
- REVIEW   REVIEW   REVIEW   REVIEW     REVIEW      REVIEW     REVIEW
+    │        │        │        │          │           │          │
+    ▼        ▼        ▼        ▼          ▼           ▼          ▼
+  HUMAN    HUMAN    HUMAN    HUMAN      HUMAN       HUMAN      HUMAN
+  REVIEW   REVIEW   REVIEW   REVIEW     REVIEW      REVIEW     REVIEW
 ```
 
 Cada fase tiene un checklist de verificación que debe pasarse:
@@ -169,10 +170,11 @@ Cada fase tiene un checklist de verificación que debe pasarse:
 - **sdd-spec:** 6 áreas core completadas
 - **sdd-clarify:** QA automático pasado
 - **sdd-plan:** Arquitectura validada
-- **sdd-review:** (opcional) decisiones críticas revisadas
+- **sdd-review:** decisiones críticas revisadas y aprobadas
 - **sdd-tasks:** Tasks son accionables
 - **sdd-implement:** Tests pasan, code review hecho
-- **sdd-validate:** DoD checklist pasado
+- **sdd-validate:** DoD checklist pasado + Constitution compliance
+- **sdd-variants:** Gate de aprobación humana para variante recomendada
 
 ## Output esperado
 
@@ -182,8 +184,9 @@ Al finalizar, tendrás:
 - `docs/constitution.md`
 - `specs/001-xxx/spec.md`
 - `specs/001-xxx/plan.md`
-- `specs/001-xxx/review.md` (opcional, si se usa sdd-review)
+- `specs/001-xxx/review.md`
 - `specs/001-xxx/tasks.md`
+- `specs/001-xxx/variants-ranking.md`
 - Tests pasando 100%
 - Código mínimo que cumple spec
 - `specs/001-xxx/VALIDATION.md`

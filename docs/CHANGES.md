@@ -18,18 +18,18 @@ El repositorio tiene los ingredientes correctos (skills autocontenidas, approval
 - sdd-discover/SKILL.md: `Setup → Spec → Clarify → Plan → Review → Tasks → Implement → Validate → Variants`
 
 **Solución:** 
-- [ ] Unificar en README.md usando notación SDD
-- [ ] Actualizar AGENTS.md para reflejar el flujo corregido
-- [ ] Eliminar sección duplicada "Pasos" en sdd-discover/SKILL.md
+- [x] Unificar en README.md usando notación SDD
+- [x] Actualizar AGENTS.md para reflejar el flujo corregido
+- [x] Eliminar sección duplicada "Pasos" en sdd-disover/SKILL.md
 
 ### 2. Integrar sdd-variants como fase obligatoria
 
 **Problema:** sdd-variants está implementada pero no se invoca en sdd-flow
 
 **Solución:**
-- [ ] Añadir Phase 5: Variants en sdd-flow/SKILL.md
-- [ ] Añadir gate de aprobación humana: "¿Se aprueba la variante recomendada? Sí/No"
-- [ ] Actualizar .sdd-state.json para reflejar fase de variantes
+- [x] Añadir Phase 8: Variants en sdd-flow/SKILL.md
+- [x] Añadir gate de aprobación humana: "¿Se aprueba la variante recomendada? Sí/No"
+- [x] Actualizar .sdd-state.json para reflejar fase de variantes
 
 ### 3. Crear sdd-orchestrator
 
@@ -51,25 +51,24 @@ El repositorio tiene los ingredientes correctos (skills autocontenidas, approval
 **Problema:** sdd-validate no valida contra docs/constitution.md
 
 **Solución:**
-- [ ] Añadir sección "Constitution Compliance" checklista ítem por ítem
-- [ ] Hacer que veredicto sea ❌ Rechazada si algún RF viola constitución
+- [x] Añadir sección "Constitution Compliance" checklista ítem por ítem
+- [x] Hacer que veredicto sea ❌ Rechazada si algún RF viola constitución
 
 ### 5. Hacer fail-closed sdd-validate
 
 **Problema:** Solo verifica test coverage, no evidencia de código
 
 **Solución:**
-- [ ] Exigir evidencia de código + test por RF
-- [ ] Veredicto binario: ✅ Cumple / ❌ No cumple
-- [ ] Si falta un RF o test → FAIL (no warning)
+- [x] Exigir evidencia de código + test por RF
+- [x] Veredicto binario: ✅ Cumple / ❌ No cumple
+- [x] Si falta un RF o test → FAIL (no warning)
 
 ### 6. Clarificar sdd-review vs sdd-variants
 
 **Problema:** Ambas exploran alternativas, pero sin límite claro
 
 **Solución:**
-- [ ] Documentar: `sdd-review` = alternativas de diseño, `sdd-variants` = alternativas de implementación
-- [ ] O fusionarlas si hacen lo mismo
+- [x] Documentar: `sdd-review` = alternativas de diseño, `sdd-variants` = alternativas de implementación
 
 ---
 
@@ -77,16 +76,16 @@ El repositorio tiene los ingredientes correctos (skills autocontenidas, approval
 
 ### 7. Corregir typos
 
-- [ ] ASUMPTIONS → ASSUMPTIONS
-- [ ] Adiconals → Additional  
-- [ ] coBERTURA → COBERTURA
-- [ ] Consistencia idioma ES/EN
+- [x] ASUMPTIONS → ASSUMPTIONS
+- [x] Adiconals → Additional  
+- [x] coBERTURA → COBERTURA
+- [x] Consistencia idioma ES/EN
 
 ### 8. Definir rúbrica de scoring en sdd-variants
 
-- [ ] Pesos explícitos para cada métrica
-- [ ] Umbral mínimo de elegibilidad
-- [ ] Eliminación automática si viola constitución
+- [x] Pesos explícitos para cada métrica (RF 30%, Constitution 25%, Simplicity 20%, Tests 15%, Maintainability 10%)
+- [x] Umbral mínimo de elegibilidad definido
+- [x] Eliminación automática si viola constitución
 
 ### 9. Scripts de validación
 
@@ -101,17 +100,20 @@ El repositorio tiene los ingredientes correctos (skills autocontenidas, approval
 |-------|--------|------------|
 | sdd-spec/SKILL.md | ✅ Actualizado | Eliminadas secciones stack/commands/structure |
 | sdd-spec/spec-template.md | ✅ Actualizado | Formato RF-EARS limpio |
-| sdd-discover/SKILL.md | ❌ Pendiente | Duplicado de secciones "Pasos" |
-| sdd-flow/SKILL.md | ❌ Pendiente | No invoca sdd-variants |
-| sdd-validate/SKILL.md | ❌ Pendiente | No valida constitución |
-| sdd-variants/SKILL.md | ❌ Pendiente | Scoring subjetivo |
+| README.md | ✅ Actualizado | Flujo unificado con sdd-variants, 10 skills listados |
+| AGENTS.md | ✅ Actualizado | Flujo unificado con approval gates ↓ |
+| sdd-discover/SKILL.md | ✅ Actualizado | Eliminadas secciones duplicadas, flujo unificado |
+| sdd-flow/SKILL.md | ✅ Actualizado | Integrado sdd-variants como Phase 8 con gate obligratorio |
+| sdd-validate/SKILL.md | ✅ Actualizado | Validación constitucional, fail-closed, evidencia de código requerida |
+| sdd-variants/SKILL.md | ✅ Actualizado | Scoring objetivo con pesos explícitos y umbrales |
+| verifications-gates.md | ✅ Actualizado | Corregidos typos (Adiconals→Additional, ASUMPTIONS) |
+| sdd-plan/SKILL.md | ✅ Actualizado | Corregido typo (coBERTURA→COBERTURA) |
+| .sdd-state.json | ✅ Actualizado | Añadido flow.phases con variants incluido |
 
 ---
 
 ## Próximos pasos
 
-1. **Commit de cambios iniciales** (sdd-spec)
-2. **Actualizar sdd-discover** (eliminar duplicado)
-3. **Crear sdd-orchestrator**
-4. **Integrar sdd-variants en sdd-flow**
-5. **Validar con user** antes de continuar
+1. **Crear sdd-orchestrator** - Skill que orquesta el flujo guiado por estado
+2. **Crear scripts de validación** - Verificar spec.md y tasks.md
+3. **Validar con user** antes de continuar

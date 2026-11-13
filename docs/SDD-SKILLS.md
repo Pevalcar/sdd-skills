@@ -5,13 +5,15 @@ Sistema completo de skills para desarrollo guiado por especificación. **Tecnolo
 ## 🚀 Novedades V2
 
 - **sdd-discover**: Meta-skill que detecta perfil tecnológico automáticamente
+- **sdd-review**: Review de suposiciones y decisiones con doubt-driven development
+- **sdd-variants**: Exploración y ranking de variantes de implementación
 - **Perfiles adaptativos**: Reglas específicas para web, systems, game-dev, mobile, infrastructure
 - **ASUMPTIONS explícitas**: Cada skill lista suposiciones al inicio
 - **Rationalizations tables**: Excusas comunes vs realidad técnica
 - **Verification gates**: Checkpoints obligatorios por fase y perfil
 - **Definition of Done**: Barra de calidad universal
 
-## 📦 Skills Core (9)
+## 📦 Skills Core (10)
 
 | Skill | Uso | Output |
 |-------|-----|--------|
@@ -19,11 +21,13 @@ Sistema completo de skills para desarrollo guiado por especificación. **Tecnolo
 | `/sdd-constitution` | Crear constitución | `docs/constitution.md` |
 | `/sdd-spec` | Generar especificación | `specs/NNN-xxx/spec.md` |
 | `/sdd-clarify` | QA automático | Notas en spec.md |
+| `/sdd-review` | Review de suposiciones y decisiones | `specs/NNN-xxx/review.md` |
 | `/sdd-plan` | Diseño técnico | `specs/NNN-xxx/plan.md` |
 | `/sdd-tasks` | Tareas verificables | `specs/NNN-xxx/tasks.md` |
 | `/sdd-implement Tn` | TDD por tarea | Código + tests, marca Tn completada |
-| `/sdd-validate` | RF→Test coverage | Tabla trazabilidad |
-| `/sdd-flow "idea"` | Wizard completo | Pipeline automático |
+| `/sdd-validate` | RF→Test coverage + Constitution | Tabla trazabilidad + veredicto |
+| `/sdd-variants` | Multi-variant exploration | `variants-ranking.md` |
+| `/sdd-flow "idea"` | Wizard completo | Pipeline automático con gates |
 
 ## 🎯 Perfiles Adaptativos (5)
 
@@ -38,26 +42,31 @@ Sistema completo de skills para desarrollo guiado por especificación. **Tecnolo
 ## 🔄 Flujo SDD V2
 
 ```
-discover → constitution → spec → clarify → plan → tasks → implement → validate
-    ↓           ↓          ↓          ↓         ↓         ↓          ↓
-[perfil]   [principios] [RF-EARS]  [QA]    [tech]   [TDD]     [coverage]
+discover → constitution → spec → clarify → plan → review → tasks → implement → validate → variants
+    ↓           ↓          ↓          ↓         ↓         ↓         ↓          ↓            ↓
+[setup]    [principios] [RF-EARS]  [QA]    [tech]   [decisiones] [TDD]     [coverage]   [ranking]
+           ↓          ↓          ↓         ↓         ↓          ↓          ↓            ↓
+        [human]    [human]    [human]   [human]   [human]    [human]    [human]    [human]
+       approval]  approval]  approval]  approval]  approval]  approval]  approval]  approval]
 ```
 
-Los `✓` indican **verification gates** donde se requiere aprobación humana.
+Los `↓` indican **verification gates** donde se requiere aprobación humana.
 
 ## 📁 Estructura del Proyecto
 
 ```
 .sdd-skills/
-├── skills/                    # 9 skills principales
-│   ├── sdd-discover/       # NUEVO: Meta-skill router
+├── skills/                    # 10 skills principales
+│   ├── sdd-discover/       # Meta-skill router
 │   ├── sdd-constitution/
 │   ├── sdd-spec/
 │   ├── sdd-clarify/
+│   ├── sdd-review/
 │   ├── sdd-plan/
 │   ├── sdd-tasks/
 │   ├── sdd-implement/
 │   ├── sdd-validate/
+│   ├── sdd-variants/
 │   └── sdd-flow/
 ├── profiles/                 # 5 perfiles adaptativos
 │   ├── web-frontend/
@@ -108,9 +117,11 @@ Los `✓` indican **verification gates** donde se requiere aprobación humana.
 → Spec generada (RF-1 a RF-4)
 → QA automático pasado
 → Plan técnico creado
+→ Review de decisiones completado
 → 6 tareas verificables generadas
 → T1 implementada con TDD
 → Validación RF→Test (5/6 completado)
+→ Variants generados y shortlist ranqueada
 ```
 
 ## 📚 Referencias Rápidas
@@ -134,4 +145,4 @@ Cuando el sistema detecta el perfil, carga automáticamente:
 
 ---
 
-*Versión 2.0.0 — Sistema agnóstico a tecnología con perfiles adaptativos*
+*Versión 2.1.0 — Sistema agnóstico a tecnología con perfiles adaptativos y variants integrados*

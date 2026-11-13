@@ -1,6 +1,6 @@
 ---
 name: sdd-variants
-description: "Genera múltiples variantes de implementación, las evalúa y produce una shortlist ranqueada."
+description: "Genera múltiples variantes de implementación, las evalúa y produce una shortlist ranqueada. Scoring: RF Coverage 30%, Constitution 25%, Simplicity 20%, Tests 15%, Maintainability 10%."
 disable-model-invocation: true
 ---
 
@@ -51,11 +51,11 @@ Para cada variante:
 ### Paso 3: Evaluar contra criterios
 
 Para cada variante evaluar:
-- **RF Coverage:** ¿Cubre todos los RF?
-- **Constitution:** ¿Cumple los principios innegociables?
-- **Simplicity:** ¿Cuántas líneas de código? Complejidad ciclomática?
-- **Test Coverage:** ¿Qué % de RF tiene tests?
-- **Maintainability:** ¿Código claro, nombres expresivos?
+- **RF Coverage (30%):** % de RF con implementation
+- **Constitution (25%):** ¿Cumple los principios innegociables?
+- **Simplicity (20%):** LOC +Complejidad ciclomática
+- **Tests (15%):** Cobertura + calidad de tests
+- **Maintainability (10%):** Nombrado + claridad
 
 ### Paso 4: Rankear y producir shortlist
 
@@ -124,13 +124,18 @@ Descartar Var-A como sobre-engineered.
 
 ## Evaluation Criteria
 
-| Criterio | Peso | Cómo evaluar |
-|----------|------|--------------|
-| RF Coverage | 30% | % de RF con implementation |
-| Constitution | 25% | ¿Cumple los 6 principios? |
-| Simplicity | 20% | LOC +Complejidad |
-| Tests | 15% | Cobertura + calidad de tests |
-| Maintainability | 10% | Naming + claridad |
+| Criterio | Peso | Cómo evaluar | Umbral |
+|----------|------|--------------|--------|
+| RF Coverage | 30% | % de RF con implementation | ≥ 90% |
+| Constitution | 25% | ¿Cumple los 6 principios? | ✅ |
+| Simplicity | 20% | LOC +Complejidad | < 100 LOC promedio |
+| Tests | 15% | Cobertura + calidad de tests | ≥ 80% |
+| Maintainability | 10% | Naming + claridad | ✅ |
+
+**Reglas de evaluación:**
+- Si Constitution Score es ❌ → Eliminación automática
+- Si RF Coverage < 90% → ⚠️ o ❌ según criticalidad
+- Puntuación = Σ (score_i × weight_i) / 100
 
 ## Rationalizations
 
@@ -145,9 +150,11 @@ Descartar Var-A como sobre-engineered.
 - [ ] Se generaron N variantes (recomendado: 3)
 - [ ] Cada variante tiene implementación en aislamiento
 - [ ] Cada variante tiene tests para RF clave
-- [ ] Scoring calculado para cada variante
+- [ ] Scoring calculado para cada variante con fórmula explícita
 - [ ] Shortlist ranqueada con justificación clara
 - [ ] Decisión documentada con razones
+- [ ] .sdd-state.json actualizado con la variante elegida
+- [ ] Gate de aprobación humana: "¿Se aprueba la variante recomendada? Sí / No"
 
 ## See Also
 

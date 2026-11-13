@@ -32,13 +32,15 @@ Esto:
 ## El Flow SDD
 
 ```
-Setup → Spec → Clarify → Plan → Review → Tasks → Implement → Validate → Variants
-   ↓      ↓        ↓       ↓        ↓       ↓          ↓          ↓        ↓
-sdd-     sdd-spec  sdd-    sdd-plan sdd-    sdd-tasks  sdd-       sdd-     sdd-variants
-setup  clarify   clarify        review         implement  validate (optional)
-```
+discover → constitution → spec → clarify → plan → review → tasks → implement → validate → variants
+    ↓           ↓          ↓        ↓        ↓        ↓         ↓          ↓            ↓
+[setup    [principios  [RF-EARS  [QA      [arquitectura [suposiciones [TDD       [RF→Test
+ detected]   inneg.)     mapping] loop]    decisions]     review]      enforced]   coverage]
+           ↓          ↓        ↓        ↓        ↓         ↓          ↓            ↓
+        [human   [human   [human   [human   [human   [human   [human      [human
+         approval] approval] approval] approval] approval] approval]  approval]  approval]
 
-Los `✓` marcan approval gates donde human verification es requerida.
+Los `↓` marcan approval gates donde human verification es requerida.
 
 ## Skills Disponibles
 

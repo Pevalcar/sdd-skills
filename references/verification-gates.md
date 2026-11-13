@@ -8,7 +8,7 @@ Checklist transversal que debe cumplirse ANTES de marcar cualquier tarea como co
 
 - [ ] He identificado el perfil del proyecto (web/systems/game-dev/mobile/infrastructure)
 - [ ] He leído los archivos de configuración relevantes
-- [ ] He listado mis suposiciones explícitas (ASUMPTIONS section)
+- [ ] He listado mis suposiciones explícitas (ASSUMPTIONS section)
 - [ ] Entiendo qué cambios impacta esta tarea y sus dependencias
 - [ ] Confirmé que la spec/requerimiento existe y está aprobado
 
@@ -80,13 +80,13 @@ Checklist transversal que debe cumplirse ANTES de marcar cualquier tarea como co
 - [ ] Network packet sizes validated
 - [ ] State machine transitions complete (no stuck states)
 
-### Mobile Adiconals
+### Mobile Additional
 - [ ] Lifecycle tested (background/foreground)
 - [ ] Orientation change handled
 - [ ] Low memory warning handled
 - [ ] Battery impact acceptable
 
-### Infrastructure Adiconals
+### Infrastructure Additional
 - [ ] Docker build successful
 - [ ] Config schema validated
 - [ ] Rollback plan documented

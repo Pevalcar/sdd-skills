@@ -1,6 +1,6 @@
 # SDD Skills — Spec-Driven Development
 
-[![Skills](https://img.shields.io/badge/skills-9%20skills-blue)](./docs/SKILLS.md)
+[![Skills](https://img.shields.io/badge/skills-10%20skills-blue)](./docs/SKILLS.md)
 [![Profiles](https://img.shields.io/badge/profiles-5-orange)](./profiles/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
@@ -13,14 +13,15 @@ Especification-Driven Development: procesos estructurados que fuerzan claridad a
 ## 🔄 Nuevo Flujo (V2)
 
 ```
-discover → constitution → spec ✓ → clarify → plan ✓ → tasks ✓ → implement → validate ✓
-   │              │          │                    │           │            │
-   ▼              ▼          ▼                    ▼           ▼            ▼
- [perfil      [principios  [verification    [verificable  [TDD         [cobertura
-  detectado]   inneg.]     gates]           checks]      enforced]   RF→Test]
-```
+discover → constitution → spec → clarify → plan → review → tasks → implement → validate → variants
+    ↓           ↓          ↓        ↓        ↓        ↓         ↓          ↓            ↓
+[setup    [principios  [RF-EARS  [QA      [arquitectura [suposiciones [TDD       [RF→Test
+ detected]   inneg.)     mapping] loop]    decisions]     review]      enforced]   coverage]
+           ↓          ↓        ↓        ↓        ↓         ↓          ↓            ↓
+        [human   [human   [human   [human   [human   [human   [human      [human
+         approval] approval] approval] approval] approval] approval]  approval]  approval]
 
-Los `✓` indican approval gates where se requiere confirmación humana.
+Los `↓` indican **approval gates** donde se requiere confirmación humana antes de continuar.
 
 ## 📦 Skills Disponibles
 
@@ -31,10 +32,12 @@ Los `✓` indican approval gates where se requiere confirmación humana.
 | `/sdd-constitution` | Principios innegociables | `docs/constitution.md` |
 | `/sdd-spec` | Especificación RF-EARS | `specs/NNN-xxx/spec.md` |
 | `/sdd-clarify` | QA automático | Notas en spec.md |
+| `/sdd-review` | Review de suposiciones y decisiones | `specs/NNN-xxx/review.md` |
 | `/sdd-plan` | Diseño técnico | `specs/NNN-xxx/plan.md` |
 | `/sdd-tasks` | Tareas verificables | `specs/NNN-xxx/tasks.md` |
 | `/sdd-implement` | Implementación TDD | Código + tests |
 | `/sdd-validate` | Validación RF→Test | Tabla trazabilidad |
+| `/sdd-variants` | Multi-variant exploration | `variants-ranking.md` |
 | `/sdd-flow` | Wizard completo | Pipeline automático |
 
 ### Perfiles por Dominio
@@ -79,15 +82,17 @@ npx skills ls | grep sdd
 
 ```
 sdd-skills/
-├── skills/                    # 9 skills principales
-│   ├── sdd-discover/       # NUEVO: Meta-skill router
+├── skills/                    # 10 skills principales
+│   ├── sdd-discover/       # Meta-skill router
 │   ├── sdd-constitution/
 │   ├── sdd-spec/
 │   ├── sdd-clarify/
+│   ├── sdd-review/
 │   ├── sdd-plan/
 │   ├── sdd-tasks/
 │   ├── sdd-implement/
 │   ├── sdd-validate/
+│   ├── sdd-variants/
 │   └── sdd-flow/
 ├── profiles/                 # 5 perfiles adaptativos
 │   ├── web-frontend/

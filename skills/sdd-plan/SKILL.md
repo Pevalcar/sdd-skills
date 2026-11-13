@@ -66,7 +66,7 @@ Convierte una spec en un plan de implementación sin escribir código.
 
 **Reglas:**
 - Nada de código
-- Cada RF debe tener coBERTURA explícita
+- Cada RF debe tener COBERTURA explícita
 - Justifica decisiones técnicas
 - Respetar constitución
 

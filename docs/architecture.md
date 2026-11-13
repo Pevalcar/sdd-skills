@@ -132,21 +132,25 @@ Output: Código + tests, marca Tn completada
 7. Marca como completada
 8. Verification checklist obligatorio
 
-### 8. sdd-validate
-**Propósito:** Verificación final de cobertura.
+### 8. sdd-validate (ACTUALIZADO V2.1)
+**Propósito:** Verificación final de cobertura con Constitution compliance.
 
 ```
-Input:  spec.md + tests
-Output: tabla de trazabilidad RF→Test
+Input:  spec.md + tests + constitution
+Output: tabla de trazabilidad RF→Test→Code + veredicto binario
 ```
 
 **Veredicto (V2):**
-- ✅ Spec cumplida
-- ❌ RF pendientes
-- ⚠️ SIN TEST
-- Definition of Done checked
+- ✅ Spec cumplida (todo RF tiene test + código + pasa)
+- ❌ RF pendientes (faltan tests o código)
+- **Fail-closed:** cualquier problema = Rechazada
 
-### 9. sdd-flow
+**Mejoras V2.1:**
+- Requiere evidencia de CODE además de tests
+- Valida Constitution compliance ítem por ítem
+- Veredicto binario sin ambigüedades
+
+### 9. sdd-flow (ACTUALIZADO V2.1)
 **Propósito:** Orquestador interactivo del flujo completo.
 
 ```
@@ -154,12 +158,33 @@ Input:  idea o funcionalidad
 Output: todo el pipeline automáticamente
 ```
 
-**Mejoras V2:**
+**Mejoras V2.1:**
 - Inicia con `/sdd-discover` automático
 - Carga reglas del perfil detectado
 - Aplica verification gates en cada fase
 - Guarda checkpoint en .sdd-state.json
 - Requiere aprobación humana en fases críticas
+- **Incluye sdd-variants como Phase 8 obligatorio con gate de aprobación**
+
+### 10. sdd-variants (NUEVO V2.1)
+**Propósito:** Exploración y ranking de variantes de implementación.
+
+```
+Input:  spec.md + plan.md
+Output: variants-ranking.md con shortlist ranqueada
+```
+
+**Scoring:**
+- RF Coverage (30%): % de RF con implementation
+- Constitution (25%): ¿Cumple los principios innegociables?
+- Simplicity (20%): LOC + Complejidad ciclomática
+- Tests (15%): Cobertura + calidad de tests
+- Maintainability (10%): Naming + claridad
+
+**Mejoras V2.1:**
+- Scoring objetivo con pesos explícitos
+- Umbral mínimo de elegibilidad definido
+- Eliminación automática si viola constitución
 
 ## Perfiles Adaptativos
 

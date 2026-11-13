@@ -29,7 +29,7 @@ For a complete SDD workflow, the typical skill sequence is:
 6.  sdd-tasks                   → Break into verifiable tasks
 7.  sdd-implement               → Build slice by slice (TDD)
 8.  sdd-validate                → Verify RF→Test coverage, DoD
-9.  (optional) sdd-variants      → Multi-variant exploration and ranking
+9.  (optional) sdd-variants     → Multi-variant exploration and ranking
 ```
 
 Not every task needs every skill. A bug fix might only need:
@@ -38,10 +38,14 @@ Not every task needs every skill. A bug fix might only need:
 ### Your SDD Flow
 
 ```
-Setup → Spec → Clarify → Plan → Review → Tasks → Implement → Validate → Variants
-   ↓       ↓        ↓       ↓        ↓       ↓          ↓          ↓        ↓
-sdd-     sdd-spec  sdd-    sdd-plan sdd-    sdd-tasks  sdd-       sdd-     sdd-variants
-setup    clarify   clarify        review         implement  validate (optional)
+discover → constitution → spec → clarify → plan → review → tasks → implement → validate → variants
+    ↓           ↓          ↓        ↓        ↓        ↓         ↓          ↓            ↓
+[setup    [principios  [RF-EARS  [QA      [arquitectura [suposiciones [TDD       [RF→Test
+ detected]   inneg.)     mapping] loop]    decisions]     review]      enforced]   coverage]
+           ↓          ↓        ↓        ↓        ↓         ↓          ↓            ↓
+        [human   [human   [human   [human   [human   [human   [human      [human
+         approval] approval] approval] approval] approval] approval]  approval]  approval]
+```
 
 ## Skill Router Table
 
@@ -57,54 +61,6 @@ setup    clarify   clarify        review         implement  validate (optional)
 | **Build** | Need to implement | `incremental-implementation` |
 | **Verify** | Implement complete | `sdd-validate` |
 | **Review** | Explore alternatives | `sdd-variants` |
-
-## Pasos
-
-1. **Verifica setup.** Señaladores de proyecto y estado actual:
-   - `AGENT.md` existe? ❌ No → `/sdd-setup`
-   - `docs/constitution.md` existe? ❌ No → `/sdd-constitution`
-   - `specs/NNN-xxx/spec.md` existe? ❌ No → `/sdd-spec`
-   - Spec clarificada? ❌ No → `/sdd-clarify`
-   - `plan.md` existe? ❌ No → `/sdd-plan`
-   - Decisions reviewed? ❌ No → `/sdd-review` (opcional)
-   - `tasks.md` existe? ❌ No → `/sdd-tasks`
-   - Tasks implementadas? ❌ No → `/sdd-implement`
-   - Implementación validada? ❌ No → `/sdd-validate`
-   - Quieres explore variants? → `/sdd-variants`
-
-2. **Lee la spec.** `specs/001-xxx/spec.md` completa.
-3. **Lee la constitución.** `docs/constitution.md` para principios.
-4. **Muestra estado actual del proyecto:**
-   - `specs/` → specs encontrados
-   - `tests/` → tests existentes
-   - `.sdd-state.json` → estado del flujo
-   - `package.json` → stack detectado
-5. **Sugiere skill inicial correcto** basado en estado.
-
-## Quick Reference
-
-| Phase | Skill | One-Line Summary |
-|-------|-------|-----------------|
-| **Setup** | sdd-setup | Create AGENT.md and constitution |
-| **Define** | sdd-spec | Generate spec with RF-EARS |
-| **Define** | sdd-clarify | Review and refine spec |
-| **Plan** | sdd-plan | Design technical implementation |
-| **Review** | sdd-review | Review assumptions and alternatives |
-| **Build** | sdd-tasks | Break into verifiable tasks |
-| **Build** | sdd-implement | Implement with TDD |
-| **Verify** | sdd-validate | Verify RF→Test coverage |
-| **Review** | sdd-variants | Multi-variant exploration |
-| **Context** | source-driven-development | Verify against official docs |
-| **Context** | incremental-implementation | Build slice by slice |
-| **Context** | doubt-driven-development | Cross-examine decisions |
-| **Context** | test-driven-development | Prove each slice works |
-| **Review** | code-review-and-quality | Review before merge |
-| **Remove** | code-simplification | Reduce unnecessary complexity |
-| **Ship** | git-workflow-and-versioning | Clean commit history |
-| **Ship** | ci-cd-and-automation | Automated quality gates |
-| **Ship** | documentation-and-adrs | Document decisions |
-| **Ship** | observability-and-instrumentation | Add logs/metrics |
-| **Ship** | shipping-and-launch | Deploy safely |
 
 ## Output Inicial
 
@@ -131,29 +87,6 @@ Muestra al usuario el estado actual del proyecto:
    Razón: Tienes constitution pero sin spec actualmente.
 ```
 
-## Pasos
-
-1. **Verifica setup.** Señaladores de proyecto y estado actual:
-   - `AGENT.md` existe? ❌ No → `/sdd-setup`
-   - `docs/constitution.md` existe? ❌ No → `/sdd-constitution`
-   - `specs/NNN-xxx/spec.md` existe? ❌ No → `/sdd-spec`
-   - Spec clarificada? ❌ No → `/sdd-clarify`
-   - `plan.md` existe? ❌ No → `/sdd-plan`
-   - Decisions reviewed? ❌ No → `/sdd-review` (opcional)
-   - `tasks.md` existe? ❌ No → `/sdd-tasks`
-   - Tasks implementadas? ❌ No → `/sdd-implement`
-   - Implementación validada? ❌ No → `/sdd-validate`
-   - Quieres explore variants? → `/sdd-variants`
-
-2. **Lee la spec.** `specs/001-xxx/spec.md` completa.
-3. **Lee la constitución.** `docs/constitution.md` para principios.
-4. **Muestra estado actual del proyecto:**
-   - `specs/` → specs encontrados
-   - `tests/` → tests existentes
-   - `.sdd-state.json` → estado del flujo
-   - `package.json` → stack detectado
-5. **Sugiere skill inicial correcto** basado en estado.
-
 ## Quick Reference
 
 | Phase | Skill | One-Line Summary |
@@ -178,3 +111,11 @@ Muestra al usuario el estado actual del proyecto:
 | **Ship** | documentation-and-adrs | Document decisions |
 | **Ship** | observability-and-instrumentation | Add logs/metrics |
 | **Ship** | shipping-and-launch | Deploy safely |
+
+## See Also
+
+- `/sdd-flow` - Complete SDD wizard
+- `spec-driven-development` - Full spec pattern from reference
+- `incremental-implementation` - Incremental build cycle
+- `test-driven-development` - Testing patterns
+- `definition-of-done.md` - Universal quality bar

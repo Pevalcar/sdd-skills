@@ -8,14 +8,15 @@ Sistema completo de skills para desarrollo guiado por especificación. Universal
 ┌─────────────────────────────────────────────────────────────┐
 │                      Core SDD                               │
 │   discover → constitution → spec → clarify → plan          │
-│            → tasks → implement → validate                   │
+│            → review → tasks → implement → validate          │
+│            → variants                                          │
 └─────────────────────────────────────────────────────────────┘
-                          ↕
+                           ↕
 ┌─────────────────────────────────────────────────────────────┐
 │                    Perfiles Adaptativos                      │
 │  web-frontend | systems | game-dev | mobile | infrastructure │
 └─────────────────────────────────────────────────────────────┘
-                          ↕
+                           ↕
 ┌─────────────────────────────────────────────────────────────┐
 │                  Material de Referencia                      │
 │  skill-template | anti-rationalizations | verification-gates │
@@ -24,7 +25,7 @@ Sistema completo de skills para desarrollo guiado por especificación. Universal
 
 ---
 
-## Skills Core (9)
+## Skills Core (10)
 
 | Skill | Uso | Output |
 |-------|-----|--------|
@@ -32,10 +33,12 @@ Sistema completo de skills para desarrollo guiado por especificación. Universal
 | `/sdd-constitution` | Crear constitución del proyecto | `docs/constitution.md` |
 | `/sdd-spec` | Generar especificación RF-EARS | `specs/NNN-xxx/spec.md` |
 | `/sdd-clarify` | Revisión QA automática | Notas en spec.md |
+| `/sdd-review` | Review de suposiciones y decisiones | `specs/NNN-xxx/review.md` |
 | `/sdd-plan` | Diseño técnico con pseudocódigo | `specs/NNN-xxx/plan.md` |
 | `/sdd-tasks` | Descomposición en tareas | `specs/NNN-xxx/tasks.md` |
 | `/sdd-implement` | Implementación TDD por tarea | Código + tests |
-| `/sdd-validate` | Validación cobertura RF→Test | Tabla trazabilidad |
+| `/sdd-validate` | Validación RF→Test con Constitution | Tabla trazabilidad + veredicto |
+| `/sdd-variants` | Multi-variant exploration | `variants-ranking.md` |
 | `/sdd-flow` | Wizard completo automatizado | Pipeline completo |
 
 ---
@@ -94,9 +97,11 @@ Sistema completo de skills para desarrollo guiado por especificación. Universal
 /sdd-spec             # Especificar QUÉ construir
 /sdd-clarify          # Validar calidad de spec
 /sdd-plan             # Diseñar CÓMO construir
+/sdd-review           # Revisar suposiciones y alternativas
 /sdd-tasks            # Descomponer en unidades
 /sdd-implement T1     # Implementar tarea 1
 /sdd-validate         # Verificar cobertura completa
+/sdd-variants          # Explorar alternativas y ganar la mejor
 ```
 
 ---
@@ -104,9 +109,9 @@ Sistema completo de skills para desarrollo guiado por especificación. Universal
 ## Reglas Globales
 
 1. **Always discover first.** Ejecutar `/sdd-discover` antes de cualquier trabajo.
-2. **ASUMPTIONS explícitas.** Cada skill lista suposiciones al inicio.
+2. **ASSUMPTIONS explícitas.** Cada skill lista suposiciones al inicio.
 3. **Nunca parchear.** Code limpio desde el inicio, nunca workarounds temporales.
-4. **Verification gates.** Checkpoints obligatorios entre fases.
+4. **Verification gates.** Checkpoints obligatorios entre fases con aprobación humana.
 5. **Definition of Done universal.** Todo cambio debe cumplir DoD antes de merge.
 
 ---
@@ -117,13 +122,19 @@ El sistema guarda estado persistente en `.sdd-state.json`:
 
 ```json
 {
-  "current_phase": "spec",
-  "approved_phases": ["constitution"],
-  "profiles_active": ["game-dev"],
-  "specs_count": 1,
-  "tasks_total": 8,
-  "tasks_completed": 2,
-  "last_checkpoint": "2026-01-15T10:30:00Z"
+  "version": "2.1.0",
+  "current_phase": "discovered",
+  "approved_phases": [],
+  "profiles_active": [],
+  "specs_count": 0,
+  "tasks_total": 0,
+  "tasks_completed": 0,
+  "last_checkpoint": null,
+  "flow": {
+    "phases": ["setup", "constitution", "spec", "clarify", "plan", "review", "tasks", "implement", "validate", "variants"],
+    "current_phase_index": 0,
+    "approved_gates": []
+  }
 }
 ```
 
@@ -134,4 +145,13 @@ Comandos de control:
 
 ---
 
-*Versión 2.0.0 — Sistema agnóstico a tecnología con perfiles adaptativos*
+## Cambios recientes (v2.1.0)
+
+- **sdd-review:** Ahora es fase obligatoria entre plan y tasks
+- **sdd-variants:** Ahora es fase obligatoria con gate de aprobación
+- **sdd-validate:** Fail-closed, requiere evidencia de código + Constitution compliance
+- **sdd-flow:** Integrado sdd-variants como Phase 8 con gate obligratorio
+
+---
+
+*Versión 2.1.0 — Sistema agnóstico a tecnología con perfiles adaptativos*
