@@ -1,6 +1,13 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "description": "SDD Skills - Spec-Driven Development con perfiles adaptativos",
   "skills": [
+    {
+      "name": "sdd-discover",
+      "path": "skills/sdd-discover",
+      "installed_at": null,
+      "type": "meta"
+    },
     {
       "name": "sdd-constitution",
       "path": "skills/sdd-constitution",
@@ -40,6 +47,33 @@
       "name": "sdd-flow",
       "path": "skills/sdd-flow",
       "installed_at": null
+    }
+  ],
+  "profiles": [
+    {
+      "name": "web-frontend",
+      "path": "profiles/web-frontend",
+      "detected_by": ["package.json", "tsconfig.json"]
+    },
+    {
+      "name": "systems",
+      "path": "profiles/systems",
+      "detected_by": ["Cargo.toml", "go.mod", "pyproject.toml"]
+    },
+    {
+      "name": "game-dev",
+      "path": "profiles/game-dev",
+      "detected_by": ["project.godot", ".godot/"]
+    },
+    {
+      "name": "mobile",
+      "path": "profiles/mobile",
+      "detected_by": ["pubspec.yaml", "Podfile", "build.gradle"]
+    },
+    {
+      "name": "infrastructure",
+      "path": "profiles/infrastructure",
+      "detected_by": ["Dockerfile", ".github/workflows/"]
     }
   ]
 }

@@ -1,110 +1,86 @@
 # SDD Skills — Spec-Driven Development
 
-[![Skills](https://img.shields.io/badge/skills-8%20skills-blue)](./docs/Skills.md)
+[![Skills](https://img.shields.io/badge/skills-9%20skills-blue)](./docs/SKILLS.md)
+[![Profiles](https://img.shields.io/badge/profiles-5-orange)](./profiles/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Sistema completo de **skills OpenCode** para desarrollo guiado por especificación, inspirado en patrones de desarrollo ágil y specification-driven development.
+Sistema completo de **skills OpenCode** para desarrollo guiado por especificación. Tecnología-agnóstico, adaptable a cualquier stack.
 
-## 🎯 ¿Qué son las Skills SDD?
+## 🎯 ¿Qué es SDD?
 
-Skills SDD son módulos reutilizables que automatizan el proceso de creación de especificaciones, planes de desarrollo y validación de requisitos. Cada skill es autocontenida con su propia documentación y plantillas.
+Especification-Driven Development: procesos estructurados que fuerzan claridad antes de escribir código. Cada skill es autocontenida con su propia documentación, reglas de dominio y verificación.
 
-## 🚀 Hola AI Enhanced
+## 🔄 Nuevo Flujo (V2)
 
-Este sistema incorpora patrones de la metodología Hola AI, incluyendo:
-- **Historias de usuario INVEST** para requisitos bien definidos
-- **Critérios de aceptación en Gherkin** para pruebas automatizadas  
-- **Plantillas estructuradas** para consistencia en todos los artefactos
+```
+discover → constitution → spec ✓ → clarify → plan ✓ → tasks ✓ → implement → validate ✓
+   │              │          │                    │           │            │
+   ▼              ▼          ▼                    ▼           ▼            ▼
+ [perfil      [principios  [verification    [verificable  [TDD         [cobertura
+  detectado]   inneg.]     gates]           checks]      enforced]   RF→Test]
+```
+
+Los `✓` indican approval gates where se requiere confirmación humana.
 
 ## 📦 Skills Disponibles
 
+### Core SDD
 | Skill | Uso | Output |
 |-------|-----|--------|
-| `sdd-constitution` | Crear constitución del proyecto | `docs/constitution.md` |
-| `sdd-spec` | Generar especificación con RF-EARS | `specs/001-xxx/spec.md` |
-| `sdd-clarify` | Revisión QA de especificaciones | Notas agregadas a spec.md |
-| `sdd-plan` | Generar plan técnico con pseudocódigo | `specs/001-xxx/plan.md` |
-| `sdd-tasks` | Generar tareas verificables con checkboxes | `specs/001-xxx/tasks.md` |
-| `sdd-implement` | Implementar tarea (TDD) | Código + tests, marca Tn completada |
-| `sdd-validate` | Validar RF por RF con veredicto | Tabla cobertura RF→Test |
-| `sdd-flow` | Wizard completo interactivo | Genera todo el flujo automáticamente |
+| `/sdd-discover` | Analizar proyecto, detectar perfil | Matriz de skills |
+| `/sdd-constitution` | Principios innegociables | `docs/constitution.md` |
+| `/sdd-spec` | Especificación RF-EARS | `specs/NNN-xxx/spec.md` |
+| `/sdd-clarify` | QA automático | Notas en spec.md |
+| `/sdd-plan` | Diseño técnico | `specs/NNN-xxx/plan.md` |
+| `/sdd-tasks` | Tareas verificables | `specs/NNN-xxx/tasks.md` |
+| `/sdd-implement` | Implementación TDD | Código + tests |
+| `/sdd-validate` | Validación RF→Test | Tabla trazabilidad |
+| `/sdd-flow` | Wizard completo | Pipeline automático |
 
-## 🔄 Flujo SDD
+### Perfiles por Dominio
+| Perfil | Stack | Reglas clave |
+|--------|-------|--------------|
+| `web-frontend` | React, Vue, Next.js | TypeScript strict, a11y, bundle size |
+| `systems` | Rust, Go, Python, C# | Error handling, memory safety, zero-warnings |
+| `game-dev` | Godot, Unity | Determinismo, state machines, netcode sync |
+| `mobile` | Flutter, RN, Swift | Lifecycle, memory leaks, platform parity |
+| `infrastructure` | Docker, K8s, Terraform | IaC, security-first, immutability |
 
-```
-constitution → spec → clarify → plan → tasks → implement → validate
+## 🚀 Quick Start
+
+```bash
+# Descubrir perfil del proyecto
+/sdd-discover
+
+# Wizard completo
+/sdd-flow "funcionalidad: login Dofus con OAuth"
 ```
 
 ## 📥 Instalación
 
-### Método 1: Desde GitHub (recomendado)
-
+### Desde GitHub (recomendado)
 ```bash
-# Instalar desde el repositorio
 npx skills add Pevalcar/sdd-skills
 ```
 
-### Método 2: Localmente
-
+### Localmente
 ```bash
-# Copiar las skills al proyecto OpenCode
-cp -r skills/sdd-* .opencode/skills/
+cp -r skills/ .opencode/skills/
+cp -r profiles/ .opencode/profiles/
+cp -r references/ .opencode/references/
 ```
 
-### Verificar instalación
-
+### Verificar
 ```bash
 npx skills ls | grep sdd
 ```
 
-## 💡 Ejemplos de Uso
-
-### Uso rápido con el wizard completo
-
-```bash
-/sdd-flow "login Dofus con OAuth"
-```
-
-El wizard interactivo:
-1. Pregunta por la constitución del proyecto
-2. Genera spec.md
-3. Aplica QA automático
-4. Crea plan técnico
-5. Genera tareas verificables
-6. Implementa T1 con TDD
-7. Valida RF por RF
-
-### Uso individual por skill
-
-```bash
-# Generar constitución
-/sdd-constitution
-
-# Generar especificación
-/sdd-spec
-
-# Revisión QA
-/sdd-clarify
-
-# Plan técnico
-/sdd-plan
-
-# Tareas
-/sdd-tasks
-
-# Implementar tarea específica
-/sdd-implement T1
-/sdd-implement T2
-
-# Validar
-/sdd-validate
-```
-
-## 📁 Estructura del Repositorio
+## 🏗️ Arquitectura
 
 ```
 sdd-skills/
-├── skills/                      # Skills principales (sdd-*)
+├── skills/                    # 9 skills principales
+│   ├── sdd-discover/       # NUEVO: Meta-skill router
 │   ├── sdd-constitution/
 │   ├── sdd-spec/
 │   ├── sdd-clarify/
@@ -113,46 +89,58 @@ sdd-skills/
 │   ├── sdd-implement/
 │   ├── sdd-validate/
 │   └── sdd-flow/
-├── examples/                    # Ejemplos de uso
-├── docs/                        # Documentación detallada
-├── .gitignore
-├── README.md
-├── CONTRIBUTING.md
-└── skills-lock.json
+├── profiles/                 # 5 perfiles adaptativos
+│   ├── web-frontend/
+│   ├── systems/
+│   ├── game-dev/
+│   ├── mobile/
+│   └── infrastructure/
+├── references/               # Material transversal
+│   ├── skill-template.md
+│   ├── anti-rationalizations.md
+│   ├── verification-gates.md
+│   └── definition-of-done.md
+├── docs/                     # Documentación detallada
+├── examples/                 # Casos de uso
+└── .sdd-state.json          # Estado persistente
 ```
 
-## 📖 Documentación
+## 🔑 Principios Clave
 
-- [Guía de Contribución](./CONTRIBUTING.md)
-- [Arquitectura del Sistema](./docs/architecture.md)
-- [Formato de Historias de Usuario](./docs/INVEST-patterns.md)
-- [Ejemplos de Uso](./examples/)
+1. **Descubrimiento primero** — `/sdd-discover` antes de todo
+2. **Reglas por perfil** — Cada tecnología tiene sus constraints
+3. **Anti-racionalizaciones** — Prevenir atajos peligrosos
+4. **Verification gates** — Checkpoints obligatorios entre fases
+5. **Definition of Done** — Barra de calidad universal
 
-## 🔧 Plantillas Incluidas
+## 🛡️ Anti-Patterns Protegidos
 
-- `spec-template.md` - Formato de especificación con RF-EARS
-- `plan-template.md` - Formato de plan con pseudocódigo
-- `tasks-template.md` - Formato de tareas con checkboxes
-- `clarify-template.md` - Formato de revisión QA
-
-## 🏗️ Reglas SDD
-
-1. **Especificación antes que código** - Ningún RF sin spec
-2. **TDD obligatorio** - Test primero, código mínimo
-3. **Una tarea a la vez** - Pausa después de cada implementación
-4. **Verificables** - RF son verificables, no adjectivos
-5. **FUERA de alcance** - Siempre definir lo que NO se implementa
+| Excusa | Realidad | Prevención |
+|--------|----------|------------|
+| *"Es pequeño, no necesito tests"* | Regresiones silenciosas | Tests obligatorios para lógica crítica |
+| *"Ignoro warnings, lo arreglo después"* | Bugs latentes | Zero-warnings policy |
+| *"Parche temporal está bien"* | Deuda técnica acumulada | Código limpio desde el inicio |
+| *"Ya lo probé manual"* | No escala, no persiste | Automatización requerida |
 
 ## 🤝 Contribuir
 
-¡Las contribuciones son bienvenidas! Consulta [CONTRIBUTING.md](./CONTRIBUTING.md) para más detalles.
+Ver [CONTRIBUTING.md](./CONTRIBUTING.md) para guías completas.
+
+Quick start:
+```bash
+# Crear nueva skill
+cp -r skills/sdd-template/ skills/sdd-nuevo/
+# Editar SKILL.md siguiendo references/skill-template.md
+# Actualizar skills-lock.json
+```
 
 ## 📚 Referencias
 
-- [Hola AI](https://github.com/mouredev/hola-ai) - Conceptos de agente AI
-- [hello-sdd](https://github.com/mouredev/hello-sdd) - Referencia original de SDD
-- [OpenCode Skills](https://github.com/opencode-ai/opencode) - Plataforma de skills
+- [Arquitectura del Sistema](./docs/architecture.md)
+- [INVEST Patterns](./docs/INVEST-patterns.md)
+- [Definición de Done](./references/definition-of-done.md)
+- [Checklist Verificación](./references/verification-gates.md)
 
 ## 📄 Licencia
 
-MIT License - Ver [LICENSE](./LICENSE) para más información.
+MIT License - Ver [LICENSE](./LICENSE)

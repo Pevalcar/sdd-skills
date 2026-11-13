@@ -1,60 +1,137 @@
-# Skills SDD — Spec-Driven Development
+# Skills SDD V2 — Spec-Driven Development
 
-Sistema completo de skills para desarrollo guiado por especificación.
+Sistema completo de skills para desarrollo guiado por especificación. **Tecnología-agnóstico con perfiles adaptativos.**
 
-## Skills disponibles
+## 🚀 Novedades V2
+
+- **sdd-discover**: Meta-skill que detecta perfil tecnológico automáticamente
+- **Perfiles adaptativos**: Reglas específicas para web, systems, game-dev, mobile, infrastructure
+- **ASUMPTIONS explícitas**: Cada skill lista suposiciones al inicio
+- **Rationalizations tables**: Excusas comunes vs realidad técnica
+- **Verification gates**: Checkpoints obligatorios por fase y perfil
+- **Definition of Done**: Barra de calidad universal
+
+## 📦 Skills Core (9)
 
 | Skill | Uso | Output |
 |-------|-----|--------|
-| `/sdd-constitution` | Crear constitución del proyecto | `docs/constitution.md` |
-| `/sdd-spec` | Generar especificación | `specs/001-xxx/spec.md` |
-| `/sdd-clarify` | Revisión QA de spec | Notas agregadas a spec.md |
-| `/sdd-plan` | Generar plan técnico | `specs/001-xxx/plan.md` |
-| `/sdd-tasks` | Generar tareas | `specs/001-xxx/tasks.md` |
-| `/sdd-implement Tn` | Implementar tarea (TDD) | Código + tests, marca Tn completada |
-| `/sdd-validate` | Validar RF por RF | Tabla cobertura RF→Test |
-| `/sdd-flow "idea"` | Wizard completo | Genera todo el flujo |
+| `/sdd-discover` | Analizar, detectar perfil | Matriz de skills aplicables |
+| `/sdd-constitution` | Crear constitución | `docs/constitution.md` |
+| `/sdd-spec` | Generar especificación | `specs/NNN-xxx/spec.md` |
+| `/sdd-clarify` | QA automático | Notas en spec.md |
+| `/sdd-plan` | Diseño técnico | `specs/NNN-xxx/plan.md` |
+| `/sdd-tasks` | Tareas verificables | `specs/NNN-xxx/tasks.md` |
+| `/sdd-implement Tn` | TDD por tarea | Código + tests, marca Tn completada |
+| `/sdd-validate` | RF→Test coverage | Tabla trazabilidad |
+| `/sdd-flow "idea"` | Wizard completo | Pipeline automático |
 
-## Flujo SDD
+## 🎯 Perfiles Adaptativos (5)
 
-```
-constitution → spec → clarify → plan → tasks → implement → validate
-```
+| Perfil | Stack | Reglas clave |
+|--------|-------|--------------|
+| **web-frontend** | React, Vue, TypeScript | Strict mode, a11y, bundle size |
+| **systems** | Rust, Go, Python, C# | Error handling, zero-warnings |
+| **game-dev** | Godot, Unity | Determinismo, netcode, state machines |
+| **mobile** | Flutter, Swift, Kotlin | Lifecycle, memory leaks, parity |
+| **infrastructure** | Docker, K8s, Terraform | IaC-only, security-first |
 
-## Estructura de carpetas
-
-Cada skill es una carpeta autocontenida con:
-```
-.opencode/skills/sdd-xxx/
-├── SKILL.md        # Instrucciones principales
-├── README.md       # Ayuda y uso
-└── <template>.md   # Plantilla de output (cuando aplica)
-```
-
-## Ejemplo de uso
+## 🔄 Flujo SDD V2
 
 ```
-/sdd-flow "funcionalidad: login Dofus"
-→ Wizard pregunta por constitución
-→ Genera spec.md
-→ QA automático
-→ Plan técnico
-→ Tareas verificables
-→ Implementa T1 con TDD
-→ Valida RF por RF
+discover → constitution → spec → clarify → plan → tasks → implement → validate
+    ↓           ↓          ↓          ↓         ↓         ↓          ↓
+[perfil]   [principios] [RF-EARS]  [QA]    [tech]   [TDD]     [coverage]
 ```
 
-## Plantillas incluidas
+Los `✓` indican **verification gates** donde se requiere aprobación humana.
+
+## 📁 Estructura del Proyecto
+
+```
+.sdd-skills/
+├── skills/                    # 9 skills principales
+│   ├── sdd-discover/       # NUEVO: Meta-skill router
+│   ├── sdd-constitution/
+│   ├── sdd-spec/
+│   ├── sdd-clarify/
+│   ├── sdd-plan/
+│   ├── sdd-tasks/
+│   ├── sdd-implement/
+│   ├── sdd-validate/
+│   └── sdd-flow/
+├── profiles/                 # 5 perfiles adaptativos
+│   ├── web-frontend/
+│   ├── systems/
+│   ├── game-dev/
+│   ├── mobile/
+│   └── infrastructure/
+├── references/               # Material transversal
+│   ├── skill-template.md
+│   ├── anti-rationalizations.md
+│   ├── verification-gates.md
+│   └── definition-of-done.md
+├── docs/                     # Documentación detallada
+├── examples/                 # Casos de uso
+└── .sdd-state.json          # Estado persistente
+```
+
+## 📋 Plantillas Incluidas
 
 - `spec-template.md` - Formato de especificación con RF-EARS
 - `plan-template.md` - Formato de plan con pseudocódigo
 - `tasks-template.md` - Formato de tareas con checkboxes
 - `clarify-template.md` - Formato de revisión QA
+- `TASKS.md` (en specs/template/) - Template para tasks.md
 
-## Reglas SDD
+## ⚠️ Reglas SDD V2 Obligatorias
 
-1. **Especificación antes que código** - Ningún RF sin spec
+1. **Especificación antes que código** - Ningún RF sin spec aprobada
 2. **TDD obligatorio** - Test primero, código mínimo
 3. **Una tarea a la vez** - Pausa después de cada implementación
 4. **Verificables** - RF son verificables, no adjectivos
 5. **FUERA de alcance** - Siempre definir lo que NO se implementa
+6. **Antes de todo cambio**: `/sdd-discover` para detectar perfil
+7. **Cada skill** debe tener ASUMPTIONS, Rationalizations, Verification
+
+## 🚀 Ejemplo de uso
+
+```bash
+# Paso 1: Descubrir perfil
+/sdd-discover
+
+# Wizard completo (detecta automáticamente el perfil)
+/sdd-flow "funcionalidad: login Dofus con OAuth"
+
+# Output ejemplo:
+→ Perfil detectado: game-dev
+→ Constitution verificada
+→ Spec generada (RF-1 a RF-4)
+→ QA automático pasado
+→ Plan técnico creado
+→ 6 tareas verificables generadas
+→ T1 implementada con TDD
+→ Validación RF→Test (5/6 completado)
+```
+
+## 📚 Referencias Rápidas
+
+- [Arquitectura V2](./architecture.md)
+- [Skills Catalog](./SKILLS.md)
+- [Quick Start](../examples/quick-start.md)
+- [Full Flow Example](../examples/full-flow-example.md)
+- [Skill Template](../references/skill-template.md)
+- [Definition of Done](../references/definition-of-done.md)
+
+## 🏷️ Tags por perfil
+
+Cuando el sistema detecta el perfil, carga automáticamente:
+
+- **web-frontend**: TypeScript strict, ESLint, Testing Library
+- **systems**: Zero-warnings, Memory safety, Error handling
+- **game-dev**: Determinismo estricto, State machines, Netcode
+- **mobile**: Lifecycle explicit, Memory leak prevention
+- **infrastructure**: IaC only, Security-first, Rollback plans
+
+---
+
+*Versión 2.0.0 — Sistema agnóstico a tecnología con perfiles adaptativos*

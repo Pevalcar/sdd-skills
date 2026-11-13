@@ -9,7 +9,26 @@ disable-model-invocation: true
 Convierte una idea vaga en una especificación acordada. La spec es el
 contrato: si algo no está aquí, no se implementa.
 
-## Proceso
+## 🛡️ ASUMPTIONS I'M MAKING:
+
+1. La constitución existe en `docs/constitution.md` o no es necesaria
+2. El idioma de los requisitos será el del usuario/constitución
+3. Este es un único requisito/capabilidad (no requiere capability map)
+→ Correct me now or I'll proceed.
+
+## When to Use
+
+- Starting a new project or feature
+- Requirements are ambiguous or incomplete
+- You have an idea but no written specification yet
+
+## When NOT to Use
+
+- Single-line fixes or typos
+- Changes where requirements are already well-documented
+- When spec already exists and user wants to modify it (use `/sdd-clarify` instead)
+
+## Process
 
 1. **Lee el contexto.** `docs/constitution.md` si existe, y las specs previas
    de `specs/` para respetar convenciones y no contradecir lo ya acordado.
@@ -72,3 +91,25 @@ Si el usuario pide revisar en vez de crear, no reescribas: **detecta y lista**,
 numerado, en cuatro bloques — (1) ambigüedades, (2) contradicciones entre
 requisitos, (3) casos límite no cubiertos, (4) conflictos con la constitución.
 No propongas soluciones hasta que te lo pidan.
+
+## Rationalizations
+
+| Excusa | Realidad | Regla |
+|--------|----------|-------|
+| *"Es simple, no necesito spec larga"* | Simple tasks don't need LONG specs, pero necesitan acceptance criteria claros | Mínimo: objetivos + boundary cases |
+| *"Escribiré la spec después de codearla"* | Eso es documentation, not specification. El valor está en forced clarity BEFORE code | Spec debe existir antes de implementación |
+| *"La spec va a cambiar igual"* | Una spec desactualizada es mejor que ninguna. Living doc vs no doc | Actualizar cuando cambie scope/decisión |
+| *"El usuario sabe lo que quiere"* | Incluso requests claros tienen assumptions implícitas. La spec las surfacea | Preguntar hasta ~95% confidence |
+| *"Soy muy rápido, ya lo hago de memoria"* | Context windows finite. Written specs survive session boundaries | Documentar todo |
+
+## Verification
+
+Antes de dar por terminado el trabajo:
+
+- [ ] Spec tiene todas las 6 áreas core (Objective, Commands, Structure, Style, Testing, Boundaries)
+- [ ] Usuario revisó y aprobó explícitamente
+- [ ] Turno terminó después de guardar spec; approval vino en turno posterior
+- [ ] Success criteria son específicos y testables
+- [ ] Sección "Fuera de alcance" existe y es explícita
+- [ ] Spec guardada en archivo en repository
+- [ ] Si request bundles múltiples capabilities, capability map fue approved before any module spec written

@@ -1,16 +1,51 @@
-# Arquitectura del Sistema de Skills SDD
+# Arquitectura del Sistema de Skills SDD (V2)
 
 ## Visión General
 
-El sistema SDD (Spec-Driven Development) está diseñado como un **pipeline de skills** donde cada componente tiene una responsabilidad única y bien definida.
-
-## Componentes
-
-### 1. sdd-constitution
-**Propósito:** Establecer los principios innegociables del proyecto.
+El sistema SDD (Spec-Driven Development) V2 está diseñado como un **sistema universal y agnóstico a tecnología**, complementado con **perfiles adaptativos** que se cargan según el stack detectado.
 
 ```
-Input:  requisitos del usuario sobre stack, qualidad, tests
+┌─────────────────────────────────────────────────────┐
+│                    Core SDD                         │
+│  discover → constitution → spec → clarify           │
+│       → plan → tasks → implement → validate          │
+└─────────────────────────────────────────────────────┘
+                          ↕
+┌─────────────────────────────────────────────────────┐
+│                 Perfiles Adaptativos                 │
+│  web-frontend | systems | game-dev | mobile | infra │
+└─────────────────────────────────────────────────────┘
+                          ↕
+┌─────────────────────────────────────────────────────┐
+│              Material de Referencia                  │
+│  templates | checklists | anti-rationalizations     │
+└─────────────────────────────────────────────────────┘
+```
+
+## Componentes Core
+
+### 1. sdd-discover (NUEVO - Meta-skill)
+**Propósito:** Analizar repositorio, detectar perfil, rutear al skill correcto.
+
+```
+Input:  directorio de trabajo
+Output: matriz de skills aplicables + perfil detectado
+```
+
+**Detección automática:**
+| Archivos encontrados | Perfil activado |
+|---------------------|-----------------|
+| `package.json`, `tsconfig.json` | web-frontend |
+| `Cargo.toml`, `go.mod` | systems |
+| `project.godot`, `.godot/` | game-dev |
+| `pubspec.yaml`, `Podfile` | mobile |
+| `Dockerfile`, `.github/workflows/` | infrastructure |
+
+### 2. sdd-constitution
+**Propósito:** Establecer principios innegociables del proyecto.
+
+```
+Input:  requisitos del usuario sobre stack, calidad, tests
 Output: docs/constitution.md (máximo 15 líneas)
 ```
 
@@ -19,21 +54,20 @@ Output: docs/constitution.md (máximo 15 líneas)
 - Verificables: "máximo", "obligatorio", "debe", "no"
 - Espera aprobación antes de escribir
 
-### 2. sdd-spec
+### 3. sdd-spec
 **Propósito:** Convertir ideas vagas en especificaciones acordadas.
 
 ```
 Input:  idea o requisito
-Output: specs/001-xxx/spec.md con RF en notación EARS
+Output: specs/NNN-xxx/spec.md con RF en notación EARS
 ```
 
-**Formato EARS:**
-- RF-1: CUANDO <evento>, EL SISTEMA <respuesta>
-- RF-2: SI <condición no deseada>, ENTONCES EL SISTEMA <respuesta>
-- RF-3: MIENTRAS <estado>, EL SISTEMA <respuesta>
-- RF-4: EL SISTEMA <comportamiento permanente>
+**Mejoras V2:**
+- ASUMPTIONS explícitas al inicio
+- Tabla de anti-racionalizaciones
+- Verification gates obligatorias
 
-### 3. sdd-clarify
+### 4. sdd-clarify
 **Propósito:** Revisión QA automática de especificaciones.
 
 ```
@@ -41,42 +75,46 @@ Input:  spec.md existente
 Output: notas QA agregadas al final del archivo
 ```
 
-**Checklist QA:**
+**Checklist QA (V2):**
 - RF verificables (no adjectivos)
 - Historias en formato "Como <rol>, quiero <acción>, para <beneficio>"
 - Casos límite definidos
 - Fuera de alcance explícito
+- Consistencia con constitución
 
-### 4. sdd-plan
+### 5. sdd-plan
 **Propósito:** Diseño técnico con pseudocódigo ejecutable.
 
 ```
 Input:  spec.md
-Output: specs/001-xxx/plan.md
+Output: specs/NNN-xxx/plan.md
 ```
 
-**Secciones:**
+**Secciones (V2):**
 1. Arquitectura de módulos
 2. Modelo de datos con ejemplo JSON
 3. Algoritmo principal (pseudocódigo)
 4. Contrato de la CLI
-5. Decisiones técnicas
-6. Cobertura de RF
+5. Decisiones técnicas con alternativas descartadas
+6. Cobertura de RF por módulo
+7. Reglas específicas del perfil detectado
 
-### 5. sdd-tasks
+### 6. sdd-tasks
 **Propósito:** Descomposición en tareas verificables.
 
 ```
 Input:  plan.md
-Output: specs/001-xxx/tasks.md
+Output: specs/NNN-xxx/tasks.md
 ```
 
-**Formato:**
-- Tareas pequeñas y verificables
+**Formato (V2):**
+- Tareas pequeñas y verificables (≤ 30 min)
 - Ordenadas por dependencia
 - Checkboxes para tracking
+- "Hecho cuando:" explícito
+- RF cubiertos mapeados
 
-### 6. sdd-implement
+### 7. sdd-implement
 **Propósito:** Implementación TDD por tarea.
 
 ```
@@ -84,14 +122,17 @@ Input:  Tn (número de tarea)
 Output: Código + tests, marca Tn completada
 ```
 
-**Flujo TDD:**
+**Flujo TDD (V2):**
 1. Lee la tarea específica
-2. Escribe el test primero
-3. Implementa el código mínimo
-4. Ejecuta tests
-5. Marca como completada
+2. Escribe test primero (RED)
+3. Ejecuta test → debe fallar
+4. Implementa código mínimo (GREEN)
+5. Ejecuta test → debe pasar
+6. Refactoriza si necesario
+7. Marca como completada
+8. Verification checklist obligatorio
 
-### 7. sdd-validate
+### 8. sdd-validate
 **Propósito:** Verificación final de cobertura.
 
 ```
@@ -99,12 +140,13 @@ Input:  spec.md + tests
 Output: tabla de trazabilidad RF→Test
 ```
 
-**Veredicto:**
+**Veredicto (V2):**
 - ✅ Spec cumplida
 - ❌ RF pendientes
 - ⚠️ SIN TEST
+- Definition of Done checked
 
-### 8. sdd-flow
+### 9. sdd-flow
 **Propósito:** Orquestador interactivo del flujo completo.
 
 ```
@@ -112,34 +154,85 @@ Input:  idea o funcionalidad
 Output: todo el pipeline automáticamente
 ```
 
+**Mejoras V2:**
+- Inicia con `/sdd-discover` automático
+- Carga reglas del perfil detectado
+- Aplica verification gates en cada fase
+- Guarda checkpoint en .sdd-state.json
+- Requiere aprobación humana en fases críticas
+
+## Perfiles Adaptativos
+
+### web-frontend/SKILL.md
+- TypeScript strict mode
+- Bundle size monitoring
+- Accessibility WCAG 2.1 AA
+- Testing patterns: Jest + Testing Library
+
+### systems/SKILL.md
+- Error handling obligatorio (Result/Option)
+- Memory safety first
+- Zero-warnings policy
+- Language-specific: Rust/Go/Python/C#
+
+### game-dev/SKILL.md
+- Determinismo estricto en cálculos
+- State machines documentados
+- Network packet validation
+- Object pooling para frequent instantiation
+
+### mobile/SKILL.md
+- Lifecycle management explicit
+- Memory leak prevention
+- Platform parity considerations
+- Battery impact awareness
+
+### infrastructure/SKILL.md
+- IaC-only philosophy
+- Security-first mindset
+- Immutability principles
+- Rollback procedures required
+
+## References Transversales
+
+### skill-template.md
+Plantilla maestra que todas las skills deben seguir:
+- Frontmatter obligatorio
+- ASUMPTIONS section
+- Process paso a paso
+- Rationalizations table
+- Verification checklist
+
+### anti-rationalizations.md
+Tabla universal de excusas comunes vs realidad técnica.
+
+### verification-gates.md
+Checklists por fase y por perfil tecnológico.
+
+### definition-of-done.md
+Barra de calidad universal aplicable a TODO cambio.
+
 ## Patrones de Diseño
 
 ### Inmutabilidad
 - Cada skill genera su output sin modificar inputs anteriores
 - Estado guardado en `.sdd-state.json`
+- Planes existentes protegidos contra sobrescritura accidental
 
 ### Single Responsibility
 - Cada skill tiene una única razón de cambio
 - Plantillas separadas de lógica
+- Perfiles encapsulan reglas de dominio
+
+### Extensibilidad
+- Agregar nuevo skill: copiar plantilla, seguir estructura
+- Agregar nuevo perfil: crear SKILL.md con reglas específicas
+- Material referencial centralizado en `references/`
 
 ### Testability
 - Cada skill puede ser testeada individualmente
 - Plantillas con placeholders verificables
-
-## Extensibilidad
-
-### Agregar una nueva skill
-
-1. Crear carpeta `sdd-nombre/`
-2. Añadir SKILL.md, README.md, template
-3. Registrar en `skills-lock.json`
-
-### Personalizar plantillas
-
-Las plantillas son templates markdown con placeholders:
-- `<Nombre>` - Será reemplazado por el sistema
-- `<rol>` - Para historias de usuario
-- `<evento>` - Para requisitos funcionales
+- Verification gates objetivas
 
 ## Integración con Hola AI Patterns
 
@@ -149,3 +242,24 @@ Este sistema incorpora:
 2. **Gherkin Syntax** para criterios de aceptación
 3. **Given-When-Then Structure** para tests
 4. **Living Documentation** through markdown templates
+5. **Anti-rationalization tables** desde agent-skills referencia
+6. **Definition of Done** transversal
+
+## Flujos de Uso
+
+### Nuevo Proyecto
+```bash
+/sdd-discover          # Detectar perfil
+/sdd-flow "feature X"  # Wizard completo
+```
+
+### Proyecto Existente
+```bash
+/sdd-discover resume   # Continuar desde estado previo
+```
+
+### Skill Específico
+```bash
+/sdd-spec              # Solo generar spec
+/sdd-implement T3      # Solo implementar tarea 3
+```

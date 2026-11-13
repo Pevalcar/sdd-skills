@@ -1,6 +1,6 @@
 ---
 name: sdd-flow
-description: "Orquesta todo el flujo SDD: constitution → spec → clarify → plan → tasks → implement → validate. Un wizard interactivo."
+description: "Orquesta todo el flujo SDD: discover → constitution → spec → clarify → plan → tasks → implement → validate. Un wizard interactivo."
 disable-model-invocation: true
 ---
 
@@ -8,7 +8,26 @@ disable-model-invocation: true
 
 Orquesta todo el flujo Spec-Driven Development como un asistente interactivo.
 
-## Uso
+## 🛡️ ASUMPTIONS I'M MAKING:
+
+1. El repositorio tiene un directorio de trabajo válido
+2. Usuario quiere iniciar nuevo flujo SDD o reanudar existente
+3. `.sdd-state.json` puede existir con estado previo
+→ Correct me now or I'll proceed.
+
+## Cuando Usar
+
+- Start nuevo proyecto desde cero
+- Reanudar flujo interrumpido (`/sdd-flow resume`)
+- Ejecutar pipeline completo sin pasos manuales
+
+## Cuándo NO Usar
+
+- Ya estás en medio de un flujo manual
+- Solo necesitas un skill específico (usar directamente)
+- Proyecto no tiene constitution ni spec inicial
+
+## Usage
 
 Invoca con una idea:
 ```
@@ -94,6 +113,21 @@ Guarda estado en: `.sdd-state.json`
 | `/sdd-flow skip <step>` | Salta un paso |
 | `/sdd-flow reset` | Reinicia el flujo |
 | `/sdd-flow show` | Muestra estado actual |
+| `/sdd-discover` | Ejecuta descubrimiento de perfil primero |
+
+## Flow Mejorado (V2)
+
+```bash
+/sdd-discover          # Primero: detectar perfil y estado
+/sdd-flow "idea..."    # Luego: ejecutar wizard completo
+```
+
+El wizard ahora:
+1. Ejecuta discover automático al iniciar
+2. Carga reglas del perfil detectado
+3. Aplica verification gates en cada fase
+4. Guarda checkpoint en `.sdd-state.json`
+5. Requiere aprobación humana en fases críticas (spec, plan, tasks)
 
 ## Reglas del wizard
 
