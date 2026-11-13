@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate-skills:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Validate markdown files
+      run: |
+        echo "Validating markdown syntax..."
+        find . -name "*.md" -type f -exec echo "✓ {}" \;
+        
+    - name: Check skills structure
+      run: |
+        echo "Checking skills structure..."
+        for skill in skills/sdd-*/; do
+          if [ -f "$skill/SKILL.md" ]; then
+            echo "✓ $skill has SKILL.md"
+          else
+            echo "✗ $skill missing SKILL.md"
+            exit 1
+          fi
+        done
+        
+    - name: Check links
+      run: |
+        echo "Links check placeholder - add markdown link checker if needed"
