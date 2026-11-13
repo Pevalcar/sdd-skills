@@ -1,6 +1,9 @@
 # Estado local de SDD
 .sdd-state.json
 
+# Skills agentes instalados (referencias externas)
+.agents/
+
 # Specs generados
 specs/
 *.generated.md
