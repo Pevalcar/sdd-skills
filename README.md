@@ -139,6 +139,12 @@ sdd-skills/
 
 ¡Las contribuciones son bienvenidas! Consulta [CONTRIBUTING.md](./CONTRIBUTING.md) para más detalles.
 
+## 📚 Referencias
+
+- [Hola AI](https://github.com/mouredev/hola-ai) - Conceptos de agente AI
+- [hello-sdd](https://github.com/mouredev/hello-sdd) - Referencia original de SDD
+- [OpenCode Skills](https://github.com/opencode-ai/opencode) - Plataforma de skills
+
 ## 📄 Licencia
 
 MIT License - Ver [LICENSE](./LICENSE) para más información.
