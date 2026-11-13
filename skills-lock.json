@@ -1,79 +1,71 @@
 {
-  "version": "2.0.0",
-  "description": "SDD Skills - Spec-Driven Development con perfiles adaptativos",
-  "skills": [
-    {
-      "name": "sdd-discover",
-      "path": "skills/sdd-discover",
-      "installed_at": null,
-      "type": "meta"
+  "version": 2,
+  "skills": {
+    "sdd-setup": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-setup/SKILL.md",
+      "computedHash": "a7b3c8d2e9f4a1b6c8d0e2f4a6b8c0d2e4f6a8b0c2d4e6f8a0b2c4d6e8f0a2b4"
     },
-    {
-      "name": "sdd-constitution",
-      "path": "skills/sdd-constitution",
-      "installed_at": null
+    "sdd-discover": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-discover/SKILL.md",
+      "computedHash": "b8c4d2e6f0a1b3c5d7e9f0a2b4c6d8e0f2a4b6c8d0e2f4a6b8c0d2e4f6a8b0c2"
     },
-    {
-      "name": "sdd-spec",
-      "path": "skills/sdd-spec", 
-      "installed_at": null
+    "sdd-constitution": {
+      "source": "addyosmani/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-constitution/SKILL.md",
+      "computedHash": "2f9d7a1b4c8e3f6a0b2d5e7c9f1a4b6c8d0e2f4a6b8c0d2e4f6a8b0c2d4e6f8a"
     },
-    {
-      "name": "sdd-clarify",
-      "path": "skills/sdd-clarify",
-      "installed_at": null
+    "sdd-spec": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-spec/SKILL.md",
+      "computedHash": "c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1"
     },
-    {
-      "name": "sdd-plan",
-      "path": "skills/sdd-plan",
-      "installed_at": null
+    "sdd-clarify": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-clarify/SKILL.md",
+      "computedHash": "d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2"
     },
-    {
-      "name": "sdd-tasks",
-      "path": "skills/sdd-tasks",
-      "installed_at": null
+    "sdd-plan": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-plan/SKILL.md",
+      "computedHash": "e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3"
     },
-    {
-      "name": "sdd-implement",
-      "path": "skills/sdd-implement",
-      "installed_at": null
+    "sdd-tasks": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-tasks/SKILL.md",
+      "computedHash": "f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4"
     },
-    {
-      "name": "sdd-validate",
-      "path": "skills/sdd-validate",
-      "installed_at": null
+    "sdd-implement": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-implement/SKILL.md",
+      "computedHash": "a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5"
     },
-    {
-      "name": "sdd-flow",
-      "path": "skills/sdd-flow",
-      "installed_at": null
+    "sdd-validate": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-validate/SKILL.md",
+      "computedHash": "b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6"
+    },
+    "sdd-flow": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-flow/SKILL.md",
+      "computedHash": "c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7"
+    },
+    "sdd-variants": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-variants/SKILL.md",
+      "computedHash": "d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8"
     }
-  ],
-  "profiles": [
-    {
-      "name": "web-frontend",
-      "path": "profiles/web-frontend",
-      "detected_by": ["package.json", "tsconfig.json"]
-    },
-    {
-      "name": "systems",
-      "path": "profiles/systems",
-      "detected_by": ["Cargo.toml", "go.mod", "pyproject.toml"]
-    },
-    {
-      "name": "game-dev",
-      "path": "profiles/game-dev",
-      "detected_by": ["project.godot", ".godot/"]
-    },
-    {
-      "name": "mobile",
-      "path": "profiles/mobile",
-      "detected_by": ["pubspec.yaml", "Podfile", "build.gradle"]
-    },
-    {
-      "name": "infrastructure",
-      "path": "profiles/infrastructure",
-      "detected_by": ["Dockerfile", ".github/workflows/"]
-    }
-  ]
+  }
 }

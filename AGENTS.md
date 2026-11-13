@@ -45,7 +45,7 @@ Los `✓` marcan approval gates donde human verification es requerida.
 ### Core SDD
 | Skill | Uso | Output |
 |-------|-----|--------|
-| `/sdd-discovery` | Analizar proyecto y rutear | Matriz de skills aplicables |
+| `/sdd-discover` | Analizar proyecto y rutear | Matriz de skills aplicables |
 | `/sdd-setup` | Crear AGENT.md y constitution | AGENT.md + docs/constitution.md |
 | `/sdd-constitution` | Crear constitutional | `docs/constitution.md` |
 | `/sdd-spec` | Generar especificación RF-EARS | `specs/NNN-xxx/spec.md` |
