@@ -13,7 +13,8 @@ contrato: si algo no está aquí, no se implementa.
 
 1. La constitución existe en `docs/constitution.md` o no es necesaria
 2. El idioma de los requisitos será el del usuario/constitución
-3. Este es un único requisito/capabilidad (no requiere capability map)
+3. Si el request describe múltiples capabilities independientes (identity, billing, notifications), primero se crea un capability map
+4. El tech stack y comandos del proyecto están documentados en spec o en referencia
 → Correct me now or I'll proceed.
 
 ## When to Use
@@ -27,6 +28,78 @@ contrato: si algo no está aquí, no se implementa.
 - Single-line fixes or typos
 - Changes where requirements are already well-documented
 - When spec already exists and user wants to modify it (use `/sdd-clarify` instead)
+
+## Phase 0: Capability Map (when applicable)
+
+**Propose a capability map BEFORE writing any spec content** when the requirement bundles several independently testable capabilities:
+
+```markdown
+# Capability Map: [Initiative Name]
+
+| Module id | Responsibility | Depends on |
+|---|---|---|
+| identity | Accounts, sessions, SSO | — |
+| billing | Plans, invoices, payments | identity |
+| notifications | Email and webhook fan-out | identity |
+| reporting | Usage dashboards | billing, notifications |
+
+Build order: identity → billing, notifications → reporting
+```
+
+**Reglas del Capability Map:**
+- Module ids en kebab-case, elegidos uma vez, nunca renombrados
+- Dependencias: arrows point one way. If two modules each need the other, they are one module
+- Interfaces live at the boundary. El contrato entre providers y consumers belongs in el provider module's spec
+
+**Then recurse per module:** Run Specify → Plan → Tasks → Implement for each module in dependency order. Cada módulo tiene su spec-scoped.
+
+## Phase 1: Specify
+
+Start with a high-level vision. Ask the human clarifying questions until requirements are concrete.
+
+### Tech Stack Section
+
+Include the project's tech stack with versions:
+
+```markdown
+## Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript 5.3, strict mode
+- **Database:** PostgreSQL 15 via Prisma
+- **Testing:** Jest + React Testing Library
+- **Deployment:** Vercel (preview + production)
+```
+
+### Commands Section
+
+Include full executable commands with flags:
+
+```markdown
+## Commands
+
+- **Build:** `npm run build`
+- **Test:** `npm test -- --coverage`
+- **Lint:** `npm run lint -- --fix`
+- **Dev:** `npm run dev`
+- **Type Check:** `npx tsc --noEmit`
+```
+
+### Project Structure Section
+
+Document where source code lives:
+
+```markdown
+## Project Structure
+
+```
+src/               → Application source code
+src/components/    → React components
+src/lib/           → Shared utilities
+tests/             → Unit and integration tests
+e2e/               → End-to-end tests
+docs/              → Documentation
+```
 
 ## Process
 
@@ -43,7 +116,7 @@ contrato: si algo no está aquí, no se implementa.
    Criterios de aceptación **siempre en notación EARS**, numerados como RF-1, RF-2…
    Cada requisito debe ser verificable: si no se te ocurre cómo comprobarlo, está mal escrito.
 5. **Marca lo que no sepas** como `[NECESITA ACLARACIÓN: pregunta concreta]`.
-   Nunca rellenes un hueco inventando: un hueco visible es información,
+   Nunca rellenes un hueco inventando: un huedo visible es información,
    una suposición silenciosa es deuda.
 6. **Pide aprobación explícita** al terminar. No pases al plan ni escribas
    código hasta tenerla.
@@ -92,6 +165,25 @@ numerado, en cuatro bloques — (1) ambigüedades, (2) contradicciones entre
 requisitos, (3) casos límite no cubiertos, (4) conflictos con la constitución.
 No propongas soluciones hasta que te lo pidan.
 
+## Boundaries (Always/Ask First/Never)
+
+**Always do:**
+- Run tests before commits
+- Follow naming conventions
+- Validate inputs
+
+**Ask first:**
+- Database schema changes
+- Adding dependencies
+- Changing CI config
+- Modifying security policies
+
+**Never do:**
+- Commit secrets or credentials
+- Edit vendor directories
+- Remove failing tests without approval
+- Hardcode configuration
+
 ## Rationalizations
 
 | Excusa | Realidad | Regla |
@@ -106,7 +198,8 @@ No propongas soluciones hasta que te lo pidan.
 
 Antes de dar por terminado el trabajo:
 
-- [ ] Spec tiene todas las 6 áreas core (Objective, Commands, Structure, Style, Testing, Boundaries)
+- [ ] Spec tiene todas las 6 áreas core (Objective, Tech Stack, Commands, Structure, Style, Testing)
+- [ ] Boundary cases (Always/Ask/Never) están definidos
 - [ ] Usuario revisó y aprobó explícitamente
 - [ ] Turno terminó después de guardar spec; approval vino en turno posterior
 - [ ] Success criteria son específicos y testables
