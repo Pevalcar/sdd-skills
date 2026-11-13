@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "skills": [
+    {
+      "name": "sdd-constitution",
+      "path": "skills/sdd-constitution",
+      "installed_at": null
+    },
+    {
+      "name": "sdd-spec",
+      "path": "skills/sdd-spec", 
+      "installed_at": null
+    },
+    {
+      "name": "sdd-clarify",
+      "path": "skills/sdd-clarify",
+      "installed_at": null
+    },
+    {
+      "name": "sdd-plan",
+      "path": "skills/sdd-plan",
+      "installed_at": null
+    },
+    {
+      "name": "sdd-tasks",
+      "path": "skills/sdd-tasks",
+      "installed_at": null
+    },
+    {
+      "name": "sdd-implement",
+      "path": "skills/sdd-implement",
+      "installed_at": null
+    },
+    {
+      "name": "sdd-validate",
+      "path": "skills/sdd-validate",
+      "installed_at": null
+    },
+    {
+      "name": "sdd-flow",
+      "path": "skills/sdd-flow",
+      "installed_at": null
+    }
+  ]
+}

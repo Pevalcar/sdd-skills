@@ -1,0 +1,41 @@
+# Estado local de SDD
+.sdd-state.json
+
+# Specs generados
+specs/
+*.generated.md
+
+# Node.js (si hay ejemplos)
+node_modules/
+package-lock.json
+yarn.lock
+npm-debug.log
+
+# Python (si hay ejemplos)
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporales
+tmp/
+temp/
+*.tmp
+*.temp

@@ -1,0 +1,17 @@
+# Text files
+*.md text
+*.markdown text
+
+# Normalize line endings
+* text=auto
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+
+# Shell scripts
+*.sh text eol=lf
+*.bash text eol=lf
