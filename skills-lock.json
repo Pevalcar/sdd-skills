@@ -1,71 +1,65 @@
 {
-  "version": 2,
+  "version": "2.1.0",
   "skills": {
-    "sdd-setup": {
+    "sdd-clarify": {
       "source": "local",
       "sourceType": "github",
-      "skillPath": "skills/sdd-setup/SKILL.md",
-      "computedHash": "a7b3c8d2e9f4a1b6c8d0e2f4a6b8c0d2e4f6a8b0c2d4e6f8a0b2c4d6e8f0a2b4"
+      "skillPath": "skills/sdd-clarify/SKILL.md"
+    },
+    "sdd-constitution": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-constitution/SKILL.md"
     },
     "sdd-discover": {
       "source": "local",
       "sourceType": "github",
-      "skillPath": "skills/sdd-discover/SKILL.md",
-      "computedHash": "b8c4d2e6f0a1b3c5d7e9f0a2b4c6d8e0f2a4b6c8d0e2f4a6b8c0d2e4f6a8b0c2"
-    },
-    "sdd-constitution": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/sdd-constitution/SKILL.md",
-      "computedHash": "2f9d7a1b4c8e3f6a0b2d5e7c9f1a4b6c8d0e2f4a6b8c0d2e4f6a8b0c2d4e6f8a"
-    },
-    "sdd-spec": {
-      "source": "local",
-      "sourceType": "github",
-      "skillPath": "skills/sdd-spec/SKILL.md",
-      "computedHash": "c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1"
-    },
-    "sdd-clarify": {
-      "source": "local",
-      "sourceType": "github",
-      "skillPath": "skills/sdd-clarify/SKILL.md",
-      "computedHash": "d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2"
-    },
-    "sdd-plan": {
-      "source": "local",
-      "sourceType": "github",
-      "skillPath": "skills/sdd-plan/SKILL.md",
-      "computedHash": "e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3"
-    },
-    "sdd-tasks": {
-      "source": "local",
-      "sourceType": "github",
-      "skillPath": "skills/sdd-tasks/SKILL.md",
-      "computedHash": "f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4"
-    },
-    "sdd-implement": {
-      "source": "local",
-      "sourceType": "github",
-      "skillPath": "skills/sdd-implement/SKILL.md",
-      "computedHash": "a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5"
-    },
-    "sdd-validate": {
-      "source": "local",
-      "sourceType": "github",
-      "skillPath": "skills/sdd-validate/SKILL.md",
-      "computedHash": "b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6"
+      "skillPath": "skills/sdd-discover/SKILL.md"
     },
     "sdd-flow": {
       "source": "local",
       "sourceType": "github",
-      "skillPath": "skills/sdd-flow/SKILL.md",
-      "computedHash": "c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7"
+      "skillPath": "skills/sdd-flow/SKILL.md"
+    },
+    "sdd-implement": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-implement/SKILL.md"
+    },
+    "sdd-plan": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-plan/SKILL.md"
+    },
+    "sdd-review": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-review/SKILL.md"
+    },
+    "sdd-setup": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-setup/SKILL.md"
+    },
+    "sdd-spec": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-spec/SKILL.md"
+    },
+    "sdd-tasks": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-tasks/SKILL.md"
+    },
+    "sdd-validate": {
+      "source": "local",
+      "sourceType": "github",
+      "skillPath": "skills/sdd-validate/SKILL.md"
     },
     "sdd-variants": {
       "source": "local",
       "sourceType": "github",
-      "skillPath": "skills/sdd-variants/SKILL.md",
-      "computedHash": "d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8"
+      "skillPath": "skills/sdd-variants/SKILL.md"
     }
   }
 }
