@@ -108,7 +108,8 @@ El repositorio tiene los ingredientes correctos (skills autocontenidas, approval
 | sdd-variants/SKILL.md | ✅ Actualizado | Scoring objetivo con pesos explícitos y umbrales |
 | verifications-gates.md | ✅ Actualizado | Corregidos typos (Adiconals→Additional, ASUMPTIONS) |
 | sdd-plan/SKILL.md | ✅ Actualizado | Corregido typo (coBERTURA→COBERTURA) |
-| .sdd-state.json | ✅ Actualizado | Añadido flow.phases con variants incluido |
+| sdd-clarify/SKILL.md | ✅ Actualizado | QA con severidad, nuevas categorías, verification gates |
+| .sdd-state.json | ✅ Actualizado | Añadido flow.phases con variants incluido y clarification.status |
 
 ---
 
