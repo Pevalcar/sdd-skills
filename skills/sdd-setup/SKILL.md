@@ -1,0 +1,158 @@
+---
+name: sdd-setup
+description: "Detecta ausencia de AGENT.md y docs/constitution.md, genera plantilla mínima siguiendo tu template SDD."
+disable-model-invocation: true
+---
+
+# Generador de Setup SDD
+
+Crea el entorno inicial necesario para un flujo SDD:
+1. AGENT.md siguiendo tu template
+2. docs/constitution.md con principios 6 innegociables
+
+## 🛡️ ASUMPTIONS I'M MAKING:
+
+1. El proyecto no tiene AGENT.md o docs/constitution.md (primer setup)
+2. El usuario quiere crear un flujo SDD nuevo o continuar uno existente
+3. La template a seguir es la del ejemplo: habits-cli
+4. La constitución debe tener máximo 15 líneas de 6 principios verificables
+→ Correct me now or I'll proceed.
+
+## When to Use
+
+- Starting a new project with no AGENT.md
+- Constitution doesn't exist
+- Need to set up the SDD foundation
+
+## When NOT to Use
+
+- AGENT.md already exists
+- Constitution already created
+- Just need to modify existing setup
+
+## Process
+
+### Paso 1: Detectar ausencia
+
+Verifica que no exista:
+- `AGENT.md` (raíz del proyecto)
+- `CLAUDE.md` (raíz del proyecto)  
+- `docs/constitution.md`
+
+### Paso 2: Preguntar por información básica
+
+Usar tu template para preguntar:
+
+```markdown
+# Proyecto: <nombre-proyecto>
+
+## Proyecto
+<Qué es, en 2-3 frases. Arquitectura, tecnologías..>
+
+## Comandos
+- Ejecutar: `<comando>`
+- Tests: `<comando>`
+- Lint/formato: `<comando>`
+
+## Estilo y convenciones
+<Versión del lenguaje, convenciones de nombres, idioma del código y mensajes.>
+
+## Reglas
+- Lee docs/constitution.md y la spec activa antes de tocar código.
+- <Límites: qué no tocar, qué no añadir sin preguntar.>
+```
+
+### Paso 3: Generar Constitution
+
+Crear `docs/constitution.md` con 6 principios innegociables:
+
+```markdown
+# Constitución — <Nombre Proyecto>
+
+1. **Stack mínimo.** <lenguaje> + <máx N dependencias>. <restricción>.
+2. **Spec antes que código.** <cómo se valida>.
+3. **Separación lógica.** <qué capas existen y su responsabilidad>.
+4. **Tests obligatorios.** <quién escribe, cobertura mínima>.
+5. **Persistencia controlada.** <qué se guarda, cómo, cuándo>.
+6. **Idioma.** <qué idioma, convenciones>.
+```
+
+### Paso 4: Crear AGENT.md
+
+Usar el template proporcionado:
+
+```markdown
+# AGENTS.md — <proyecto>
+
+## Proyecto
+<Qué es, en 2-3 frases. Arquitectura, tecnologías..>
+
+## Comandos
+- Ejecutar: `<comando>`
+- Tests: `<comando>`
+- Lint/formato: `<comando>`
+
+## Estilo y convenciones
+<Versión del lenguaje, convenciones de nombres, idioma del código y mensajes.>
+
+## Reglas
+- Lee docs/constitution.md y la spec activa antes de tocar código.
+- <Límites: qué no tocar, qué no añadir sin preguntar.>
+
+## Al terminar cualquier tarea
+- <Verificación obligatoria, p. ej. ejecutar los tests.>
+```
+
+## Output Format
+
+### docs/constitution.md
+
+```markdown
+# Constitución — <Nombre Proyecto>
+
+1. **Stack mínimo.** Python 3.x + máximo 5 dependencias externas. Cero bibliotecas innecesarias.
+2. **Spec antes que código.** TODO requisito documentado en spec.md antes de implementar.
+3. **Separación lógica.** `habits/` (lógica), `tests/` (tests), `habits.json` (persistencia).
+4. **Tests obligatorios.** 100% cobertura de funcionalidad nueva. pytest -q para ejecución.
+5. **Persistencia controlada.** datos en `habits.json` JSON legible. Nunca sobrescribir archivo corrupto.
+6. **Idioma.** Python en español, mensajes de usuario en español claro.
+```
+
+### AGENT.md
+
+```markdown
+# AGENTS.md — habits-cli
+
+## Proyecto
+Una app de terminal en Python para registrar hábitos de estudio y ver tu racha de días consecutivos.
+
+## Comandos
+- Ejecutar: `python -m habits <comando>`
+- Tests: `pytest -q tests/`
+- Lint/formato: `ruff format . && ruff check .`
+
+## Estilo y convenciones
+Python 3.11, tipado dinámico, mensajes claros en español, logging minimalista.
+
+## Reglas
+- Lee docs/constitution.md y la spec activa antes de tocar código.
+- No modificar habits.json sin backup previo.
+
+## Al terminar cualquier tarea
+- Ejecutar `pytest -q` y verificar todos los tests pasan.
+- Verificar no hay warnings ni errores.
+```
+
+## Verification
+
+- [ ] Verificar que AGENT.md no existía
+- [ ] Verificar que docs/constitution.md no existía
+- [ ] Constitution escrita con 6 principios máximo
+- [ ] AGENT.md creado siguiendo template
+- [ ] User aprobó el contenido
+
+## See Also
+
+- `sdd-constitution` - Verifica constitution específica
+- `sdd-spec` - Siguiente skill del flujo
+- `references/skill-template.md` - Plantilla base

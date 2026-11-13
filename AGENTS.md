@@ -23,36 +23,38 @@ Antes de cualquier trabajo, ejecutar:
 ```
 
 Esto:
-1. Escanea el repositorio
-2. Identifica perfiles activos
-3. Muestra estado actual (constitution ✓, spec ✗, etc.)
-4. Sugiere skill siguiente
+1. Verifica si necesitas setup (AGENT.md, constitution)
+2. Escanea el repositorio
+3. Identifica perfiles activos
+4. Muestra estado actual (constitution ✓, spec ✗, etc.)
+5. Sugiere skill inicial correcto
 
-## Flujo SDD Mejorado
+## El Flow SDD
 
 ```
-discover → constitution → spec ✓ → clarify → plan ✓ → tasks ✓ → implement → validate ✓
-              │               │                    │           │
-              ▼               ▼                    ▼           ▼
-         [perfil rules]  [verification gates]  [verification] [DoD check]
+Setup → Spec → Clarify → Plan → Tasks → Implement → Validate → Variants
+   ↓      ↓        ↓       ↓       ↓          ↓          ↓        ↓
+sdd-     sdd-spec  sdd-    sdd-plan sdd-tasks sdd-      sdd-     sdd-variants
+setup  clarify   clarify        (loop)             implement  validate (optional)
 ```
 
-Los `✓` marcan approval gates where human verification is required.
+Los `✓` marcan approval gates donde human verification es requerida.
 
 ## Skills Disponibles
 
 ### Core SDD
 | Skill | Uso | Output |
 |-------|-----|--------|
-| `/sdd-discover` | Analizar proyecto y rutear | Matriz de skills aplicables |
-| `/sdd-constitution` | Crear constitución del proyecto | `docs/constitution.md` |
+| `/sdd-discovery` | Analizar proyecto y rutear | Matriz de skills aplicables |
+| `/sdd-setup` | Crear AGENT.md y constitution | AGENT.md + docs/constitution.md |
+| `/sdd-constitution` | Crear constitutional | `docs/constitution.md` |
 | `/sdd-spec` | Generar especificación RF-EARS | `specs/NNN-xxx/spec.md` |
 | `/sdd-clarify` | Revisión QA automática | Notas en spec.md |
 | `/sdd-plan` | Diseño técnico con pseudocódigo | `specs/NNN-xxx/plan.md` |
 | `/sdd-tasks` | Descomposición en tareas | `specs/NNN-xxx/tasks.md` |
 | `/sdd-implement` | Implementación TDD por tarea | Código + tests, Tn marcada |
 | `/sdd-validate` | Validación cobertura RF→Test | Tabla trazabilidad |
-| `/sdd-flow` | Wizard completo automatizado | Pipeline completo |
+| `/sdd-variants` | Multi-variant exploration | `variants-ranking.md` |
 
 ### Perfiles por Dominio
 Cada skill carga automáticamente reglas del perfil detectado:
@@ -64,11 +66,13 @@ Cada skill carga automáticamente reglas del perfil detectado:
 
 ## Reglas Globales Obligatorias
 
-1. **Always discover first.** Antes de escribir código, confirmar dominio y skill a usar.
-2. **ASUMPTIONS explícitas.** Toda tarea debe listar suposiciones al inicio.
-3. **Nunca parchear.** Si algo está mal, refactorizar limpio nunca workaround.
-4. **Verification gates antes de continuar.** Cada skill termina con checklist.
-5. **Definition of Done universal.** Todo cambio cumple DoD antes de merge.
+1. **Startup check.** Antes de cualquier trabajo, verificar si necesitas setup → `/sdd-setup`
+2. **Always discover first.** Antes de escribir código, confirmar dominio y skill a usar.
+3. **ASUMPTIONS explícitas.** Toda tarea debe listar suposiciones al inicio.
+4. **Clarify loop.** Keep asking until spec is crystal clear.
+5. **Nunca parchear.** Si algo está mal, refactorizar limpio nunca workaround.
+6. **Verification gates antes de continuar.** Cada skill termina con checklist.
+7. **Definition of Done universal.** Todo cambio cumple DoD antes de merge.
 
 ## State Management
 
@@ -76,12 +80,13 @@ Estado se guarda en `.sdd-state.json`:
 
 ```json
 {
+  "version": "2.1.0",
   "current_phase": "spec",
-  "approved_phases": ["constitution"],
-  "profiles_active": ["game-dev"],
+  "approved_phases": ["setup", "constitution"],
+  "profiles_active": ["web-frontend"],
   "specs_count": 1,
-  "tasks_total": 8,
-  "tasks_completed": 2,
+  "tasks_total": 0,
+  "tasks_completed": 0,
   "last_checkpoint": "2026-01-15T10:30:00Z"
 }
 ```
