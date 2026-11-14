@@ -1,4 +1,4 @@
-# Constitución — SDD Skills
+# Constitución — sdd-skills
 
 1. **Stack mínimo.** TypeScript/JavaScript moderno, npm como gestor de paquetes, sin dependencias innecesarias. Código ejecutable con `npm test`.
 
@@ -8,6 +8,6 @@
 
 4. **Tests obligatorios.** Cada skill nueva incluye SKILL.md, README.md y verificación funcional. Verificar con `npx skills ls`.
 
-5. **Persistencia controlada.** Estado del flujo guardado en `.sdd-state.json`. Backs de files modificados automáticos.
+5. **Persistencia controlada.** Estado del flujo guardado en `.sdd-state.json`. No sobrescribir archivos modificados sin backup previo.
 
-6. **Idioma.** Documentación bilingüe ES/EN, mensajes de error claros, nombres de variables autoexplicativos sin abreviaturas.
+6. **Idioma.** Responde siempre en el idioma del usuario (si escribe en español, responde en español). Documentación bilingüe ES/EN, mensajes de error claros, nombres de variables sin abreviaturas.

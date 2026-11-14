@@ -5,7 +5,7 @@ Skill para detectar ausencia de AGENT.md y docs/constitution.md, y generar plant
 ## Qué hace
 
 - Detecta si el proyecto necesita setup inicial
-- Genera `AGENT.md` siguiendo tu template
+- Genera `AGENTS.md` siguiendo tu template
 - Crea `docs/constitution.md` con 6 principios innegociables
 - Pausa para aprobación humana
 
@@ -18,7 +18,7 @@ Skill para detectar ausencia de AGENT.md y docs/constitution.md, y generar plant
 ## Output
 
 - `docs/constitution.md` - Principios del proyecto
-- `AGENT.md` - Instrucciones para el agente
+- `AGENTS.md` - Instrucciones para el agente
 
 ## Ver también
 

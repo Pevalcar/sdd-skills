@@ -1,134 +1,21 @@
-# SDD Skills — Agent Configuration
+# AGENTS.md — sdd-skills
 
-Este directorio define el comportamiento de los agentes AI para trabajar con el sistema SDD (Spec-Driven Development).
+## Proyecto
+Sistema de skills OpenCode para desarrollo guiado por especificación (SDD). Skills autocontenidas con reglas de dominio, verificación y flujo unificado. Tecnología-agnóstico, adaptable a cualquier stack.
 
-## Perfil del Proyecto
+## Comandos
+- Ejecutar: `npx skills ls` (listar skills disponibles) | `/sdd-discover` (iniciar flujo SDD)
+- Tests: `npx skills ls | grep sdd` (verificar skills SDD instalados)
+- Lint/formato: por definir
 
-El sistema detecta automáticamente el perfil tecnológico cargando reglas específicas desde `profiles/`:
+## Estilo y convenciones
+Documentación bilingüe ES/EN. Nombres de skills en kebab-case (sdd-spec, sdd-clarify, etc.). Mensajes de error claros en español.
 
-| Perfil | Archivos detectados | Qué activa |
-|--------|---------------------|------------|
-| **web-frontend** | `package.json`, `tsconfig.json` | TypeScript strict, React/Vue patterns |
-| **systems** | `Cargo.toml`, `go.mod`, `pyproject.toml` | Error handling, memory safety, concurrency |
-| **game-dev** | `project.godot`, `.godot/` | Determinismo, state machines, netcode |
-| **mobile** | `pubspec.yaml`, `Podfile`, `build.gradle` | Lifecycle management, platform differences |
-| **infrastructure** | `Dockerfile`, `.github/workflows/` | IaC, security, immutability |
+## Reglas
+- Lee docs/constitution.md y la spec activa en specs/ antes de tocar código.
+- No añadas dependencias ni cambies el formato del JSON sin actualizar antes la spec.
+- No modifiques archivos dentro de specs/ salvo petición explícita.
 
-## Discovery Flow
-
-Antes de cualquier trabajo, ejecutar:
-
-```bash
-/sdd-discover
-```
-
-Esto:
-1. Verifica si necesitas setup (AGENT.md, constitution)
-2. Escanea el repositorio
-3. Identifica perfiles activos
-4. Muestra estado actual (constitution ✓, spec ✗, etc.)
-5. Sugiere skill inicial correcto
-
-## El Flow SDD
-
-```
-discover → constitution → spec → clarify → plan → review → tasks → implement → validate → variants
-    ↓           ↓          ↓        ↓        ↓        ↓         ↓          ↓            ↓
-[setup    [principios  [RF-EARS  [QA      [arquitectura [suposiciones [TDD       [RF→Test
- detected]   inneg.)     mapping] loop]    decisions]     review]      enforced]   coverage]
-           ↓          ↓        ↓        ↓        ↓         ↓          ↓            ↓
-        [human   [human   [human   [human   [human   [human   [human      [human
-         approval] approval] approval] approval] approval] approval]  approval]  approval]
-
-Los `↓` marcan approval gates donde human verification es requerida.
-
-## Skills Disponibles
-
-### Core SDD
-| Skill | Uso | Output |
-|-------|-----|--------|
-| `/sdd-discover` | Analizar proyecto y rutear | Matriz de skills aplicables |
-| `/sdd-setup` | Crear AGENT.md y constitution | AGENT.md + docs/constitution.md |
-| `/sdd-constitution` | Crear constitutional | `docs/constitution.md` |
-| `/sdd-spec` | Generar especificación RF-EARS | `specs/NNN-xxx/spec.md` |
-| `/sdd-clarify` | Revisión QA automática | Notas en spec.md |
-| `/sdd-review` | Review de suposiciones y decisiones | `specs/NNN-xxx/review.md` |
-| `/sdd-plan` | Diseño técnico con pseudocódigo | `specs/NNN-xxx/plan.md` |
-| `/sdd-tasks` | Descomposición en tareas | `specs/NNN-xxx/tasks.md` |
-| `/sdd-implement` | Implementación TDD por tarea | Código + tests, Tn marcada |
-| `/sdd-validate` | Validación cobertura RF→Test | Tabla trazabilidad |
-| `/sdd-variants` | Multi-variant exploration | `variants-ranking.md` |
-
-### Perfiles por Dominio
-Cada skill carga automáticamente reglas del perfil detectado:
-- `profiles/web-frontend/SKILL.md`
-- `profiles/systems/SKILL.md`
-- `profiles/game-dev/SKILL.md`
-- `profiles/mobile/SKILL.md`
-- `profiles/infrastructure/SKILL.md`
-
-## Reglas Globales Obligatorias
-
-1. **Startup check.** Antes de cualquier trabajo, verificar si necesitas setup → `/sdd-setup`
-2. **Always discover first.** Antes de escribir código, confirmar dominio y skill a usar.
-3. **ASUMPTIONS explícitas.** Toda tarea debe listar suposiciones al inicio.
-4. **Clarify loop.** Keep asking until spec is crystal clear.
-5. **Nunca parchear.** Si algo está mal, refactorizar limpio nunca workaround.
-6. **Verification gates antes de continuar.** Cada skill termina con checklist.
-7. **Definition of Done universal.** Todo cambio cumple DoD antes de merge.
-
-## State Management
-
-Estado se guarda en `.sdd-state.json`:
-
-```json
-{
-  "version": "2.1.0",
-  "current_phase": "spec",
-  "approved_phases": ["setup", "constitution"],
-  "profiles_active": ["web-frontend"],
-  "specs_count": 1,
-  "tasks_total": 0,
-  "tasks_completed": 0,
-  "last_checkpoint": "2026-01-15T10:30:00Z"
-}
-```
-
-Comandos de control:
-- `/sdd-discover resume` — Continuar desde último paso
-- `/sdd-discover status` — Mostrar estado actual
-- `/sdd-flow reset` — Reiniciar flujo
-
-## Material de Referencia
-
-Consultar antes de tomar decisiones:
-
-| Archivo | Contenido |
-|---------|-----------|
-| `references/skill-template.md` | Estructura base para nuevos skills |
-| `references/anti-rationalizations.md` | Excusas comunes y realidad |
-| `references/verification-gates.md` | Checklists transversales |
-| `references/definition-of-done.md` | Barra de calidad universal |
-
-## Pattern de Contribución
-
-Para agregar un nuevo skill:
-
-1. Copiar `references/skill-template.md`
-2. Añadir frontmatter obligatorio (`name`, `description`)
-3. Incluir sección `ASUMPTIONS I'M MAKING:`
-4. Definir `RATIONALIZATIONS` table específica
-5. Agregar `VERIFICATION` checklist
-6. Actualizar `skills-lock.json`
-
-Para agregar un nuevo perfil:
-
-1. Crear `profiles/<nombre>/SKILL.md`
-2. Definir reglas específicas del dominio
-3. Listar commands específicos
-4. Agregar anti-patterns propios
-5. Documentar integration points con core SDD
-
----
-
-*Este archivo se lee automáticamente al iniciar sesión. Las reglas aquí definidas son obligatorias.*
+## Al terminar cualquier tarea
+- Ejecuta `npx skills ls` para verificar que las skills están instaladas. Confirma que no hay warnings ni errores.
+	

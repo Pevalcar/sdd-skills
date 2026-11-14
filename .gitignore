@@ -28,3 +28,5 @@ Thumbs.db
 *.tmp
 *.temp
 *.log
+specs/
+.opencode/skills/

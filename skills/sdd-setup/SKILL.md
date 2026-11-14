@@ -35,8 +35,8 @@ Crea el entorno inicial necesario para un flujo SDD:
 ### Paso 1: Detectar ausencia
 
 Verifica que no exista:
-- `AGENT.md` (raíz del proyecto)
-- `CLAUDE.md` (raíz del proyecto)  
+- `AGENTS.md` (raíz del proyecto)
+- `CLAUDE.md` (raíz del proyecto, referencia a AGENTS.md)
 - `docs/constitution.md`
 
 ### Paso 2: Preguntar por información básica
