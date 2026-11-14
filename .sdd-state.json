@@ -1,0 +1,43 @@
+{
+  "version": "2.1.0",
+  "current_phase": "constitution_approved",
+  "approved_phases": ["constitution"],
+  "profiles_active": [],
+  "specs_count": 0,
+  "tasks_total": 0,
+  "tasks_completed": 0,
+  "last_checkpoint": null,
+  "discovery": {
+    "detected_profile": null,
+    "reason": "Ready for initial project analysis",
+    "timestamp": null
+  },
+  "recommendations": {
+    "next_skill": "sdd-backlog",
+    "reason": "Constitution approved, ready for backlog of user stories"
+  },
+  "flow": {
+    "phases": ["setup", "constitution", "backlog", "story", "spec", "clarify", "plan", "review", "tasks", "pair", "implement", "validate", "variants"],
+    "current_phase_index": 1,
+    "approved_gates": ["constitution"]
+  },
+  "clarification": {
+    "status": "pending",
+    "qa_verdict": null,
+    "critical_issues": [],
+    "high_issues": [],
+    "medium_issues": [],
+    "last_run": null
+  },
+  "backlog": {
+    "status": "pending",
+    "stories_count": 0
+  },
+  "stories": {},
+  "pair": {
+    "current_story": null,
+    "tests_completed": 0,
+    "status": "idle"
+  },
+  "specs": {}
+}
