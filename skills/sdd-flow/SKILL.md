@@ -158,11 +158,11 @@ Por iteración:
 El wizard respeta los gates de verificación:
 
 ```
-SETUP → SPEC → PLAN → REVIEW → TASKS → IMPLEMENT → VALIDATE → VARIANTS
-    │        │        │        │          │           │          │
-    ▼        ▼        ▼        ▼          ▼           ▼          ▼
-  HUMAN    HUMAN    HUMAN    HUMAN      HUMAN       HUMAN      HUMAN
-  REVIEW   REVIEW   REVIEW   REVIEW     REVIEW      REVIEW     REVIEW
+SETUP → SPEC → CLARIFY → PLAN → REVIEW → TASKS → IMPLEMENT → VALIDATE → VARIANTS
+    │        │        │        │        │          │           │          │
+    ▼        ▼        ▼        ▼        ▼          ▼           ▼          ▼
+  HUMAN    HUMAN    HUMAN    HUMAN    HUMAN      HUMAN       HUMAN      HUMAN
+  REVIEW   REVIEW   REVIEW   REVIEW   REVIEW     REVIEW      REVIEW     REVIEW
 ```
 
 Cada fase tiene un checklist de verificación que debe pasarse:

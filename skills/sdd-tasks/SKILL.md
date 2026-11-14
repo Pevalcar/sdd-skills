@@ -10,7 +10,7 @@ Descompone el plan en tareas implementables paso a paso.
 
 ## 🛡️ ASUMPTIONS I'M MAKING:
 
-1. El plan técnico existe en `specs/NNN-xxx/plan.md`
+1. El plan técnico existe en `specs/NNN-xxx/plan.md` y está aprobado
 2. Las tareas serán ≤ 30 minutos cada una
 3. El orden debe seguir dependencias naturales (no importancia percibida)
 → Correct me now or I'll proceed.
@@ -24,14 +24,16 @@ Descompone el plan en tareas implementables paso a paso.
 ## When NOT to Use
 
 - Sin plan todavía (/sdd-plan first)
+- Plan no aprobado (verificar en `.sdd-state.json`)
 - Cambios muy pequeños (una función, un fix)
 - Plan ya existe con tasks.md sin completar
 
 ## Process
 
-1. **Lee la spec.** `specs/001-xxx/spec.md`
-2. **Lee el plan.** `specs/001-xxx/plan.md`
-3. **Genera `tasks.md`** con formato:
+1. **Verifica gate.** El plan debe estar aprobado (verificar `.sdd-state.json`). Si no, ejecutar `/sdd-plan` primero.
+2. **Lee la spec.** `specs/001-xxx/spec.md`
+3. **Lee el plan.** `specs/001-xxx/plan.md`
+4. **Genera `tasks.md`** con formato:
 
 ## Formato output
 

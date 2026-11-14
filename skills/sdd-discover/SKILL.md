@@ -6,14 +6,16 @@ disable-model-invocation: true
 
 # Descubridor SDD — Enrutamiento cognitivo
 
-Analiza el repositorio para detectar perfil tecnológico, estado del flujo y rutea al skill correcto.
+Analiza el estado del proyecto, determina en qué fase del flujo SDD estás, y recomienda (o bloquea) la siguiente skill. **No ejecuta ninguna fase**: solo enruta y protege los gates.
 
 ## 🛡️ ASUMPTIONS I'M MAKING:
 
-1. El proyecto tiene un directorio de trabajo actual (`pwd`)
-2. Hay archivos de configuración que indican el stack (package.json, Cargo.toml, etc.)
-3. El usuario necesita determinar qué skill usar primero
-4. El estado del flujo SDD se guarda en `.sdd-state.json`
+1. El directorio de trabajo actual (`pwd`) es la raíz del proyecto.
+2. El estado del flujo se persiste en `.sdd-state.json` (si existe).
+3. Si `.sdd-state.json` no existe, se infiere el estado escaneando el filesystem.
+4. El usuario puede pedir una skill concreta; si rompe el orden del flujo, el router la rechaza y redirige.
+5. El router **no ejecuta** skills: solo recomienda o bloquea
+
 → Correct me now or I'll proceed.
 
 ## Lifecycle Sequence (SDD Flow)
@@ -72,12 +74,13 @@ Muestra al usuario el estado actual del proyecto:
    docs/constitution.md: ✅ existe
    specs/: ✅ 1 spec encontrada
    tests/: ❌ sin tests aún
-   .sdd-state.json: ❌ no existe
+   .sdd-state.json: ✅ existe
+   clarification.status: [pending|PASS|FAIL]
 
 📋 Skills disponibles:
    - /sdd-spec → Crear especificación
-   - /sdd-clarify → Revisar espec
-   - /sdd-plan → Crear plan técnico
+   - /sdd-clarify → Revisar espec (bloquea sdd-plan si FAIL)
+   - /sdd-plan → Crear plan técnico (requiere clarification.status = PASS)
    - /sdd-review → Revisar suposiciones (opcional)
    - /sdd-tasks → Generar tareas
    - /sdd-implement → Implementar (TDD)
@@ -85,6 +88,10 @@ Muestra al usuario el estado actual del proyecto:
 
 💡 Skill recomendado: /sdd-spec
    Razón: Tienes constitution pero sin spec actualmente.
+
+🚫 Gates activos:
+   - Si clarification.status = FAIL o pending: sdd-plan está BLOQUEADO.
+   - Ejecutar /sdd-clarify primero y obtener PASS antes de continuar.
 ```
 
 ## Quick Reference
@@ -111,6 +118,20 @@ Muestra al usuario el estado actual del proyecto:
 | **Ship** | documentation-and-adrs | Document decisions |
 | **Ship** | observability-and-instrumentation | Add logs/metrics |
 | **Ship** | shipping-and-launch | Deploy safely |
+
+## Verificación de Gates
+
+Antes de recomendar cualquier skill, el router verifica `.sdd-state.json`:
+
+| Gate | Condición | Acción si no se cumple |
+|------|-----------|----------------------|
+| Constitution | `docs/constitution.md` existe | Redirigir a `/sdd-constitution` |
+| Spec | `specs/NNN-xxx/spec.md` existe | Redirigir a `/sdd-spec` |
+| Clarify | `clarification.status = PASS` | Redirigir a `/sdd-clarify` |
+| Plan | `specs/NNN-xxx/plan.md` existe | Redirigir a `/sdd-plan` |
+| Tasks | `specs/NNN-xxx/tasks.md` existe | Redirigir a `/sdd-tasks` |
+
+Si `clarification.status` es `FAIL` o `pending`, **sdd-plan está bloqueado**. El usuario debe ejecutar `/sdd-clarify` hasta obtener PASS antes de continuar.
 
 ## See Also
 

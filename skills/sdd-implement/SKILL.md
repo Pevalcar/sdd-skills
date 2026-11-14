@@ -13,7 +13,8 @@ Implementa tareas pequeñas siguiendo TDD y el plan. Usa el ciclo incremental: I
 1. La tarea Tn existe en `specs/NNN-xxx/tasks.md` y no tiene otros trabajos pendientes
 2. El test framework está configurado (pytest/Jest/GUT según perfil detectado)
 3. Las dependencias necesarias ya existen en el proyecto
-4. La spec y el plan están aprobados por el humano
+4. La spec, plan y tasks están aprobados por el humano
+5. **PARAR después de cada tarea:** no continuar con T(n+1) sin aprobación explícita
 → Correct me now or I'll proceed.
 
 ## When to Use
@@ -26,6 +27,7 @@ Implementa tareas pequeñas siguiendo TDD y el plan. Usa el ciclo incremental: I
 ## When NOT to Use
 
 - Task ya completada ([x] marcado)
+- Tarea no aprobada (verificar en tasks.md y `.sdd-state.json`)
 - Múltiples tareas pendientes (hacer una a la vez)
 - Sin task list disponible (/sdd-tasks first)
 - Single-line fix where scope is already minimal
@@ -97,15 +99,17 @@ NOTICED BUT NOT TOUCHING:
 
 ## Process
 
-1. **Lee la tarea.** `specs/001-xxx/tasks.md`, Tn elegida por el usuario
-2. **Lee el plan.** `specs/001-xxx/plan.md`
-3. **Lee la spec.** `specs/001-xxx/spec.md`
-4. **Write test first.** Crea el test que cubra los RF indicados. Debe fallar (RED).
-5. **Write minimal code.** Solo para pasar el test (GREEN).
-6. **Run test.** Verifica que pasa.
-7. **Refactor if needed.** Clean up without changing behavior.
-8. **Commit.** Guardar progreso con mensaje descriptivo.
-9. **Verify RF covered.** Menciona qué RF cubiste: `RF cubierto: RF-X, RF-Y`
+1. **Verifica gate.** La tarea Tn debe estar aprobada (checkbox sin marcar en tasks.md). Si no está en la lista, ejecutar `/sdd-tasks` primero.
+2. **Lee la tarea.** `specs/001-xxx/tasks.md`, Tn elegida por el usuario
+3. **Lee el plan.** `specs/001-xxx/plan.md`
+4. **Lee la spec.** `specs/001-xxx/spec.md`
+5. **Write test first.** Crea el test que cubra los RF indicados. Debe fallar (RED).
+6. **Write minimal code.** Solo para pasar el test (GREEN).
+7. **Run test.** Verifica que pasa.
+8. **Refactor if needed.** Clean up without changing behavior.
+9. **Commit.** Guardar progreso con mensaje descriptivo.
+10. **Verify RF covered.** Menciona qué RF cubiste: `RF cubierto: RF-X, RF-Y`
+11. **MARCAR [x] Tn en tasks.md y PARAR.** No empezar T(n+1) sin aprobación explícita del usuario.
 
 ## Ejecución de tests
 

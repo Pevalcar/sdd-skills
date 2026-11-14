@@ -14,7 +14,7 @@ contrato: si algo no está aquí, no se implementa.
 1. La constitución existe en `docs/constitution.md` o no es necesaria
 2. El idioma de los requisitos será el del usuario/constitución
 3. Si el request describe múltiples capabilities independientes (identity, billing, notifications), primero se crea un capability map
-4. El tech stack y comandos del proyecto están documentados en spec o en referencia
+4. El tech stack y comandos se definen en el plan, no en la spec
 → Correct me now or I'll proceed.
 
 ## When to Use
@@ -57,50 +57,6 @@ Build order: identity → billing, notifications → reporting
 
 Start with a high-level vision. Ask the human clarifying questions until requirements are concrete.
 
-### Tech Stack Section
-
-Include the project's tech stack with versions:
-
-```markdown
-## Tech Stack
-
-- **Framework:** Next.js 14 (App Router)
-- **Language:** TypeScript 5.3, strict mode
-- **Database:** PostgreSQL 15 via Prisma
-- **Testing:** Jest + React Testing Library
-- **Deployment:** Vercel (preview + production)
-```
-
-### Commands Section
-
-Include full executable commands with flags:
-
-```markdown
-## Commands
-
-- **Build:** `npm run build`
-- **Test:** `npm test -- --coverage`
-- **Lint:** `npm run lint -- --fix`
-- **Dev:** `npm run dev`
-- **Type Check:** `npx tsc --noEmit`
-```
-
-### Project Structure Section
-
-Document where source code lives:
-
-```markdown
-## Project Structure
-
-```
-src/               → Application source code
-src/components/    → React components
-src/lib/           → Shared utilities
-tests/             → Unit and integration tests
-e2e/               → End-to-end tests
-docs/              → Documentation
-```
-
 ## Process
 
 1. **Lee el contexto.** `docs/constitution.md` si existe, y las specs previas
@@ -111,12 +67,12 @@ docs/              → Documentation
    usuario pregunta "¿cómo lo harías?", redirige al QUÉ.
    Prioriza preguntas cuya respuesta cambie lo que hay que construir; descarta
    las que tengan una respuesta obvia por defecto.
-3. **Selecciona numero automáticamente.** Busca `specs/` y usa el siguiente disponible con tres dígitos. El sistema asignará el número NNN al crear el archivo.
+3. **Selecciona número automáticamente.** Busca `specs/` y usa el siguiente disponible con tres dígitos. El sistema asignará el número NNN al crear el archivo.
 4. **Redacta.** El sistema remplazará `NNN` del template con el número elegido.
    Criterios de aceptación **siempre en notación EARS**, numerados como RF-1, RF-2…
    Cada requisito debe ser verificable: si no se te ocurre cómo comprobarlo, está mal escrito.
 5. **Marca lo que no sepas** como `[NECESITA ACLARACIÓN: pregunta concreta]`.
-   Nunca rellenes un hueco inventando: un huedo visible es información,
+   Nunca rellenes un hueco inventando: un hueco visible es información,
    una suposición silenciosa es deuda.
 6. **Pide aprobación explícita** al terminar. No pases al plan ni escribas
    código hasta tenerla.
@@ -198,7 +154,7 @@ No propongas soluciones hasta que te lo pidan.
 
 Antes de dar por terminado el trabajo:
 
-- [ ] Spec tiene todas las 6 áreas core (Objective, Tech Stack, Commands, Structure, Style, Testing)
+- [ ] Spec tiene todas las áreas core (Objetivo, Usuarios, Historias de usuario, RF con EARS, RF no funcionales, Casos límite, Fuera de alcance, Dudas abiertas)
 - [ ] Boundary cases (Always/Ask/Never) están definidos
 - [ ] Usuario revisó y aprobó explícitamente
 - [ ] Turno terminó después de guardar spec; approval vino en turno posterior

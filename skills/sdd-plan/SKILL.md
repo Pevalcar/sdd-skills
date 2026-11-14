@@ -12,7 +12,8 @@ Convierte una spec en un plan de implementación sin escribir código.
 
 1. La spec aprobada existe en `specs/NNN-xxx/spec.md`
 2. La constitución existe en `docs/constitution.md`
-3. No hay plan existente sin completar (verificar antes de sobrescribir)
+3. `clarification.status = PASS` en `.sdd-state.json` (sdd-clarify aprobado)
+4. No hay plan existente sin completar (verificar antes de sobrescribir)
 → Correct me now or I'll proceed.
 
 ## When to Use
@@ -24,14 +25,16 @@ Convierte una spec en un plan de implementación sin escribir código.
 ## When NOT to Use
 
 - Sin spec aprobada todavía
+- `clarification.status` no es PASS en `.sdd-state.json` (ejecutar /sdd-clarify primero)
 - Quiere implementar directamente (ir a /sdd-implement)
 - Plan ya existe y está completo
 
 ## Process
 
-1. **Lee la spec.** `specs/001-xxx/spec.md` completa.
-2. **Lee la constitución.** `docs/constitution.md` para principios.
-3. **Genera `plan.md`** con estas secciones obligatorias:
+1. **Verifica gate.** `.sdd-state.json` debe tener `clarification.status = PASS`. Si no, ejecutar `/sdd-clarify` primero.
+2. **Lee la spec.** `specs/001-xxx/spec.md` completa.
+3. **Lee la constitución.** `docs/constitution.md` para principios.
+4. **Genera `plan.md`** con estas secciones obligatorias:
 
 ## Plantilla de output
 
