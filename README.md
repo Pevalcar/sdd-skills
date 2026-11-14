@@ -1,6 +1,6 @@
 # SDD Skills — Spec-Driven Development
 
-[![Skills](https://img.shields.io/badge/skills-10%20skills-blue)](./docs/SKILLS.md)
+[![Skills](https://img.shields.io/badge/skills-13%20skills-blue)](./docs/SKILLS.md)
 [![Profiles](https://img.shields.io/badge/profiles-5-orange)](./profiles/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
@@ -13,13 +13,13 @@ Especification-Driven Development: procesos estructurados que fuerzan claridad a
 ## 🔄 Nuevo Flujo (V2)
 
 ```
-discover → constitution → spec → clarify → plan → review → tasks → implement → validate → variants
+discover → constitution → backlog → story → spec → clarify → plan → review → tasks → pair → implement → validate → variants
     ↓           ↓          ↓        ↓        ↓        ↓         ↓          ↓            ↓
-[setup    [principios  [RF-EARS  [QA      [arquitectura [suposiciones [TDD       [RF→Test
- detected]   inneg.)     mapping] loop]    decisions]     review]      enforced]   coverage]
-           ↓          ↓        ↓        ↓        ↓         ↓          ↓            ↓
-        [human   [human   [human   [human   [human   [human   [human      [human
-         approval] approval] approval] approval] approval] approval]  approval]  approval]
+[setup    [principios [backlog [story [RF-EARS [QA      [arquitectura [suposiciones [TDD       [pair      [TDD       [RF→Test
+ detected]   inneg.]   historias[refinar] mapping] loop]    decisiones]     review]     [tareas]   [pair TDD]   [implement] enforced]   coverage]
+           ↓          ↓         ↓       ↓     ↓      ↓        ↓        ↓        ↓        ↓          ↓          ↓            ↓
+        [human   [human   [human  [human [human   [human   [human   [human   [human   [human    [human      [human      [human
+         approval] approval] approval] approval] approval] approval] approval] approval] approval] approval] approval] approval]
 
 Los `↓` indican **approval gates** donde se requiere confirmación humana antes de continuar.
 
@@ -30,11 +30,14 @@ Los `↓` indican **approval gates** donde se requiere confirmación humana ante
 |-------|-----|--------|
 | `/sdd-discover` | Analizar proyecto, detectar perfil | Matriz de skills |
 | `/sdd-constitution` | Principios innegociables | `docs/constitution.md` |
+| `/sdd-backlog` | Backlog de historias de usuario | `specs/NNN-xxx/backlog.md` |
+| `/sdd-story` | Refinar historia con AC y mini plan | `specs/NNN-xxx/story-01.md` |
 | `/sdd-spec` | Especificación RF-EARS | `specs/NNN-xxx/spec.md` |
 | `/sdd-clarify` | QA automático | Notas en spec.md |
 | `/sdd-review` | Review de suposiciones y decisiones | `specs/NNN-xxx/review.md` |
 | `/sdd-plan` | Diseño técnico | `specs/NNN-xxx/plan.md` |
 | `/sdd-tasks` | Tareas verificables | `specs/NNN-xxx/tasks.md` |
+| `/sdd-pair` | Pair programming TDD paso a paso | Código + tests por historia |
 | `/sdd-implement` | Implementación TDD | Código + tests |
 | `/sdd-validate` | Validación RF→Test | Tabla trazabilidad |
 | `/sdd-variants` | Multi-variant exploration | `variants-ranking.md` |
@@ -49,14 +52,64 @@ Los `↓` indican **approval gates** donde se requiere confirmación humana ante
 | `mobile` | Flutter, RN, Swift | Lifecycle, memory leaks, platform parity |
 | `infrastructure` | Docker, K8s, Terraform | IaC, security-first, immutability |
 
+## 🎭 Historias de Usuario y Vertical Slicing
+
+Integramos el enfoque de **hola-ai** para destilar ideas antes de especificar:
+
+| Fase | Skill | Qué hace |
+|------|-------|----------|
+| Backlog | `/sdd-backlog` | Idea vaga → historias de usuario verticales (1 línea cada una) |
+| Story | `/sdd-story` | Una historia → AC Given/When/Then + mini plan (≤5 bullets) |
+| Pair | `/sdd-pair` | Pair programming TDD: un test → código mínimo → parar |
+
+**Principios:**
+- **No inventar:** la información faltante se pregunta, no se rellena
+- **Lo más simple que funcione:** ninguna abstracción "para el futuro"
+- **Cortar vertical y pequeño:** historias cruzan todas las capas; pasos son un test y ~50 líneas
+- **Sugerir, no decidir:** patrones y refactors son tu decisión
+- **Checkpoints explícitos:** cada fase espera tu aprobación
+
 ## 🚀 Quick Start
 
 ```bash
 # Descubrir perfil del proyecto
 /sdd-discover
 
-# Wizard completo
-/sdd-flow "funcionalidad: login Dofus con OAuth"
+# Crear constitución (principios innegociables)
+/sdd-constitution
+
+# Destilar idea en historias de usuario
+/sdd-backlog "idea de funcionalidad"
+
+# Refinar una historia con acceptance criteria
+/sdd-story "historia seleccionada"
+
+# Especificar en RF-EARS
+/sdd-spec
+
+# Validar calidad de spec
+/sdd-clarify
+
+# Diseñar plan técnico
+/sdd-plan
+
+# Revisar suposiciones (opcional)
+/sdd-review
+
+# Descomponer en tareas
+/sdd-tasks
+
+# Implementar tarea con TDD
+/sdd-implement T1
+
+# O pair programming paso a paso
+/sdd-pair "historia"
+
+# Validar cobertura completa
+/sdd-validate
+
+# Explorar variantes de implementación
+/sdd-variants
 ```
 
 ## 📥 Instalación
@@ -82,14 +135,17 @@ npx skills ls | grep sdd
 
 ```
 sdd-skills/
-├── skills/                    # 10 skills principales
+├── skills/                    # 13 skills principales
 │   ├── sdd-discover/       # Meta-skill router
 │   ├── sdd-constitution/
+│   ├── sdd-backlog/
+│   ├── sdd-story/
 │   ├── sdd-spec/
 │   ├── sdd-clarify/
 │   ├── sdd-review/
 │   ├── sdd-plan/
 │   ├── sdd-tasks/
+│   ├── sdd-pair/
 │   ├── sdd-implement/
 │   ├── sdd-validate/
 │   ├── sdd-variants/
@@ -114,9 +170,10 @@ sdd-skills/
 
 1. **Descubrimiento primero** — `/sdd-discover` antes de todo
 2. **Reglas por perfil** — Cada tecnología tiene sus constraints
-3. **Anti-racionalizaciones** — Prevenir atajos peligrosos
-4. **Verification gates** — Checkpoints obligatorios entre fases
-5. **Definition of Done** — Barra de calidad universal
+3. **Historias de usuario y vertical slicing** — Destilar ideas en historias pequeñas que cruzan todas las capas (`/sdd-backlog`, `/sdd-story`, `/sdd-pair`)
+4. **Anti-racionalizaciones** — Prevenir atajos peligrosos
+5. **Verification gates** — Checkpoints obligatorios entre fases
+6. **Definition of Done** — Barra de calidad universal
 
 ## 🛡️ Anti-Patterns Protegidos
 
