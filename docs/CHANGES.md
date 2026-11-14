@@ -102,14 +102,16 @@ El repositorio tiene los ingredientes correctos (skills autocontenidas, approval
 | sdd-spec/spec-template.md | ✅ Actualizado | Formato RF-EARS limpio |
 | README.md | ✅ Actualizado | Flujo unificado con sdd-variants, 10 skills listados |
 | AGENTS.md | ✅ Actualizado | Flujo unificado con approval gates ↓ |
-| sdd-discover/SKILL.md | ✅ Actualizado | Eliminadas secciones duplicadas, flujo unificado |
-| sdd-flow/SKILL.md | ✅ Actualizado | Integrado sdd-variants como Phase 8 con gate obligratorio |
+| sdd-discover/SKILL.md | ✅ Actualizado | clarification.status en output, gates de bloqueo |
+| sdd-flow/SKILL.md | ✅ Actualizado | Integrado sdd-variants como Phase 8, CLARIFY en diagrama de gates |
 | sdd-validate/SKILL.md | ✅ Actualizado | Validación constitucional, fail-closed, evidencia de código requerida |
 | sdd-variants/SKILL.md | ✅ Actualizado | Scoring objetivo con pesos explícitos y umbrales |
 | verifications-gates.md | ✅ Actualizado | Corregidos typos (Adiconals→Additional, ASUMPTIONS) |
-| sdd-plan/SKILL.md | ✅ Actualizado | Corregido typo (coBERTURA→COBERTURA) |
+| sdd-plan/SKILL.md | ✅ Actualizado | Gate clarification.status = PASS requerido |
+| sdd-tasks/SKILL.md | ✅ Actualizado | Gate de plan aprobado requerido |
+| sdd-implement/SKILL.md | ✅ Actualizado | Gate de tarea aprobada, parar después de cada tarea |
 | sdd-clarify/SKILL.md | ✅ Actualizado | QA con severidad, nuevas categorías, verification gates |
-| .sdd-state.json | ✅ Actualizado | Añadido flow.phases con variants incluido y clarification.status |
+| .sdd-state.json | ✅ Actualizado | flow.phases, clarification.status, specs tracking |
 
 ---
 
