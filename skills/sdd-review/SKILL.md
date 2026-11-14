@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Proporciona una revisión profunda de especificaciones y planes técnicos mediante el patrón doubt-driven-development. Detecta ambigüedades en suposiciones, genera preguntas de crítica adversariales, y propone alternativas técnicas viables.
 
-## 🛡️ ASUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS I'M MAKING:
 
 1. El spec existe en `specs/NNN-xxx/spec.md` con una sección de suposiciones explícitas
 2. El usuario quiere validar decisiones técnicas antes de implementar

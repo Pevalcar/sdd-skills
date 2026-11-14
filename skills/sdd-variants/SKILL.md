@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Crea y evalúa múltiples enfoques de implementación para una funcionalidad, produciendo una shortlist ranqueada.
 
-## 🛡️ ASUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS I'M MAKING:
 
 1. La spec existe en `specs/NNN-xxx/spec.md`
 2. El usuario quiere explorar alternativas de implementación

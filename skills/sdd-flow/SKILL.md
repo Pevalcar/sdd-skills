@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Orquesta todo el flujo Spec-Driven Development como un asistente interactivo.
 
-## 🛡️ ASUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS I'M MAKING:
 
 1. El repositorio tiene un directorio de trabajo válido
 2. Usuario quiere iniciar nuevo flujo SDD o reanudar existente
@@ -48,11 +48,20 @@ Guarda estado en: `.sdd-state.json`
   "version": "2.1.0",
   "current_phase": "spec",
   "approved_phases": ["setup", "constitution"],
-  "profiles_active": ["web-frontend"],
+  "profiles_active": [],
   "specs_count": 1,
   "tasks_total": 0,
   "tasks_completed": 0,
-  "last_checkpoint": "2026-01-15T10:30:00Z"
+  "last_checkpoint": null,
+  "clarification": {
+    "status": "pending",
+    "qa_verdict": null,
+    "critical_issues": [],
+    "high_issues": [],
+    "medium_issues": [],
+    "last_run": null
+  },
+  "specs": {}
 }
 ```
 
@@ -60,7 +69,7 @@ Guarda estado en: `.sdd-state.json`
 
 ### Phase 0: Setup
 **Invoca:** `/sdd-setup` → `/sdd-constitution`
-- Verificar si `AGENT.md` existe
+- Verificar si `AGENTS.md` existe
 - Verificar si `docs/constitution.md` existe
 - Crear ambos si no existen
 - **PAUSED:** Espera aprobación humana
@@ -69,13 +78,13 @@ Guarda estado en: `.sdd-state.json`
 **Invoca:** `/sdd-spec`
 - Entrevista secuencial (máx 6 preguntas)
 - Genera `specs/001-xxx/spec.md` con:
-  - Objective
-  - Tech Stack
-  - Commands
-  - Project Structure
-  - Testing Strategy
-  - Boundaries (Always/Ask/Never)
-  - Success Criteria (RF en EARS)
+  - Objetivo y contexto
+  - Usuarios e historias de usuario
+  - RF en notación EARS
+  - Requisitos no funcionales
+  - Casos límite
+  - Fuera de alcance
+  - Dudas abiertas [NECESITA ACLARACIÓN]
 - **PAUSED:** Espera aprobación humana antes de continuar
 
 ### Phase 2: Clarificación QA (loop)
@@ -179,7 +188,7 @@ Cada fase tiene un checklist de verificación que debe pasarse:
 ## Output esperado
 
 Al finalizar, tendrás:
-- `AGENT.md` (raíz del proyecto)
+- `AGENTS.md` (raíz del proyecto)
 - `CLAUDE.md` (raíz del proyecto, referencia a AGENT.md)
 - `docs/constitution.md`
 - `specs/001-xxx/spec.md`

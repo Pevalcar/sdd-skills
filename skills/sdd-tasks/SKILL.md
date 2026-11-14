@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Descompone el plan en tareas implementables paso a paso.
 
-## 🛡️ ASUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS I'M MAKING:
 
 1. El plan técnico existe en `specs/NNN-xxx/plan.md` y está aprobado
 2. Las tareas serán ≤ 30 minutos cada una

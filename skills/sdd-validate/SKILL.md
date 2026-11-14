@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Comprueba que cada requisito funcional está cubierto, tiene evidencia de código y cumple la constitución. Fail-closed: si falta algo, se rechaza.
 
-## 🛡️ ASUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS I'M MAKING:
 
 1. La spec existe en `specs/NNN-xxx/spec.md`
 2. Los tests existen en directorio `tests/` o `test/`
@@ -61,9 +61,9 @@ SPEC → PLAN → TASKS → IMPLEMENT → VALIDATE → VARIANTS
 
 | RF | Test | Código | Resultado | Comentario |
 |---|---|---|---|---|
-| RF-1 | test_create_user | src/user.js: createUser() | ✅ PASA | ... |
-| RF-2 | test_login_flow | ⚠️ SIN CÓDIGO | ❌ FALLA | Test mockea en vez de usar código real |
-| RF-3 | test_invalid_input | src/validators.js | ✅ PASA | ... |
+| RF-1 | test_rf_1 | src/rf1.js: rf1() | ✅ PASA | ... |
+| RF-2 | test_rf_2 | src/rf2.js: rf2() | ❌ FALLA | Test falla, código incompleto |
+| RF-3 | test_rf_3 | src/rf3.js: rf3() | ✅ PASA | ... |
 
 ## Constitution Compliance
 
@@ -100,7 +100,7 @@ SPEC → PLAN → TASKS → IMPLEMENT → VALIDATE → VARIANTS
 
 ## Veredicto
 
-**Elegir uno:** [ ] ✅ Spec cumplida | [ ] ⚠️ Incompleta | [ ] ❌ Rechazada
+**Elegir uno:** [ ] ✅ Spec cumplida | [ ] ❌ Rechazada
 
 **Razón:** <explicación breve con razones específicas>
 ```

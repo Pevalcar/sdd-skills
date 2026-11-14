@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Identifica problemas en una spec antes de pasar a planificación. Elimina dudas, conflictos y casos faltantes.
 
-## 🛡️ ASUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS I'M MAKING:
 
 1. La spec existe en `specs/NNN-xxx/spec.md` (NNN = número de feature)
 2. La constitución opcionalmente existe en `docs/constitution.md`

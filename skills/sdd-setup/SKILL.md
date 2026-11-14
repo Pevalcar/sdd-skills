@@ -10,11 +10,11 @@ Crea el entorno inicial necesario para un flujo SDD:
 1. AGENT.md siguiendo tu template
 2. docs/constitution.md con principios 6 innegociables
 
-## 🛡️ ASUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS I'M MAKING:
 
 1. El proyecto no tiene AGENT.md o docs/constitution.md (primer setup)
 2. El usuario quiere crear un flujo SDD nuevo o continuar uno existente
-3. La template a seguir es la del ejemplo: habits-cli
+3. La template a seguir es genérica para cualquier proyecto
 4. La constitución debe tener máximo 15 líneas de 6 principios verificables
 → Correct me now or I'll proceed.
 
@@ -110,37 +110,36 @@ Usar el template proporcionado:
 ```markdown
 # Constitución — <Nombre Proyecto>
 
-1. **Stack mínimo.** Python 3.x + máximo 5 dependencias externas. Cero bibliotecas innecesarias.
-2. **Spec antes que código.** TODO requisito documentado en spec.md antes de implementar.
-3. **Separación lógica.** `habits/` (lógica), `tests/` (tests), `habits.json` (persistencia).
-4. **Tests obligatorios.** 100% cobertura de funcionalidad nueva. pytest -q para ejecución.
-5. **Persistencia controlada.** datos en `habits.json` JSON legible. Nunca sobrescribir archivo corrupto.
-6. **Idioma.** Python en español, mensajes de usuario en español claro.
+1. **Stack mínimo.** <lenguaje> + <máx N dependencias>. <restricción>.
+2. **Spec antes que código.** <cómo se valida>.
+3. **Separación lógica.** <qué capas existen y su responsabilidad>.
+4. **Tests obligatorios.** <quién escribe, cobertura mínima>.
+5. **Persistencia controlada.** <qué se guarda, cómo, cuándo>.
+6. **Idioma.** <idioma, convenciones>.
 ```
 
-### AGENT.md
+### AGENTS.md
 
 ```markdown
-# AGENTS.md — habits-cli
+# AGENTS.md — <proyecto>
 
 ## Proyecto
-Una app de terminal en Python para registrar hábitos de estudio y ver tu racha de días consecutivos.
+<Qué es, en 2-3 frases. Arquitectura, tecnologías..>
 
 ## Comandos
-- Ejecutar: `python -m habits <comando>`
-- Tests: `pytest -q tests/`
-- Lint/formato: `ruff format . && ruff check .`
+- Ejecutar: `<comando>`
+- Tests: `<comando>`
+- Lint/formato: `<comando>`
 
 ## Estilo y convenciones
-Python 3.11, tipado dinámico, mensajes claros en español, logging minimalista.
+<Versión del lenguaje, convenciones de nombres, idioma del código y mensajes.>
 
 ## Reglas
 - Lee docs/constitution.md y la spec activa antes de tocar código.
-- No modificar habits.json sin backup previo.
+- <Límites: qué no tocar, qué no añadir sin preguntar.>
 
 ## Al terminar cualquier tarea
-- Ejecutar `pytest -q` y verificar todos los tests pasan.
-- Verificar no hay warnings ni errores.
+- <Verificación obligatoria, p. ej. ejecutar los tests.>
 ```
 
 ## Verification

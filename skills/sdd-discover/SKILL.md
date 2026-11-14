@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Analiza el estado del proyecto, determina en qué fase del flujo SDD estás, y recomienda (o bloquea) la siguiente skill. **No ejecuta ninguna fase**: solo enruta y protege los gates.
 
-## 🛡️ ASUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS I'M MAKING:
 
 1. El directorio de trabajo actual (`pwd`) es la raíz del proyecto.
 2. El estado del flujo se persiste en `.sdd-state.json` (si existe).
@@ -70,7 +70,7 @@ Muestra al usuario el estado actual del proyecto:
 
 ```
 🔍 Estado del proyecto:
-   AGENT.md: ✅ existe
+   AGENTS.md: ✅ existe
    docs/constitution.md: ✅ existe
    specs/: ✅ 1 spec encontrada
    tests/: ❌ sin tests aún

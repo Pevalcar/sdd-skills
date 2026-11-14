@@ -11,7 +11,7 @@ contrato: si algo no está aquí, no se implementa.
 
 ## 🛡️ ASUMPTIONS I'M MAKING:
 
-1. La constitución existe en `docs/constitution.md` o no es necesaria
+1. La constitución existe en `docs/constitution.md` y está aprobada
 2. El idioma de los requisitos será el del usuario/constitución
 3. Si el request describe múltiples capabilities independientes (identity, billing, notifications), primero se crea un capability map
 4. El tech stack y comandos se definen en el plan, no en la spec

@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Convierte una spec en un plan de implementación sin escribir código.
 
-## 🛡️ ASUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS I'M MAKING:
 
 1. La spec aprobada existe en `specs/NNN-xxx/spec.md`
 2. La constitución existe en `docs/constitution.md`
@@ -55,7 +55,7 @@ Convierte una spec en un plan de implementación sin escribir código.
 ## Contrato de la CLI
 | Comando | Entrada | Salida | Código error |
 |---|---|---|---|
-| habits add | <args> | <output> | <código> |
+| <comando> | <args> | <output> | <código> |
 
 ## Decisiones técnicas
 - **Decisión 1**: <justificación>

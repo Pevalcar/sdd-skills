@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Implementa tareas pequeñas siguiendo TDD y el plan. Usa el ciclo incremental: Implement → Test → Verify → Commit.
 
-## 🛡️ ASUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS I'M MAKING:
 
 1. La tarea Tn existe en `specs/NNN-xxx/tasks.md` y no tiene otros trabajos pendientes
 2. El test framework está configurado (pytest/Jest/GUT según perfil detectado)
@@ -173,4 +173,4 @@ Antes de declarar tarea completada:
 
 ## See Also
 
-Per-skill verification is the local check. Before declaring a task done, apply the project-wide Definition of Done as the final gate, the standing bar every increment clears regardless of the task. See `../../references/definition-of-done.md`.
+Per-skill verification is the local check. Before declaring a task done, apply the project-wide Definition of Done as the final gate, the standing bar every increment clears regardless of the task. See `references/definition-of-done.md`.
