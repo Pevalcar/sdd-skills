@@ -10,16 +10,17 @@ Sistema completo de **skills OpenCode** para desarrollo guiado por especificaci�
 
 Especification-Driven Development: procesos estructurados que fuerzan claridad antes de escribir código. Cada skill es autocontenida con su propia documentación, reglas de dominio y verificación.
 
-## 🔄 Nuevo Flujo (V2)
+## 🔄 Nuevo Flujo (V2.1)
 
 ```
-discover → constitution → backlog → spec → clarify → plan → review → tasks → implement → validate → variants
-    ↓           ↓          ↓        ↓        ↓         ↓          ↓            ↓
-[setup    [principios [backlog [RF-EARS [QA      [arquitectura [suposiciones [TDD       [pair      [TDD       [RF→Test
- detected]   inneg.]   historias[refinar] mapping] loop]    decisiones]     review]     [tareas]   [implement] enforced]   coverage]
-           ↓          ↓         ↓       ↓     ↓      ↓        ↓        ↓        ↓          ↓          ↓            ↓
-        [human   [human   [human  [human   [human   [human   [human   [human   [human    [human      [human      [human
-         approval] approval] approval] approval] approval] approval] approval] approval] approval] approval] approval]
+sdd-discover → constitution → backlog → spec → clarify → plan → review → tasks → implement → validate → variants
+    ↓           ↓          ↓        ↓        ↓         ↓          ↓            ↓           ↓
+[setup    [principios [backlog [RF-EARS [QA      [arquitectura [suposiciones [TDD       [TDD       [RF→Test
+ detected]   inneg.)   historias [mapping] loop]    decisiones]     review]     [tareas]   [implement] enforced] coverage]
+           ↓          ↓         ↓       ↓     ↓      ↓        ↓           ↓           ↓
+        [human   [human   [human  [human   [human   [human   [human      [human      [human      [human
+         approval] approval] approval] approval] approval] approval] approval]   approval]   approval]
+```
 
 Los `↓` indican **approval gates** donde se requiere confirmación humana antes de continuar.
 
@@ -124,7 +125,7 @@ npx skills ls | grep sdd
 
 ```
 sdd-skills/
-├── skills/                    # 13 skills principales
+├── skills/                    # 11 skills core
 │   ├── sdd-discover/       # Meta-skill router
 │   ├── sdd-constitution/
 │   ├── sdd-backlog/
@@ -196,6 +197,15 @@ cp -r skills/sdd-template/ skills/sdd-nuevo/
 - [INVEST Patterns](./docs/INVEST-patterns.md)
 - [Definición de Done](./references/definition-of-done.md)
 - [Checklist Verificación](./references/verification-gates.md)
+
+## 🤗 Apoyo
+
+Si este proyecto te ha ayudado, considera apoyar al creador:
+
+- 💙 [Buy Me a Coffee](https://buymeacoffee.com/geomemsolun) - Compra un café para el desarrollador
+- 📧 [Contacto](mailto:geomemsolun@example.com) - Preguntas y sugerencias
+
+Tu apoyo ayuda a mantener este proyecto actualizado y libre de anuncios intrusivos.
 
 ## 📄 Licencia
 
