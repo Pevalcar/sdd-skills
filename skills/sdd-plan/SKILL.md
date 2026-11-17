@@ -1,9 +1,14 @@
 ---
 name: sdd-plan
 description: "Genera specs/NNN-<slug>/plan.md con arquitectura de módulos, File Impact Map, modelo de datos, ADRs con trade-offs y cobertura estratificada de RF, alineado con AGENTS.md, constitution.md y spec.md."
-version: 2.0.0
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** `approved_phases` incluye `clarify`, `spec`, `active_spec_dir`
+- **Produce:** `spec.md`, `plan.md`, actualiza `approved_phases` con `plan`
+- **Desbloquea:** `/sdd-review`, `/sdd-tasks`
 
 # Planificador Técnico SDD — Arquitectura & Diseño sin Código
 

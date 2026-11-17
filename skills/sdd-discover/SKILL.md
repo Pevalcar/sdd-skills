@@ -1,8 +1,14 @@
 ---
 name: sdd-discover
 description: "Meta-skill que analiza el proyecto y rutea al skill apropiado según el dominio detectado y estado del flujo SDD."
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** `.sdd-state.json` (estado actual del flujo), detección de perfil tecnológico
+- **Produce:** recomienda la siguiente skill válida, `current_phase`, `next_allowed_phase`
+- **Desbloquea:** la siguiente skill del flujo según el estado actual
 
 # Descubridor SDD — Enrutamiento cognitivo
 

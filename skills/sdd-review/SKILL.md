@@ -1,8 +1,14 @@
 ---
 name: sdd-review
 description: "Review profundo de specs y planes usando doubt-driven development. Genera preguntas de crítica y alternativas técnicas."
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** `approved_phases` incluye `plan`, `spec`, `active_spec_dir`
+- **Produce:** `review.md`, actualiza `approved_phases` con `review`
+- **Desbloquea:** `/sdd-tasks`
 
 # Generador de Revisiones SDD - Doubt-driven review
 

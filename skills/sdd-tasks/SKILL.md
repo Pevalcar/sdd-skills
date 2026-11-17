@@ -1,9 +1,14 @@
 ---
 name: sdd-tasks
 description: "Descompone specs/NNN-<slug>/plan.md en tareas atómicas y verificables (specs/NNN-<slug>/tasks.md), ordenadas topológicamente con control de blast radius (≤3 archivos/tarea) y criterios TDD."
-version: 2.0.0
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** `approved_phases` incluye `plan`, `spec`, `active_spec_dir`
+- **Produce:** `tasks.md`, actualiza `approved_phases` con `tasks`, `next_allowed_phase = sdd-implement`
+- **Desbloquea:** `/sdd-implement T1`
 
 # Generador de Tareas SDD — Atomicity & TDD Blueprint
 

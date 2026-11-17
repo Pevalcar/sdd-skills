@@ -1,9 +1,14 @@
 ---
 name: sdd-validate
 description: "Auditoría forense final RF→Test→Código, cumplimiento constitucional (P-001…P-0NN), detección de Scope Drift y Test Integrity Check. Veredicto binario fail-closed: APPROVED o REJECTED."
-version: 2.0.0
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** `approved_phases` incluye `implement`, `spec`, `plan`, `active_spec_dir`
+- **Produce:** `validation-report.md`, actualiza `approved_phases` con `validate`, `cycle_status = SHIPPED` o `REJECTED`
+- **Desbloquea:** ningún skill (cierre del ciclo)
 
 # Validador SDD — Auditoría Forense & Gate de Cierre (Fail-Closed)
 

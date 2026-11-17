@@ -7,8 +7,8 @@ Sistema completo de skills para desarrollo guiado por especificación. Universal
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                      Core SDD                               │
-│   discover → constitution → spec → clarify → plan          │
-│            → review → tasks → implement → validate          │
+│   discover → constitution → backlog → spec → clarify       │
+│            → plan → review → tasks → implement → validate   │
 │            → variants                                          │
 └─────────────────────────────────────────────────────────────┘
                            ↕
@@ -25,12 +25,13 @@ Sistema completo de skills para desarrollo guiado por especificación. Universal
 
 ---
 
-## Skills Core (10)
+## Skills Core (11)
 
 | Skill | Uso | Output |
 |-------|-----|--------|
 | `/sdd-discover` | Analizar proyecto, detectar perfil | Matriz de skills aplicables |
 | `/sdd-constitution` | Crear constitución del proyecto | `docs/constitution.md` |
+| `/sdd-backlog` | Backlog de historias de usuario | `specs/NNN-xxx/backlog.md` |
 | `/sdd-spec` | Generar especificación RF-EARS | `specs/NNN-xxx/spec.md` |
 | `/sdd-clarify` | Revisión QA automática | Notas en spec.md |
 | `/sdd-review` | Review de suposiciones y decisiones | `specs/NNN-xxx/review.md` |
@@ -94,11 +95,12 @@ Sistema completo de skills para desarrollo guiado por especificación. Universal
 
 # O paso a paso:
 /sdd-constitution     # Crear principios innegociables
+/sdd-backlog          # Destilar idea en historias de usuario verticales
 /sdd-spec             # Especificar QUÉ construir
 /sdd-clarify          # Validar calidad de spec
 /sdd-plan             # Diseñar CÓMO construir
 /sdd-review           # Revisar suposiciones y alternativas
-/sdd-tasks            # Descomponer en unidades
+/sdd-tasks            # Descomponer en tareas
 /sdd-implement T1     # Implementar tarea 1
 /sdd-validate         # Verificar cobertura completa
 /sdd-variants          # Explorar alternativas y ganar la mejor
@@ -131,7 +133,7 @@ El sistema guarda estado persistente en `.sdd-state.json`:
   "tasks_completed": 0,
   "last_checkpoint": null,
   "flow": {
-    "phases": ["setup", "constitution", "spec", "clarify", "plan", "review", "tasks", "implement", "validate", "variants"],
+    "phases": ["setup", "constitution", "backlog", "spec", "clarify", "plan", "review", "tasks", "implement", "validate", "variants"],
     "current_phase_index": 0,
     "approved_gates": []
   }
@@ -147,10 +149,21 @@ Comandos de control:
 
 ## Cambios recientes (v2.1.0)
 
+- **Skills eliminadas:** `sdd-pair`, `sdd-story` (funcionalidad integrada en otros skills)
 - **sdd-review:** Ahora es fase obligatoria entre plan y tasks
 - **sdd-variants:** Ahora es fase obligatoria con gate de aprobación
 - **sdd-validate:** Fail-closed, requiere evidencia de código + Constitution compliance
-- **sdd-flow:** Integrado sdd-variants como Phase 8 con gate obligratorio
+- **sdd-flow:** Integrado sdd-variants como Phase 10 con gate obligatorio
+- **Contexto compartido:** Cada skill incluye bloque de contexto de consumo/producción
+- **Estandarización frontmatter:** todas las skills tienen version 2.1.0 y bloque de contexto
+
+---
+
+## Skills Eliminadas (V2.1)
+
+Las siguientes skills han sido **eliminadas**:
+- **`sdd-pair`** — Su funcionalidad está cubierta por `sdd-implement` con verificación humana por tarea
+- **`sdd-story`** — Su funcionalidad está integrada en `sdd-backlog` y `sdd-spec`
 
 ---
 

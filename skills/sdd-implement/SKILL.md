@@ -1,11 +1,16 @@
 ---
 name: sdd-implement
 description: "Implementa tareas atómicas de specs/NNN-<slug>/tasks.md siguiendo TDD estricto (RED → GREEN → REFACTOR → VERIFY → COMMIT), auditoría de blast radius y control de gates en .sdd-state.json."
-version: 2.0.0
+version: 1.0.0
 disable-model-invocation: true
 ---
 
-# Implementador SDD — TDD Estricto & Ejecución Incremental
+## Contexto compartido
+- **Consume:** `approved_phases` incluye `tasks`, `active_spec_dir`, tarea específica `Tn` con `RF cubiertos`
+- **Produce:** código + tests, marca `[x] Tn` en `tasks.md`, actualiza `.sdd-state.json` al completar `T-FINAL`
+- **Desbloquea:** `/sdd-validate`
+
+# Implementador SDD — TDD Estrícto & Ejecución Incremental
 
 Ejecuta las tareas aprobadas en `specs/NNN-<slug>/tasks.md` una a la vez mediante desarrollo guiado por pruebas (**RED → GREEN → REFACTOR**), respetando el alcance de archivos (`≤ 3 archivos/tarea`) y los principios innegociables de `docs/constitution.md`.
 

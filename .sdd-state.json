@@ -1,5 +1,5 @@
 {
-  "version": "2.1.0",
+  "version": "1.0.0",
   "current_phase": "constitution_approved",
   "approved_phases": ["constitution"],
   "profiles_active": [],
@@ -17,27 +17,18 @@
     "reason": "Constitution approved, ready for backlog of user stories"
   },
   "flow": {
-    "phases": ["setup", "constitution", "backlog", "story", "spec", "clarify", "plan", "review", "tasks", "pair", "implement", "validate", "variants"],
+    "phases": ["setup", "constitution", "backlog", "spec", "clarify", "plan", "review", "tasks", "implement", "validate", "variants"],
     "current_phase_index": 1,
     "approved_gates": ["constitution"]
   },
   "clarification": {
     "status": "pending",
-    "qa_verdict": null,
-    "critical_issues": [],
-    "high_issues": [],
-    "medium_issues": [],
-    "last_run": null
+    "verdict": null,
+    "report_path": null
   },
   "backlog": {
     "status": "pending",
-    "stories_count": 0
-  },
-  "stories": {},
-  "pair": {
-    "current_story": null,
-    "tests_completed": 0,
-    "status": "idle"
+    "stories": []
   },
   "specs": {}
 }

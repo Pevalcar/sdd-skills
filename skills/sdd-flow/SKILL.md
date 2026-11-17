@@ -1,8 +1,14 @@
 ---
 name: sdd-flow
-description: "Orquesta todo el flujo SDD: setup → constitution → backlog → story → spec → clarify → plan → review → tasks → pair → implement → validate → variants. Un wizard interactivo que respeta verification gates."
+description: "Orquesta todo el flujo SDD: setup → constitution → backlog → spec → clarify → plan → review → tasks → implement → validate → variants. Un wizard interactivo que respeta verification gates."
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** `.sdd-state.json`, perfil detectado por `sdd-discover`
+- **Produce:** actualiza `current_phase`, `approved_phases`, `gate_status` tras cada fase aprobada
+- **Desbloquea:** cada skill del flujo según el gate superado
 
 # Wizard SDD — Desarrollo guiado por especificación
 
@@ -56,21 +62,12 @@ Guarda estado en: `.sdd-state.json`
   "last_checkpoint": null,
   "clarification": {
     "status": "pending",
-    "qa_verdict": null,
-    "critical_issues": [],
-    "high_issues": [],
-    "medium_issues": [],
-    "last_run": null
+    "verdict": null,
+    "report_path": null
   },
   "backlog": {
     "status": "pending",
-    "stories_count": 0
-  },
-  "stories": {},
-  "pair": {
-    "current_story": null,
-    "tests_completed": 0,
-    "status": "idle"
+    "stories": []
   },
   "specs": {}
 }
@@ -97,17 +94,7 @@ Guarda estado en: `.sdd-state.json`
 - Genera `specs/001-xxx/backlog.md`
 - **PAUSED:** Espera aprobación humana del backlog
 
-### Phase 2: Story (Refinamiento)
-
-**Invoca:** `/sdd-story`
-
-- Toma UNA historia del backlog
-- Añade acceptance criteria en Given/When/Then
-- Mini plan de ≤5 bullets, sin código ni nombres de archivo
-- Genera `specs/001-xxx/story-01.md`
-- **PAUSED:** Espera aprobación humana de la historia refinada
-
-### Phase 3: Especificación (SPEC)
+### Phase 2: Especificación (SPEC)
 
 **Invoca:** `/sdd-spec`
 
@@ -122,7 +109,7 @@ Guarda estado en: `.sdd-state.json`
   - Dudas abiertas [NECESITA ACLARACIÓN]
 - **PAUSED:** Espera aprobación humana antes de continuar
 
-### Phase 4: Clarificación QA (loop)
+### Phase 3: Clarificación QA (loop)
 
 **Invoca:** `/sdd-clarify`
 
@@ -133,7 +120,7 @@ Guarda estado en: `.sdd-state.json`
 - **PAUSED:** Preguntar: "¿Spec clarificada? Sí / No (volver a clarify)"
 - **LOOP:** Si no, volver a sdd-clarify hasta que esté claro
 
-### Phase 5: Planificación
+### Phase 4: Planificación
 
 **Invoca:** `/sdd-plan`
 
@@ -147,7 +134,7 @@ Guarda estado en: `.sdd-state.json`
   - Cobertura RF por módulo
 - **PAUSED:** Espera aprobación humana antes de continuar
 
-### Phase 6: Revisión de decisiones
+### Phase 5: Revisión de decisiones
 
 **Invoca:** `/sdd-review`
 
@@ -157,7 +144,7 @@ Guarda estado en: `.sdd-state.json`
 - Producir `specs/001-xxx/review.md`
 - **PAUSED:** ¿Se aprueba el plan de implementación? Sí / No
 
-### Phase 7: Tareas
+### Phase 6: Tareas
 
 **Invoca:** `/sdd-tasks`
 
@@ -167,16 +154,7 @@ Guarda estado en: `.sdd-state.json`
 - Checkbox con "Hecho cuando:" verificable
 - **PAUSED:** Espera aprobación humana
 
-### Phase 8: Pair Programming (alternativa a Implement)
-
-**Invoca:** `/sdd-pair`
-
-- Pair programming TDD paso a paso para una historia refinada
-- Un test → rojo → código mínimo → verde → parar
-- Un paso a la vez, esperar aprobación del usuario
-- **PAUSED:** Después de cada paso, preguntar si continuar
-
-### Phase 9: Implementación (TDD por tarea)
+### Phase 7: Implementación (TDD por tarea)
 
 **Invoca:** `/sdd-implement`
 
@@ -191,7 +169,7 @@ Por iteración:
 7. Marca `[x] Tn` en tasks.md
 8. **PAUSED:** "Tarea Tn completada. ¿Continuar con T(n+1)?"
 
-### Phase 10: Validación final
+### Phase 8: Validación final
 
 **Invoca:** `/sdd-validate`
 
@@ -200,7 +178,7 @@ Por iteración:
 - Estado: ✅ PASA / ❌ FALLA / ⚠️ SIN TEST
 - Veredicto: "✅ Spec cumplida" o lista pendientes
 
-### Phase 11: Variants (OBLIGATORIO)
+### Phase 9: Variants
 
 **Invoca:** `/sdd-variants`
 
@@ -225,11 +203,11 @@ Por iteración:
 El wizard respeta los gates de verificación:
 
 ```
-SETUP → CONSTITUTION → BACKLOG → STORY → SPEC → CLARIFY → PLAN → REVIEW → TASKS → PAIR → IMPLEMENT → VALIDATE → VARIANTS
-    │          │         │       │     │      │       │     │       │     │    │        │         │          │
-    ▼          ▼         ▼       ▼     ▼      ▼       ▼     ▼       ▼     ▼    ▼        ▼         ▼          ▼
-  HUMAN      HUMAN     HUMAN   HUMAN   HUMAN   HUMAN   HUMAN   HUMAN   HUMAN   HUMAN   HUMAN      HUMAN      HUMAN
-  REVIEW     REVIEW    REVIEW    REVIEW  REVIEW   REVIEW   REVIEW   REVIEW   REVIEW   REVIEW     REVIEW      REVIEW
+SETUP → CONSTITUTION → BACKLOG → SPEC → CLARIFY → PLAN → REVIEW → TASKS → IMPLEMENT → VALIDATE → VARIANTS
+    │          │         │     │      │       │     │       │     │        │         │          │
+    ▼          ▼         ▼     ▼      ▼       ▼     ▼       ▼     ▼        ▼         ▼          ▼
+  HUMAN      HUMAN     HUMAN   HUMAN   HUMAN   HUMAN   HUMAN   HUMAN   HUMAN    HUMAN      HUMAN
+  REVIEW     REVIEW    REVIEW   REVIEW  REVIEW  REVIEW  REVIEW  REVIEW   REVIEW   REVIEW     REVIEW
 ```
 
 Cada fase tiene un checklist de verificación que debe pasarse:
@@ -237,13 +215,11 @@ Cada fase tiene un checklist de verificación que debe pasarse:
 - **sdd-setup:** AGENTS.md + constitution creados y aprobados
 - **sdd-constitution:** Principios innegociables aprobados por el usuario
 - **sdd-backlog:** Backlog de historias aprobado por el usuario
-- **sdd-story:** Historia refinada con AC aprobada por el usuario
 - **sdd-spec:** Spec con RF-EARS aprobada por el usuario
 - **sdd-clarify:** QA automático pasado (PASS)
 - **sdd-plan:** Arquitectura validada
 - **sdd-review:** Decisiones críticas revisadas y aprobadas
 - **sdd-tasks:** Tasks son accionables
-- **sdd-pair:** Paso de pair programming aprobado por el usuario
 - **sdd-implement:** Tests pasan, tarea marcada como completada
 - **sdd-validate:** DoD checklist pasado + Constitution compliance
 - **sdd-variants:** Gate de aprobación humana para variante recomendada
@@ -256,7 +232,6 @@ Al finalizar, tendrás:
 - `CLAUDE.md` (raíz del proyecto, referencia a AGENTS.md)
 - `docs/constitution.md`
 - `specs/001-xxx/backlog.md`
-- `specs/001-xxx/story-01.md`
 - `specs/001-xxx/spec.md`
 - `specs/001-xxx/plan.md`
 - `specs/001-xxx/review.md`
@@ -264,7 +239,7 @@ Al finalizar, tendrás:
 - `specs/001-xxx/variants-ranking.md`
 - Tests pasando 100%
 - Código mínimo que cumple spec
-- `specs/001-xxx/VALIDATION.md`
+- `specs/001-xxx/validation.md`
 
 ## Reglas del wizard
 

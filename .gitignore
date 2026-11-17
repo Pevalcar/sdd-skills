@@ -15,8 +15,8 @@ coverage/
 .DS_Store
 Thumbs.db
 
-# SDD State
-.sdd-state.json
+# SDD State - example (no cambiar)
+# .sdd-state.json
 
 # SDD Review
 .sdd-review/

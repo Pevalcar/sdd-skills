@@ -1,9 +1,14 @@
 ---
 name: sdd-constitution
-description: Genera docs/constitution.md tras auditar AGENTS.md y realizar una entrevista QA guiada de máximo 6 preguntas. Ancla los gates de sdd-clarify, sdd-validate y sdd-variants.
-version: 2.0.0
+description: "Genera docs/constitution.md tras auditar AGENTS.md y realizar una entrevista QA guiada de máximo 6 preguntas. Ancla los gates de sdd-clarify, sdd-validate y sdd-variants."
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** `AGENTS.md` existente, `approved_phases` incluye `setup`
+- **Produce:** inicializa `.sdd-state.json`, `approved_phases` con `constitution`, `current_phase = constitution`, `next_allowed_phase = sdd-backlog`
+- **Desbloquea:** `/sdd-backlog`
 
 # Generador de Constitución SDD (QA-Gated)
 

@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 1,
   "skills": {
     "sdd-backlog": {
       "source": "local",
@@ -37,12 +37,6 @@
       "skillPath": "skills/sdd-implement/SKILL.md",
       "computedHash": "a473df02dbb4ea02e20a79fa750e2843c7483f87413de3b5a0943bf51601cf31"
     },
-    "sdd-pair": {
-      "source": "local",
-      "sourceType": "local",
-      "skillPath": "skills/sdd-pair/SKILL.md",
-      "computedHash": "e5aa9f2cd348fe35b89e6667d42aae291ce5970fa6022e3aca172f9e398feb1e"
-    },
     "sdd-plan": {
       "source": "local",
       "sourceType": "local",
@@ -59,19 +53,13 @@
       "source": "local",
       "sourceType": "local",
       "skillPath": "skills/sdd-setup/SKILL.md",
-      "computedHash": "b205441c2abf41885b9264478a9e7548a74d74d0e4f7af74ec5ad82fbc53aaa0"
+      "computedHash": "9faa8b0818710b4679ae136281cb9eb561cb29b9cc5c0a14ba44359e82e0e867"
     },
     "sdd-spec": {
       "source": "local",
       "sourceType": "local",
       "skillPath": "skills/sdd-spec/SKILL.md",
-      "computedHash": "890f48fb62841d9d0c13625bd92868ae398740b8b7b96dbc2925787673c1c93f"
-    },
-    "sdd-story": {
-      "source": "local",
-      "sourceType": "local",
-      "skillPath": "skills/sdd-story/SKILL.md",
-      "computedHash": "33ef9544cc70cf5f63d4202fac56ab47e24960a1269c8f23af5fa78530433a6b"
+      "computedHash": "95eca0fa615ed610770bf02131ea188cedb2ff1d9a2d7d50b1e3725b7a767c0d"
     },
     "sdd-tasks": {
       "source": "local",
@@ -90,42 +78,6 @@
       "sourceType": "local",
       "skillPath": "skills/sdd-variants/SKILL.md",
       "computedHash": "096bb26bce7c9bc759e4efddbc71cda3680d202f8d1d632b31d8faeccd686b25"
-    },
-    "ponytail": {
-      "source": "DietrichGebert/ponytail",
-      "sourceType": "github",
-      "skillPath": "skills/ponytail/SKILL.md",
-      "computedHash": "53275fef34d9fc4060753a30619476a4d2b80c3af86347e816eb5bdd6d2185c4"
-    },
-    "ponytail-audit": {
-      "source": "DietrichGebert/ponytail",
-      "sourceType": "github",
-      "skillPath": "skills/ponytail-audit/SKILL.md",
-      "computedHash": "64fc7cef31bc742a265a78eb469a2a76b484d00b0810a4321725350ca8774973"
-    },
-    "ponytail-debt": {
-      "source": "DietrichGebert/ponytail",
-      "sourceType": "github",
-      "skillPath": "skills/ponytail-debt/SKILL.md",
-      "computedHash": "7d3745e1afbc23953a6dfd727bc080bd85e829c107da100a162e6fa907ff5c25"
-    },
-    "ponytail-gain": {
-      "source": "DietrichGebert/ponytail",
-      "sourceType": "github",
-      "skillPath": "skills/ponytail-gain/SKILL.md",
-      "computedHash": "d741cb0544c73be45f97aa9aef3fb8ad085845597213c20fed45e18db882729a"
-    },
-    "ponytail-help": {
-      "source": "DietrichGebert/ponytail",
-      "sourceType": "github",
-      "skillPath": "skills/ponytail-help/SKILL.md",
-      "computedHash": "8f28113b1948f22556648ae230f874ade5fc6dd7e629150a191ed72c56607327"
-    },
-    "ponytail-review": {
-      "source": "DietrichGebert/ponytail",
-      "sourceType": "github",
-      "skillPath": "skills/ponytail-review/SKILL.md",
-      "computedHash": "88ae8381fd4de4fe74e3127507171657032176ccaf69388352a67742a30276ad"
     }
   }
 }

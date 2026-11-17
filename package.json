@@ -1,0 +1,50 @@
+{
+  "name": "sdd-skills",
+  "version": "1.0.0",
+  "description": "Sistema completo de skills OpenCode para desarrollo guiado por especificación (Spec-Driven Development). Skills autocontenidas con reglas de dominio, verificación y flujo unificado.",
+  "keywords": [
+    "sdd",
+    "spec-driven-development",
+    "opencode",
+    "ai-skills",
+    "development",
+    "specification",
+    "requirements-engineering",
+    "tdd",
+    "test-driven-development"
+  ],
+  "author": "Pevalcar",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pevalcar/sdd-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Pevalcar/sdd-skills/issues"
+  },
+  "homepage": "https://github.com/Pevalcar/sdd-skills#readme",
+  "scripts": {
+    "start": "echo '¡Instalado! Usa: npx skills ls | grep sdd'",
+    "test": "echo 'Ver: npx skills ls | grep sdd'",
+    "lint": "echo 'Verificar estructura de skills'",
+    "verify": "ls skills/*/SKILL.md | wc -l"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "skills/",
+    "profiles/",
+    "references/",
+    "docs/",
+    "examples/",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "opencode": ">=0.0.1"
+  }
+}

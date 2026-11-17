@@ -1,9 +1,14 @@
 ---
 name: sdd-clarify
 description: "Audita specs/NNN-<slug>/spec.md como QA Senior mediante Test Oracle Check, validación de invariantes/estados y cruce con constitution.md y backlog.md. Emite veredicto PASS/FAIL en .sdd-state.json."
-version: 2.0.0
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** `approved_phases` incluye `spec`, `active_spec_dir`
+- **Produce:** actualiza `clarification.status` (`PASS`/`FAIL`), `clarification.report_path`, `next_allowed_phase = sdd-plan`
+- **Desbloquea:** `/sdd-plan` (solo si `clarification.status == PASS`)
 
 # Clarificador SDD — Auditoría QA & Gate de Especificaciones
 

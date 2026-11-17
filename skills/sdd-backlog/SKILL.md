@@ -1,9 +1,14 @@
 ---
 name: sdd-backlog
-description: Destila una idea o funcionalidad en un backlog corto de historias de usuario verticales (1 línea), alineado con docs/constitution.md, con mapeo de decisiones costosas y límites de alcance (Out of Scope).
-version: 2.0.0
+description: "Destila una idea o funcionalidad en un backlog corto de historias de usuario verticales (1 línea), alineado con docs/constitution.md, con mapeo de decisiones costosas y límites de alcance (Out of Scope)."
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** `approved_phases` incluye `constitution`, `active_spec_dir`
+- **Produce:** actualiza `approved_phases` con `backlog`, `current_phase = backlog`, `next_allowed_phase = sdd-spec`
+- **Desbloquea:** `/sdd-spec`
 
 # Generador de Backlog SDD — Vertical Slicing & Scope Control
 

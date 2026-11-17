@@ -1,8 +1,14 @@
 ---
 name: sdd-setup
 description: "Detecta ausencia de AGENTS.md y docs/constitution.md, genera plantilla mínima siguiendo tu template SDD."
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** estado del proyecto (existencia de AGENTS.md y docs/constitution.md)
+- **Produce:** inicializa `.sdd-state.json` con fase `setup`, `approved_phases = [setup]`
+- **Desbloquea:** `/sdd-constitution`
 
 # Generador de Setup SDD
 

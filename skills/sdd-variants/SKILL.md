@@ -1,8 +1,14 @@
 ---
 name: sdd-variants
 description: "Genera múltiples variantes de implementación, las evalúa y produce una shortlist ranqueada. Scoring: RF Coverage 30%, Constitution 25%, Simplicity 20%, Tests 15%, Maintainability 10%."
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** `approved_phases` incluye `validate`, `spec`, `plan`, `active_spec_dir`
+- **Produce:** `variants-ranking.md`, actualiza `.sdd-state.json` con la variante elegida
+- **Desbloquea:** ningún skill (fase final del ciclo)
 
 # Generador de Variantes SDD
 

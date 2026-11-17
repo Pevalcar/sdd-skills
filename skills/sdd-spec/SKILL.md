@@ -1,9 +1,14 @@
 ---
 name: sdd-spec
 description: "Genera especificaciones funcionales verificables en notación EARS (specs/NNN-nombre.md) con contratos de frontera, matriz de estados y trazabilidad bidireccional, alineadas a docs/constitution.md y docs/backlog.md."
-version: 2.0.0
+version: 1.0.0
 disable-model-invocation: true
 ---
+
+## Contexto compartido
+- **Consume:** `approved_phases` incluye `backlog`, `spec`, `active_spec_dir`
+- **Produce:** `spec.md`, actualiza `approved_phases` con `spec`, `next_allowed_phase = sdd-clarify`
+- **Desbloquea:** `/sdd-clarify`
 
 # Generador de Especificaciones SDD (RF-EARS & Domain Contracts)
 
