@@ -171,56 +171,12 @@ sdd-skills/
 | *"Parche temporal está bien"* | Deuda técnica acumulada | Código limpio desde el inicio |
 | *"Ya lo probé manual"* | No escala, no persiste | Automatización requerida |
 
-## 🎓 Skills Eliminadas (V2.1)
+## 🎓 Skills Eliminadas
 
-Las siguientes skills han sido **eliminadas** en esta versión:
+Las siguientes skills han sido **eliminadas**:
 - **`sdd-pair`** — Su funcionalidad está cubierta por `sdd-implement` con verificación humana por tarea
 - **`sdd-story`** — Su funcionalidad está integrada en `sdd-backlog` y `sdd-spec`
-
-## 🦙 Ponytail (Opcional)
-
-Ponytail es una skill independiente que ayuda a escribir el **mínimo código necesario**. No es obligatoria para usar el flujo SDD, pero se recomienda para mantener el código limpio y evitar sobre-ingeniería.
-
-### Instalación opcional
-
-```bash
-mkdir -p .opencode/skills/ponytail
-cp <ruta-a-ponytail>/.opencode/skills/ponytail/SKILL.md .opencode/skills/ponytail/SKILL.md
-```
-
-O clonar el repositorio completo:
-
-```bash
-git clone https://github.com/DietrichGebert/ponytail.git
-cp -r ponytail/.opencode/skills/ponytail .opencode/skills/
-cp -r ponytail/.opencode/commands .opencode/
-```
-
-### Activación
-
-```bash
-/ponytail          # Nivel por defecto (full)
-/ponytail lite     # Nivel mínimo
-/ponytail ultra    # Nivel máximo
-/ponytail off      # Desactivar
-```
-
-### Comandos disponibles
-
-| Comando | Qué hace |
-|---------|----------|
-| `/ponytail-review` | Revisar diff como senior dev: bugs, seguridad, carga real, código riesgoso sin test, qué cortar |
-| `/ponytail-audit` | Auditoría completa del repo, lo más importante primero |
-| `/ponytail-debt` | Listar `shortcut:` comentarios deferidos |
-| `/ponytail-gain` | Mostrar ahorros medidos (código, costo, velocidad) |
-| `/ponytail-help` | Referencia rápida de comandos |
-
-### Reglas de Ponytail
-
-- **La mejor código es el código que nunca escribiste**
-- Regla de la escalera: ¿Necesita existir? ¿Ya está en el codebase? ¿Stdlib? ¿Feature nativa? ¿Dependencia? ¿Una línea? ¿Mínimo que funciona?
-- Validación en trust boundaries, error handling, seguridad, accesibilidad — **nunca se cortan**
-- Lógica con branch, loop, parser, money o security → deja un test pequeño
+- **`ponytail`** — Skill externa opcional, no forma parte del sistema SDD
 
 ## 🤝 Contribuir
 
