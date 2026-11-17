@@ -15,11 +15,11 @@ Orquesta todo el flujo Spec-Driven Development como un asistente interactivo.
 3. `.sdd-state.json` puede existir con estado previo
 4. Los 5 perfiles están instalados en `.agents/skills/profiles/`
 5. El reference library de skills está disponible para routing
-→ Correct me now or I'll proceed.
+   → Correct me now or I'll proceed.
 
 ## When to Use
 
-- Start nuevo proyecto desde cero (sin AGENT.md)
+- Start nuevo proyecto desde cero (sin AGENTS.md)
 - Reanudar flujo interrumpido (`/sdd-flow resume`)
 - Ejecutar pipeline completo sin pasos manuales
 - Need to discover which skill to use first
@@ -33,6 +33,7 @@ Orquesta todo el flujo Spec-Driven Development como un asistente interactivo.
 ## Usage
 
 Invoca con una idea:
+
 ```
 /sdd-flow "funcionalidad: login Dofus"
 /sdd-flow "CLI para hábitos: add, done, list"
@@ -78,14 +79,18 @@ Guarda estado en: `.sdd-state.json`
 ## El Flow Completo
 
 ### Phase 0: Setup
+
 **Invoca:** `/sdd-setup` → `/sdd-constitution`
+
 - Verificar si `AGENTS.md` existe
 - Verificar si `docs/constitution.md` existe
 - Crear ambos si no existen
 - **PAUSED:** Espera aprobación humana
 
 ### Phase 1: Backlog (Historias de Usuario)
+
 **Invoca:** `/sdd-backlog`
+
 - Convierte una idea vaga en backlog corto de historias verticales
 - Una línea por historia, sin acceptance criteria, sin detalles técnicos
 - Primera historia: stack definition. Segunda: walking skeleton.
@@ -93,7 +98,9 @@ Guarda estado en: `.sdd-state.json`
 - **PAUSED:** Espera aprobación humana del backlog
 
 ### Phase 2: Story (Refinamiento)
+
 **Invoca:** `/sdd-story`
+
 - Toma UNA historia del backlog
 - Añade acceptance criteria en Given/When/Then
 - Mini plan de ≤5 bullets, sin código ni nombres de archivo
@@ -101,7 +108,9 @@ Guarda estado en: `.sdd-state.json`
 - **PAUSED:** Espera aprobación humana de la historia refinada
 
 ### Phase 3: Especificación (SPEC)
+
 **Invoca:** `/sdd-spec`
+
 - Entrevista secuencial (máx 6 preguntas)
 - Genera `specs/001-xxx/spec.md` con:
   - Objetivo y contexto
@@ -114,7 +123,9 @@ Guarda estado en: `.sdd-state.json`
 - **PAUSED:** Espera aprobación humana antes de continuar
 
 ### Phase 4: Clarificación QA (loop)
+
 **Invoca:** `/sdd-clarify`
+
 - Lee spec + constitution
 - Detecta: ambigüedades, contradicciones, casos faltantes
 - QA automático con severidad 🔴/🟡/🟢
@@ -123,7 +134,9 @@ Guarda estado en: `.sdd-state.json`
 - **LOOP:** Si no, volver a sdd-clarify hasta que esté claro
 
 ### Phase 5: Planificación
+
 **Invoca:** `/sdd-plan`
+
 - Lee spec + constitution
 - Genera `specs/001-xxx/plan.md`:
   - Módulos y dependencias (diagrama)
@@ -135,7 +148,9 @@ Guarda estado en: `.sdd-state.json`
 - **PAUSED:** Espera aprobación humana antes de continuar
 
 ### Phase 6: Revisión de decisiones
+
 **Invoca:** `/sdd-review`
+
 - Análisis de suposiciones no cubiertas por sdd-clarify
 - Preguntas de doubt-driven development
 - Alternativas técnicas para decisiones clave
@@ -143,7 +158,9 @@ Guarda estado en: `.sdd-state.json`
 - **PAUSED:** ¿Se aprueba el plan de implementación? Sí / No
 
 ### Phase 7: Tareas
+
 **Invoca:** `/sdd-tasks`
+
 - Genera `specs/001-xxx/tasks.md`
 - Tareas ≤ 30 min cada una
 - Orden por dependencia
@@ -151,16 +168,20 @@ Guarda estado en: `.sdd-state.json`
 - **PAUSED:** Espera aprobación humana
 
 ### Phase 8: Pair Programming (alternativa a Implement)
+
 **Invoca:** `/sdd-pair`
+
 - Pair programming TDD paso a paso para una historia refinada
 - Un test → rojo → código mínimo → verde → parar
 - Un paso a la vez, esperar aprobación del usuario
 - **PAUSED:** Después de cada paso, preguntar si continuar
 
 ### Phase 9: Implementación (TDD por tarea)
+
 **Invoca:** `/sdd-implement`
 
 Por iteración:
+
 1. Lee Tn, plan, spec
 2. Escribe test primero (falla → rojo)
 3. Escribe código mínimo (pasa → verde)
@@ -171,14 +192,18 @@ Por iteración:
 8. **PAUSED:** "Tarea Tn completada. ¿Continuar con T(n+1)?"
 
 ### Phase 10: Validación final
+
 **Invoca:** `/sdd-validate`
+
 - Recorrido RF por RF
 - Qué test cubre cada uno
 - Estado: ✅ PASA / ❌ FALLA / ⚠️ SIN TEST
 - Veredicto: "✅ Spec cumplida" o lista pendientes
 
 ### Phase 11: Variants (OBLIGATORIO)
+
 **Invoca:** `/sdd-variants`
+
 - Generar N variantes de implementación
 - Evaluar vs AC/constitución/simplicidad
 - Producir `variants-ranking.md` con shortlist ranqueada
@@ -187,13 +212,13 @@ Por iteración:
 
 ## Control del wizard
 
-| Comando | Acción |
-|---------|--------|
-| `/sdd-flow resume` | Reanuda desde último step |
-| `/sdd-flow skip <step>` | Salta un paso |
-| `/sdd-flow reset` | Reinicia el flujo |
-| `/sdd-flow show` | Muestra estado actual |
-| `/sdd-discover` | Ejecuta descubrimiento de perfil primero |
+| Comando                 | Acción                                   |
+| ----------------------- | ---------------------------------------- |
+| `/sdd-flow resume`      | Reanuda desde último step                |
+| `/sdd-flow skip <step>` | Salta un paso                            |
+| `/sdd-flow reset`       | Reinicia el flujo                        |
+| `/sdd-flow show`        | Muestra estado actual                    |
+| `/sdd-discover`         | Ejecuta descubrimiento de perfil primero |
 
 ## Verification Gates
 
@@ -208,6 +233,7 @@ SETUP → CONSTITUTION → BACKLOG → STORY → SPEC → CLARIFY → PLAN → R
 ```
 
 Cada fase tiene un checklist de verificación que debe pasarse:
+
 - **sdd-setup:** AGENTS.md + constitution creados y aprobados
 - **sdd-constitution:** Principios innegociables aprobados por el usuario
 - **sdd-backlog:** Backlog de historias aprobado por el usuario
@@ -225,6 +251,7 @@ Cada fase tiene un checklist de verificación que debe pasarse:
 ## Output esperado
 
 Al finalizar, tendrás:
+
 - `AGENTS.md` (raíz del proyecto)
 - `CLAUDE.md` (raíz del proyecto, referencia a AGENTS.md)
 - `docs/constitution.md`

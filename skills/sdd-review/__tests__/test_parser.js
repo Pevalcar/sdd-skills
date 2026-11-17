@@ -2,12 +2,16 @@
  * Tests for parser module
  */
 
-const { parse_assumptions, parse_requirements, parse_structure } = require('../src/parser.js');
-const fs = require('fs');
-const path = require('path');
+const {
+  parse_assumptions,
+  parse_requirements,
+  parse_structure,
+} = require("../src/parser.js");
+const fs = require("fs");
+const path = require("path");
 
 // Create test fixtures
-const testDir = path.join(__dirname, 'fixtures');
+const testDir = path.join(__dirname, "fixtures");
 
 // Test spec with assumptions
 const testSpec = `# Test Spec
@@ -17,7 +21,7 @@ Test spec for unit testing.
 
 ## ASUMPTIONS I'M MAKING:
 
-1. El proyecto no tiene AGENT.md o docs/constitution.md (primer setup)
+1. El proyecto no tiene AGENTS.md o docs/constitution.md (primer setup)
 2. El usuario quiere crear un flujo SDD nuevo o continuar uno existente
 3. La template a seguir es la del ejemplo: habits-cli
 4. La constitución debe tener máximo 15 líneas de 6 principios verificables
@@ -44,45 +48,47 @@ const testPlan = `# Test Plan
 - models/ - data structures
 `;
 
-describe('parse_assumptions', () => {
+describe("parse_assumptions", () => {
   beforeEach(() => {
     // Write test files
     if (!fs.existsSync(testDir)) {
       fs.mkdirSync(testDir, { recursive: true });
     }
-    fs.writeFileSync(path.join(testDir, 'spec.md'), testSpec);
-    fs.writeFileSync(path.join(testDir, 'plan.md'), testPlan);
+    fs.writeFileSync(path.join(testDir, "spec.md"), testSpec);
+    fs.writeFileSync(path.join(testDir, "plan.md"), testPlan);
   });
 
-  test('should extract assumptions from spec file', () => {
-    const result = parse_assumptions(path.join(testDir, 'spec.md'));
-    
-    expect(result.source).toContain('spec.md');
+  test("should extract assumptions from spec file", () => {
+    const result = parse_assumptions(path.join(testDir, "spec.md"));
+
+    expect(result.source).toContain("spec.md");
     expect(result.total).toBe(4);
-    expect(result.assumptions[0].text).toContain('primer setup');
+    expect(result.assumptions[0].text).toContain("primer setup");
     expect(result.assumptions.length).toBe(4);
   });
 
-  test('should categorize assumptions correctly', () => {
-    const result = parse_assumptions(path.join(testDir, 'spec.md'));
-    
+  test("should categorize assumptions correctly", () => {
+    const result = parse_assumptions(path.join(testDir, "spec.md"));
+
     // First assumption about setup -> general
-    expect(result.assumptions[0].category).toBe('general');
+    expect(result.assumptions[0].category).toBe("general");
   });
 
-  test('should infer severity from text', () => {
-    const result = parse_assumptions(path.join(testDir, 'spec.md'));
-    
+  test("should infer severity from text", () => {
+    const result = parse_assumptions(path.join(testDir, "spec.md"));
+
     // Check severity inference
-    const techAssumption = result.assumptions.find(a => a.text.includes('template'));
+    const techAssumption = result.assumptions.find((a) =>
+      a.text.includes("template"),
+    );
     expect(techAssumption).toBeDefined();
   });
 
-  test('should extract assumptions from plan file', () => {
-    const result = parse_assumptions(path.join(testDir, 'plan.md'));
-    
+  test("should extract assumptions from plan file", () => {
+    const result = parse_assumptions(path.join(testDir, "plan.md"));
+
     expect(result.total).toBe(3);
-    expect(result.assumptions[0].text).toContain('Python');
+    expect(result.assumptions[0].text).toContain("Python");
   });
 
   afterEach(() => {
@@ -93,27 +99,27 @@ describe('parse_assumptions', () => {
   });
 });
 
-describe('parse_requirements', () => {
+describe("parse_requirements", () => {
   beforeEach(() => {
     if (!fs.existsSync(testDir)) {
       fs.mkdirSync(testDir, { recursive: true });
     }
-    fs.writeFileSync(path.join(testDir, 'spec.md'), testSpec);
+    fs.writeFileSync(path.join(testDir, "spec.md"), testSpec);
   });
 
-  test('should extract RF requirements', () => {
-    const result = parse_requirements(path.join(testDir, 'spec.md'));
-    
+  test("should extract RF requirements", () => {
+    const result = parse_requirements(path.join(testDir, "spec.md"));
+
     expect(result.length).toBe(2);
-    expect(result[0].id).toBe('RF-1');
-    expect(result[0].type).toBe('functional');
+    expect(result[0].id).toBe("RF-1");
+    expect(result[0].type).toBe("functional");
   });
 
-  test('should identify functional vs non-functional', () => {
-    const result = parse_requirements(path.join(testDir, 'spec.md'));
-    
+  test("should identify functional vs non-functional", () => {
+    const result = parse_requirements(path.join(testDir, "spec.md"));
+
     // All should be functional in test spec
-    expect(result.every(r => r.type === 'functional')).toBe(true);
+    expect(result.every((r) => r.type === "functional")).toBe(true);
   });
 
   afterEach(() => {
@@ -123,18 +129,18 @@ describe('parse_requirements', () => {
   });
 });
 
-describe('parse_structure', () => {
+describe("parse_structure", () => {
   beforeEach(() => {
     if (!fs.existsSync(testDir)) {
       fs.mkdirSync(testDir, { recursive: true });
     }
-    fs.writeFileSync(path.join(testDir, 'spec.md'), testSpec);
+    fs.writeFileSync(path.join(testDir, "spec.md"), testSpec);
   });
 
-  test('should extract sections from spec', () => {
-    const result = parse_structure(path.join(testDir, 'spec.md'));
-    
-    expect(result.file).toBe('spec.md');
+  test("should extract sections from spec", () => {
+    const result = parse_structure(path.join(testDir, "spec.md"));
+
+    expect(result.file).toBe("spec.md");
     expect(result.total_sections).toBeGreaterThan(0);
     expect(result.sections[0].title).toBeDefined();
   });

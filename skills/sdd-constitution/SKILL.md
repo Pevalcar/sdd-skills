@@ -1,112 +1,148 @@
 ---
 name: sdd-constitution
-description: Genera docs/constitution.md con principios cortos, citables y verificables que anclan los gates de sdd-validate y sdd-variants.
-version: 1.0.0
+description: Genera docs/constitution.md tras auditar AGENTS.md y realizar una entrevista QA guiada de máximo 6 preguntas. Ancla los gates de sdd-clarify, sdd-validate y sdd-variants.
+version: 2.0.0
 disable-model-invocation: true
 ---
 
-# Generador de Constitución SDD
+# Generador de Constitución SDD (QA-Gated)
 
 Define los principios innegociables del proyecto. La constitución es el **contrato fundacional** que alimenta los gates automáticos de `sdd-clarify`, `sdd-validate` y `sdd-variants`.
 
-Los principios son innegociables **durante un ciclo de proyecto**. Se revisan al cierre de cada ciclo mediante el proceso de versionado (§Vida de la constitución).
+Los principios son innegociables **durante un ciclo de proyecto**. Solo se modifican mediante versionado controlado al cierre de un ciclo o aprobación explícita.
 
-## 🛡️ ASSUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS & HARD RULES
 
-1. El usuario tiene requisitos sobre stack, calidad, tests y límites del proyecto.
-2. Cada principio será **verificable** (tendrá un campo `Verificación:`) o estará marcado explícitamente como `[NO VERIFICABLE — solo guía]`.
-3. La constitución alimenta los gates de `sdd-validate` y `sdd-variants`; sin ella, esos gates quedan sin criterio objetivo.
-4. La aprobación es humana, no del agente.
-5. **Nunca escribir código sin autorización explícita del usuario.** Ninguna skill escribe código hasta que el usuario confirme explícitamente.
-6. **Bloqueo de flujo hasta confirmar constitución.** Si `docs/constitution.md` no existe o no está aprobada, ninguna skill posterior (sdd-spec, sdd-plan, sdd-implement, etc.) puede ejecutarse.
-
-→ Correct me now or I'll proceed.
-
-## When to Use
-
-- Inicio de proyecto nuevo, antes de escribir cualquier spec.
-- Cuando el equipo necesita alinear estándares de calidad, stack o tests.
-- Cuando `docs/constitution.md` no existe y el flujo SDD va a comenzar.
-- Cuando se cierra un ciclo y toca revisar principios (nueva versión).
-
-## When NOT to Use
-
-- `docs/constitution.md` ya existe y solo se necesita un ajuste menor → usa el flujo de versionado (§Vida de la constitución), no regeneres desde cero.
-- Timeboxed spikes o pruebas de concepto donde el flujo SDD completo no aplica.
-- **Proyecto pequeño o solo developer → NO es razón para saltarla.** La constitución ancla los gates de `sdd-validate` y `sdd-variants`. Puede ser de 2-3 principios, no de 10.
-
-## Relación con otras skills
-
-| Skill | Cómo consume la constitución |
-|---|---|
-| `sdd-clarify` | Cita principios por ID (P-001…) al detectar conflictos en la spec. |
-| `sdd-validate` | Verifica compliance ítem por ítem contra cada principio. |
-| `sdd-variants` | Elimina automáticamente variantes que violen un principio innegociable. |
-| `verification-gates.md` | Define la DoD universal; la constitución **la complementa, no la duplica**. |
+1. **Dependencia obligatoria de `AGENTS.md`:** La constitución no se redacta en el vacío; hereda y complementa las reglas definidas en `./AGENTS.md`.
+2. **Verificabilidad estricta:** Cada principio tendrá un campo `Verificación:` ejecutable o parseable, o estará marcado explícitamente como `[NO VERIFICABLE — solo guía]`.
+3. **Rol de QA Architect:** El agente actúa como un QA Senior que guía al usuario mediante preguntas secuenciales con recomendaciones prácticas antes de redactar reglas.
+4. **Cero código sin autorización:** Ninguna skill escribe código, tests ni modificaciones de implementación hasta completar el flujo SDD aprobado.
+5. **Human-Gate por defecto:** Todo ciclo requiere verificación y aprobación humana explícita en cada transición de fase, **a menos que** el usuario invoque explícitamente `/build auto`.
 
 ---
 
-## Proceso
+## When to Use
 
-### 1. Recibe requisitos
+- Inicio de proyecto nuevo (con `AGENTS.md` ya instalado), antes de escribir cualquier `spec`.
+- Cuando se requiere alinear estándares de arquitectura, calidad, cobertura o límites técnicos.
+- Cuando se cierra un ciclo y se aprueba regenerar o actualizar a una nueva versión mayor de la constitución.
 
-Pide al usuario información sobre:
-- **Stack**: lenguaje, framework, dependencias permitidas.
-- **Calidad**: cobertura mínima, estándares de revisión, linters.
-- **Tests**: quién los escribe, qué tipos (unit / integration / e2e).
-- **Límites**: tamaño máximo de módulo, dependencias máximas, restricciones de arquitectura.
-- **Idioma y convenciones**: idioma del código, de los commits, de la documentación.
+## When NOT to Use
 
-Si el usuario no aporta algún punto, propón un valor por defecto razonable y **márcalo como supuesto** en el borrador.
+- `./AGENTS.md` **no existe** en la raíz del proyecto (bloquear y pedir instalación primero).
+- Timeboxed spikes o pruebas de concepto desechables donde no aplica SDD.
+- **Proyecto pequeño o solo developer → NO es razón para saltarla.** Puede tener 2-3 principios verificables, pero sigue siendo obligatoria para anclar los gates.
 
-### 2. Genera borrador con IDs estables
+## Relación con otras skills
 
-Genera un borrador de `docs/constitution.md` **en memoria** (no lo escribas todavía) con:
+| Skill                   | Cómo consume la constitución                                                        |
+| ----------------------- | ----------------------------------------------------------------------------------- |
+| `sdd-clarify`           | Cita principios por ID (`P-001`…) al detectar conflictos en especificaciones.       |
+| `sdd-validate`          | Audita compliance ítem por ítem contra cada principio y su comando `Verificación:`. |
+| `sdd-variants`          | Descarta automáticamente variantes arquitectónicas que violen un principio.         |
+| `verification-gates.md` | Define la DoD universal; la constitución **la complementa, no la duplica**.         |
 
-- **Máximo 10 principios.**
-- IDs estables `P-001`, `P-002`, …, `P-0NN`.
-- **Los IDs no se reutilizan nunca.** Si eliminas P-003, el siguiente principio es P-004. Esto protege las citas de `sdd-clarify` en specs antiguas.
+---
 
-### 3. Añade `Verificación:` a cada principio
+## Proceso de Ejecución
 
-Cada principio **debe** incluir un campo `Verificación:` con una de estas tres formas:
+### Fase 0: Pre-flight Check (Obligatorio — Fail-Closed)
 
-| Forma | Cuándo usarla | Ejemplo |
-|---|---|---|
-| **A — Comando ejecutable** | Hay un comando que reporta el estado | `npm ls --depth=0 --json \| jq '.dependencies \| length'` ≤ 3 |
-| **B — Regla de conteo verificable** | Hay un archivo parseable con la métrica | `coverage/lcov.info` reporta `lines.covered / lines.total ≥ 0.80` |
-| **C — No verificable automáticamente** | Requiere juicio humano | `[NO VERIFICABLE — revisión humana en PR]` |
+Antes de hacer cualquier pregunta al usuario, ejecuta estas dos verificaciones en orden:
 
-**Regla dura:** si un principio no tiene `Verificación:`, la skill **no permite guardar** la constitución. Es un fail-closed en el momento de creación, igual que `sdd-validate` lo es en el momento de validación.
+1. **Verificar existencia de `AGENTS.md`:**
+   - Comprueba si `./AGENTS.md` existe en la raíz del repositorio.
+   - **Si NO existe:** DETÉN la ejecución inmediatamente. Muestra este mensaje y aborta:
+     > ⛔ **Bloqueo Pre-flight:** No se encontró `AGENTS.md` en la raíz del proyecto. Instala o configura `AGENTS.md` primero para que la constitución pueda alinearse con las reglas base del agente.
+   - **Si SÍ existe:** Léelo íntegramente. Extrae el stack, estructura de carpetas, comandos de build/test, convenciones de estilo y restricciones ya declaradas para usarlas como base en la entrevista.
 
-### 4. Gate de aprobación humana
+2. **Verificar existencia previa de `docs/constitution.md`:**
+   - Comprueba si `docs/constitution.md` ya existe.
+   - **Si SÍ existe:** DETÉN el flujo y pregunta explícitamente antes de continuar:
+     > ⚠️ **Constitución existente detectada:** Ya existe `docs/constitution.md`. ¿Cómo deseas proceder?
+     >
+     > 1. **Recrear desde cero** (sobrescribirá el archivo actual tras la entrevista y aprobación).
+     > 2. **Cancelar** (mantener la constitución actual intacta).
+   - No avances a la Fase 1 hasta recibir confirmación explícita.
 
-Presenta el borrador al usuario con un resumen y pregunta explícitamente:
+---
+
+### Fase 1: Entrevista de Descubrimiento (Máximo 6 Preguntas, 1 a 1)
+
+Actúa como un **Experto en QA y Arquitectura de Software**. Realiza una entrevista interactiva siguiendo estrictamente estas reglas:
+
+- **Una pregunta por turno:** Formula **solo 1 pregunta por mensaje** y espera la respuesta del usuario antes de pasar a la siguiente.
+- **Tope estricto de 6 preguntas:** Cubre únicamente los vacíos que **no** estén ya resueltos de forma inequívoca en `AGENTS.md`. Si `AGENTS.md` ya define 2 áreas (ej. Stack e Idioma), haz solo las 4 preguntas restantes.
+- **Formato obligatorio de cada pregunta:**
+  1. **Hallazgo en `AGENTS.md`:** Indica brevemente qué dice `AGENTS.md` sobre ese tema (o si está omitido).
+  2. **Pregunta puntual:** Sobre una de estas 6 dimensiones:
+     - _Q1 — Stack y Dependencias:_ Límites de librerías externas o versiones estrictas.
+     - _Q2 — Arquitectura y Límites:_ Tamaño máximo de archivos/módulos, acoplamiento o separación de capas.
+     - _Q3 — Estrategia de Testing:_ Tipos de pruebas obligatorias (unit, integration, e2e) y qué se considera crítico.
+     - _Q4 — Umbrales de Calidad:_ Cobertura mínima, linters estrictos o cero warnings permitidos.
+     - _Q5 — Manejo de Errores y Seguridad:_ Validación de inputs, manejo de excepciones o secretos.
+     - _Q6 — Convenciones y Trazabilidad:_ Idioma de código/commits/docs (si no está en `AGENTS.md`).
+  3. **💡 Recomendación de QA:** Proporciona una recomendación concreta (incluyendo una opción _Pragmática_ y una _Estricta_) explicando qué bug o deuda técnica previene cada una.
+
+---
+
+### Fase 2: Detección y Clarificación de Conflictos
+
+Una vez terminadas las preguntas (o si el usuario indica que ya tiene suficiente), **audita la coherencia** entre:
+
+- Lo que dice `AGENTS.md`
+- Las respuestas del usuario
+- La viabilidad técnica de verificar cada regla automáticamente
+
+**Si detectas cualquier conflicto, ambigüedad o parámetro problemático** (por ejemplo: exigir cobertura del 90% sin tener runner de tests configurado, pedir cero dependencias pero usar un framework pesado, o contradecir una regla de `AGENTS.md`):
+
+- **NO generes el borrador todavía.**
+- Presenta los puntos conflictivos numerados, explica por qué chocan o por qué molestarán en los gates de `sdd-validate`, y pide al usuario que elija cómo resolverlos antes de redactar.
+
+---
+
+### Fase 3: Generación de Borrador con IDs Estables y `Verificación:`
+
+Cuando no existan conflictos pendientes, genera el borrador de `docs/constitution.md` **en memoria** (sin escribir en disco todavía) con:
+
+1. **Metadatos de trazabilidad** al inicio del documento (`version`, `agents_md_synced: true`, `created_at`).
+2. **Máximo 10 principios** con IDs estables `P-001`, `P-002`, …, `P-0NN`.
+   - **Regla de inmutabilidad de IDs:** Los IDs nunca se reutilizan. Si en el futuro se elimina `P-003`, el siguiente será `P-004`.
+3. **Campo `Verificación:` obligatorio en cada principio**, usando una de estas 3 formas:
+
+| Forma                           | Cuándo usarla                            | Ejemplo                                                        |
+| ------------------------------- | ---------------------------------------- | -------------------------------------------------------------- |
+| **A — Comando ejecutable**      | Existe un CLI/script que valida la regla | `Verificación: npm run lint -- --max-warnings 0` (exit code 0) |
+| **B — Regla de conteo/archivo** | Hay un reporte o archivo parseable       | `Verificación: coverage/lcov.info reporta lines >= 80%`        |
+| **C — Juicio humano**           | No automatizable de forma fiable         | `Verificación: [NO VERIFICABLE — revisión humana en PR]`       |
+
+**Regla dura (Fail-Closed):** Si algún principio carece de campo `Verificación:`, la skill tiene prohibido pasar al Gate de Aprobación.
+
+---
+
+### Fase 4: Gate de Aprobación Humana y Control de Modo
+
+Presenta el borrador completo junto con el resumen de auditoría y solicita aprobación explícita:
 
 ```markdown
-## Gate de aprobación
+## 🔒 Gate de Aprobación Humana (Constitución SDD)
 
-Borrador de constitución listo:
-- Principios: 6 (P-001 a P-006)
-- Verificables automáticamente: 4
-- [NO VERIFICABLE — solo guía]: 2 (P-004, P-006)
+**Resumen del borrador:**
 
-¿Apruebas el contenido?
-  [ ] Sí → escribir docs/constitution.md y registrar en .sdd-state.json
-  [ ] No → indicar cambios necesarios (la skill no escribe nada hasta nueva aprobación)
+- Alineado con `AGENTS.md`: ✅ Verificado sin conflictos
+- Total de principios: X (`P-001` a `P-00X`)
+- Verificables automáticamente (Forma A/B): Y
+- Solo guía humana (Forma C): Z
 
-## 🔒 Reglas de bloqueo (obligatorias)
+**Modo de ejecución para los siguientes ciclos:**
 
-1. **No escribir código sin autorización explícita.** Ninguna skill escribe código, modifica archivos de implementación ni crea pruebas hasta que el usuario confirme explícitamente con "Sí" o "Aprobado".
-2. **Flujo bloqueado sin constitución.** Si `docs/constitution.md` no existe o no está aprobada, `sdd-spec`, `sdd-plan`, `sdd-tasks`, `sdd-implement` y `sdd-validate` no pueden ejecutarse.
-3. **Confirmación requerida antes de guardar.** La skill no escribe `docs/constitution.md` hasta que el usuario seleccione explícitamente "Sí" en el gate de aprobación.
+- Por defecto: **`human-gated`** (cada fase —`backlog`, `spec`, `plan`, `tasks`, `implement`, `validate`— se detendrá al finalizar para exigir tu revisión y aprobación manual).
+- Alternativa: Si deseas ejecución continua sin pausas intermedias, indícalo explícitamente ejecutando **`/build auto`**.
 
-**Regla dura:** si el usuario no selecciona "Sí", la skill **no escribe ningún archivo** y el flujo permanece bloqueado en esta fase.
+¿Apruebas escribir `docs/constitution.md` con este contenido?
 
-## What happens after approval
+- [ ] **Sí** → Guardar `docs/constitution.md`, inicializar `.sdd-state.json` en modo `human-gated` y desbloquear únicamente `sdd-backlog`.
+- [ ] **No** → Indicar ajustes (no se escribirá ningún archivo en disco) .
 
-Una vez el usuario aprueba:
-1. Se escribe `docs/constitution.md`.
-2. Se registra en `.sdd-state.json` como `approved_phases: ["constitution"]`.
-3. Se desbloquea `sdd-spec` para la siguiente fase.
-4. **Ningún código se escribe todavía** — solo se puede proceder a `sdd-spec` para definir requisitos.
+- [ ] **Cancelar** → No hacer nada.
+```

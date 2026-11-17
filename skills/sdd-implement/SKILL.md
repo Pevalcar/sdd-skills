@@ -1,176 +1,203 @@
 ---
 name: sdd-implement
-description: "Implementa una sola tarea de tasks.md con tests primero. Pausa al terminar. Usa el ciclo incremental: Implement → Test → Verify → Commit."
+description: "Implementa tareas atómicas de specs/NNN-<slug>/tasks.md siguiendo TDD estricto (RED → GREEN → REFACTOR → VERIFY → COMMIT), auditoría de blast radius y control de gates en .sdd-state.json."
+version: 2.0.0
 disable-model-invocation: true
 ---
 
-# Implementador SDD — Una tarea a la vez
+# Implementador SDD — TDD Estricto & Ejecución Incremental
 
-Implementa tareas pequeñas siguiendo TDD y el plan. Usa el ciclo incremental: Implement → Test → Verify → Commit.
+Ejecuta las tareas aprobadas en `specs/NNN-<slug>/tasks.md` una a la vez mediante desarrollo guiado por pruebas (**RED → GREEN → REFACTOR**), respetando el alcance de archivos (`≤ 3 archivos/tarea`) y los principios innegociables de `docs/constitution.md`.
 
-## 🛡️ ASSUMPTIONS I'M MAKING:
+## 🛡️ ASSUMPTIONS & HARD RULES
 
-1. La tarea Tn existe en `specs/NNN-xxx/tasks.md` y no tiene otros trabajos pendientes
-2. El test framework está configurado (pytest/Jest/GUT según perfil detectado)
-3. Las dependencias necesarias ya existen en el proyecto
-4. La spec, plan y tasks están aprobados por el humano
-5. **PARAR después de cada tarea:** no continuar con T(n+1) sin aprobación explícita
-→ Correct me now or I'll proceed.
+1. **Pre-condiciones estrictas:** Existen `AGENTS.md`, `docs/constitution.md`, `specs/NNN-<slug>/spec.md`, `specs/NNN-<slug>/plan.md`, `specs/NNN-<slug>/tasks.md` y `.sdd-state.json` con `"tasks"` en `approved_phases`.
+2. **TDD No Negociable (RED primero):** Prohibido escribir código de producción antes de escribir el test que cubre el `RF` de la tarea y verificar que falla (`RED`).
+3. **Aislamiento de Blast Radius:** Solo se permite crear o modificar los archivos declarados explícitamente en `Archivos objetivo (≤ 3)` de la tarea actual `Tn`.
+4. **Prohibición de "Verification by Claim":** Ninguna tarea puede marcarse `[x]` sin ejecutar el comando real de pruebas/linter y mostrar su salida con exit code `0`.
+5. **Circuit Breaker (3 intentos):** Si tras **3 intentos** consecutivos `Tn` no logra pasar a `GREEN` o falla el linter/compilación, **detén la ejecución inmediatamente** (incluso en `/build auto`) y escala al humano.
+6. **Control de avance (`human-gated` vs `/build auto`):** En modo `human-gated`, **detente al finalizar `Tn`** y pide confirmación humana antes de continuar con `T(n+1)`.
 
 ## When to Use
 
-- Task específica marcada para implementar
-- TDD flow requerido (red-green-refactor)
-- Una tarea a la vez, verificar al finalizar
-- Implementation touches more than one file
+- `specs/NNN-<slug>/tasks.md` está aprobado en `.sdd-state.json` y existen tareas pendientes (`[ ]`).
+- Se requiere implementar una tarea atómica `Tn` (o ejecutar el pipeline continuo si se activó `/build auto`).
 
 ## When NOT to Use
 
-- Task ya completada ([x] marcado)
-- Tarea no aprobada (verificar en tasks.md y `.sdd-state.json`)
-- Múltiples tareas pendientes (hacer una a la vez)
-- Sin task list disponible (/sdd-tasks first)
-- Single-line fix where scope is already minimal
+- `tasks.md` no existe o `"tasks"` no figura en `approved_phases` de `.sdd-state.json` (ejecutar `/sdd-tasks` primero).
+- Las dependencias (`Depends on`) de la tarea `Tn` aún no están marcadas `[x]`.
+- Se pretende implementar código fuera del plan aprobado o modificar múltiples tareas en un solo bloque sin pruebas intermedias.
 
-## The Increment Cycle
+## El Ciclo Incremental (RED → GREEN → REFACTOR → VERIFY → COMMIT)
 
 ```
-┌──────────────────────────────────────┐
-│                                      │
-│   Implement ──→ Test ──→ Verify ──┐  │
-│       ▲                           │  │
-│       └───── Commit ◄─────────────┘  │
-│              │                       │
-│              ▼                       │
-│          Next slice                  │
-│                                      │
-└──────────────────────────────────────┘
-```
 
-Para cada slice:
-
-1. **Implement** the smallest complete piece of functionality
-2. **Test** — run the test suite (or write a test if none exists)
-3. **Verify** — confirm the slice works as expected (tests pass, build succeeds, manual check)
-4. **Commit** -- save your progress with a descriptive message
-5. **Move to the next slice** — carry forward, don't restart
-
-## Rule 0: Simplicity First
-
-Before writing any code, ask: "What is the simplest thing that could work?"
-
-After writing code, review it against these checks:
-- Can this be done in fewer lines?
-- Are these abstractions earning their complexity?
-- Would a staff engineer look at this and say "why didn't you just..."?
-- Am I building for hypothetical future requirements, or the current task?
-
-**SIMPLICITY CHECK:**
-```
-✗ Generic EventBus with middleware pipeline for one notification
-✓ Simple function call
-
-✗ Abstract factory pattern for two similar components  
-✓ Two straightforward components with shared utilities
-
-✗ Config-driven form builder for three forms
-✓ Three form components
-```
-
-## Rule 0.5: Scope Discipline
-
-Touch only what the task requires.
-
-**Do NOT:**
-- "Clean up" code adjacent to your change
-- Refactor imports in files you're not modifying
-- Remove comments you don't fully understand
-- Add features not in the spec because they "seem useful"
-- Modernize syntax in files you're only reading
-
-If you notice something worth improving outside your task scope, note it — don't fix it:
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│  1. RED (Test falla) ──→ 2. GREEN (Código mínimo pasa) ──┐  │
+│         ▲                                                │  │
+│         │                                                ▼  │
+│  5. COMMIT & GATE ◄── 4. VERIFY (Evidencia + Lint) ◄── 3. REFACTOR
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 
 ```
-NOTICED BUT NOT TOUCHING:
-- src/utils/format.ts has an unused import (unrelated to this task)
-- The auth middleware could use better error messages (separate task)
-→ Want me to create tasks for these?
-```
 
-## Process
+## Reglas de Disciplina de Código
 
-1. **Verifica gate.** La tarea Tn debe estar aprobada (checkbox sin marcar en tasks.md). Si no está en la lista, ejecutar `/sdd-tasks` primero.
-2. **Lee la tarea.** `specs/001-xxx/tasks.md`, Tn elegida por el usuario
-3. **Lee el plan.** `specs/001-xxx/plan.md`
-4. **Lee la spec.** `specs/001-xxx/spec.md`
-5. **Write test first.** Crea el test que cubra los RF indicados. Debe fallar (RED).
-6. **Write minimal code.** Solo para pasar el test (GREEN).
-7. **Run test.** Verifica que pasa.
-8. **Refactor if needed.** Clean up without changing behavior.
-9. **Commit.** Guardar progreso con mensaje descriptivo.
-10. **Verify RF covered.** Menciona qué RF cubiste: `RF cubierto: RF-X, RF-Y`
-11. **MARCAR [x] Tn en tasks.md y PARAR.** No empezar T(n+1) sin aprobación explícita del usuario.
+### Rule 0: Simplicity First
 
-## Ejecución de tests
+Antes y después de escribir código, verifica:
 
-### Godot (GUT)
-```bash
-Godot_console.exe --headless --path godot-client -s addons/gut/gut_cmdln.gd -gdir=res://test -gexit
-```
+- ¿Es esta la implementación más simple que satisface el test y los `RF` de `Tn`?
+- ¿Estoy construyendo abstracciones especulativas no pedidas en `plan.md`? (Prohibido: _YAGNI_).
 
-### Python/pytest
-```bash
-pytest -q tests/
-```
+### Rule 0.5: Scope Discipline (Anti-Deriva)
 
-### JavaScript/Jest
-```bash
-npm test -- --testNamePattern="Tn"
-```
+Toca **únicamente** los archivos listados en `Archivos objetivo (≤ 3)` de `Tn`.
 
-## Output
+- **Prohibido:** Limpiar código adyacente no relacionado, refactorizar imports de otros módulos, alterar tests previos para forzar verde o añadir features fuera de `spec.md`.
+- Si detectas deuda técnica fuera de alcance, repórtala sin tocar el archivo:
 
-- Código en `src/` o `habits/` según el proyecto
-- Tests en `test/` o `tests/`
-- tasks.md actualizado con `[x]` Tn
-- Cambios commitados con mensaje descriptivo
+  ```text
+  NOTICED BUT NOT TOUCHING:
+  - <ruta_archivo>: <observación puntual>
 
-## Rationalizations
+  ```
 
-| Excusa | Realidad | Regla |
-|--------|----------|-------|
-| *"Es pequeño, no necesito tests"* | Cambios pequeños sin tests causan regresiones silenciosas | Tests obligatorios para lógica crítica |
-| *"Tragamos la excepción para no romper flow"* | Errores ocultos peores que fallos explícitos | Capturar, registrar, fallar controladamente |
-| *"Dejo código comentado, lo limpio después"* | Código muerto degrada mantenibilidad | Eliminar inmediatamente |
-| *"Ignoro warnings del linter"* | Warnings acumulados esconden bugs latentes | Zero-warnings policy obligatorio |
-| *"Es más rápido hacerlo todo junto"* | Bugs compound. Un bug en Slice 1 hace equivocado Slices 2-5 | Testear cada slice |
-| *"No necesito feature flag"* | Si el feature no está completo, no debe ser visible | Agregar flag ahora |
+---
 
-## Red Flags
+## Proceso de Ejecución
 
-- More than 100 lines of code written without running tests
-- Multiple unrelated changes in a single increment
-- "Let me just quickly add this too" scope expansion
-- Skipping the test/verify step to move faster
-- Build or tests broken between increments
-- Large uncommitted changes accumulating
+### Fase 0: Pre-flight Check y Selección de Tarea (Obligatorio — Fail-Closed)
 
-## Verification
+1. **Verificar estado SDD en `.sdd-state.json`:**
 
-Antes de declarar tarea completada:
+- Lee `.sdd-state.json` y obtén `active_spec_dir` (`specs/NNN-<slug>`) y `execution_mode` (`"human-gated"` o `"auto"`).
+- Verifica que `"constitution"`, `"spec"`, `"clarify"`, `"plan"` y `"tasks"` estén en `approved_phases`.
+- **Si falta alguno:** DETÉN la ejecución y muestra:
+  > ⛔ **Bloqueo Pre-flight:** El plan de tareas no está aprobado en `.sdd-state.json`. Ejecuta `/sdd-tasks` primero.
 
-- [ ] The change does one thing and does it completely
-- [ ] Every new behavior has a corresponding test
-- [ ] The full test suite passes (repository's test command)
-- [ ] Build succeeds (repository's build command)
-- [ ] Type checking passes, where applicable (`npx tsc --noEmit`, `mypy`, ...)
-- [ ] Linting passes (repository's lint command)
-- [ ] No tests were skipped or disabled
-- [ ] No debug logs o código temporal dejado atrás
-- [ ] Linter/compiler passes con cero warnings
-- [ ] Changes committed with descriptive message
-- [ ] RF cubiertos documentados
+2. **Cargar fuentes de verdad:**
 
-## See Also
+- `specs/NNN-<slug>/tasks.md` (selecciona la primera tarea `[ ]` pendiente en orden topológico, o la `Tn` indicada por el usuario).
+- `specs/NNN-<slug>/plan.md` (arquitectura, contratos de interfaz y modelo de datos).
+- `specs/NNN-<slug>/spec.md` (criterios EARS de los `RF` asociados a `Tn`).
+- `docs/constitution.md` (principios `P-001`…`P-0NN` y comandos de `Verificación:`).
+- `./AGENTS.md` (comandos exactos de build, test y linter del proyecto).
 
-Per-skill verification is the local check. Before declaring a task done, apply the project-wide Definition of Done as the final gate, the standing bar every increment clears regardless of the task. See `references/definition-of-done.md`.
+3. **Validar dependencias y Working Tree:**
+
+- Verifica que todas las tareas listadas en `Depends on:` de `Tn` tengan `[x]` en `tasks.md`. Si alguna no está completa, **bloquéate** y exige completar la dependencia primero.
+- Ejecuta `git status --short` para asegurar que no haya cambios sucios sin commitear de tareas previas.
+
+---
+
+### Fase 1: Ejecución del Ciclo TDD sobre `Tn`
+
+_(Si `Tn` es **`T-FINAL` (Checkpoint Constitucional)**, salta los pasos 1-3 de código y ejecuta directamente la auditoría global de todos los comandos `Verificación:` de `docs/constitution.md`)._
+
+1. **Paso 1 — RED (Escribir prueba que falla):**
+
+- Crea o actualiza **únicamente** el archivo de test indicado en `Tn` cubriendo los `RF` asignados y casos borde.
+- Ejecuta el comando de test de `Tn` y verifica que **falla por la razón esperada** (funcionalidad aún no implementada).
+
+2. **Paso 2 — GREEN (Implementación mínima):**
+
+- Escribe el código mínimo necesario en los archivos de producción autorizados en `Tn` siguiendo el diseño de `plan.md`.
+- Ejecuta el comando de test de `Tn` hasta obtener exit code `0` (`PASS`).
+- _(Circuit Breaker: Si tras **3 intentos** de corrección el test sigue fallando o rompe compilación, DETÉN todo, reporta el error exacto y pide intervención humana)._
+
+3. **Paso 3 — REFACTOR (Limpieza controlada):**
+
+- Mejora legibilidad y elimina duplicación dentro de los archivos permitidos de `Tn` sin cambiar comportamiento.
+- Re-ejecuta los tests para confirmar que siguen en `GREEN`.
+
+4. **Paso 4 — VERIFY (Auditoría de Blast Radius + Evidencia Real):**
+
+- Ejecuta `git status --short` y verifica que **solo** se crearon/modificaron los archivos autorizados en `Archivos objetivo (≤ 3)` de `Tn`.
+- Ejecuta la suite relevante de tests, type-check y linter del proyecto (según `AGENTS.md`) con **cero warnings**.
+- Conserva el output real para incluirlo en el reporte de cierre de la tarea.
+
+5. **Paso 5 — COMMIT & ACTUALIZACIÓN DE `tasks.md`:**
+
+- Marca `- [x] **Tn:** ...` en `specs/NNN-<slug>/tasks.md`.
+- Realiza un commit atómico descriptivo incluyendo la referencia al requisito (ej. `feat(spec-NNN): implement Tn - <descripción> [RF-1]`).
+
+---
+
+### Fase 2: Gate de Continuidad (`human-gated` vs `/build auto`)
+
+#### Caso A: Modo `human-gated` (Por defecto)
+
+**DETÉN la ejecución inmediatamente** tras completar `Tn`. No inicies `T(n+1)`. Presenta el reporte de evidencia y solicita autorización:
+
+## 🔒 Gate de Verificación Humana — Tarea `Tn` Completada
+
+**Evidencia de ejecución:**
+
+- **Tarea:** `Tn` — <Título>
+- **RF cubiertos:** `RF-X`, `RF-Y`
+- **Archivos tocados (Blast Radius):**
+  - `src/<ruta>` (`CREATE`/`MODIFY`)
+  - `tests/<ruta>` (`CREATE`/`MODIFY`)
+- **Evidencia de Tests & Linter (Exit Code 0):**
+  ```text
+  <pegar resumen real del stdout de test y linter>
+  ```
+
+* **Commit registrado:** `<hash_corto> — <mensaje>`
+* **Progreso:** X de Y tareas completadas en `specs/NNN-<slug>/tasks.md`.
+
+**Siguiente tarea pendiente:** `T(n+1)` — <Título de la siguiente tarea>
+
+¿Apruebas el resultado de `Tn` y autorizas continuar con `T(n+1)`?
+
+- [ ] **Sí, continuar con `T(n+1)**` → Ejecutar siguiente tarea en modo TDD.
+- [ ] **No, revisar/ajustar `Tn**` → Detener aquí para inspección o cambios.
+
+#### Caso B: Modo `/build auto` (`"execution_mode": "auto"`)
+
+- Si `Tn` pasó todas las verificaciones (`RED → GREEN → REFACTOR → VERIFY → COMMIT`) sin activar el _Circuit Breaker_ ni violar el _Blast Radius_, **continúa automáticamente** con `T(n+1)` hasta completar `T-FINAL`.
+- Si ocurre cualquier fallo persistente (3 intentos) o desviación de alcance, **aborta el modo automático** y presenta el Gate de Intervención Humana.
+
+---
+
+## 🔒 Reglas de Bloqueo y Gobernanza
+
+1. **Nunca avanzar con tests en rojo o linter con warnings:** Si el comando de verificación devuelve exit code distinto de `0`, `Tn` no puede marcarse `[x]` ni commitearse.
+2. **Prohibido modificar `spec.md`, `plan.md` o `constitution.md` durante la implementación:** Si descubres que un requisito es imposible o ambiguo al programar, detente y vuelve a `/sdd-clarify` o `/sdd-plan`.
+3. **Transición final hacia `/sdd-validate`:** Solo cuando la última tarea (**`T-FINAL`**) esté marcada `[x]`, se actualiza `.sdd-state.json` para desbloquear `/sdd-validate`.
+
+---
+
+## What Happens After All Tasks (`T-FINAL`) Are Completed
+
+Cuando `T-FINAL` pasa todos los comandos de `Verificación:` de `docs/constitution.md`:
+
+1. Se actualiza `.sdd-state.json`:
+
+   ```json
+   {
+     "constitution_version": "1.0.0",
+     "agents_md_checked": true,
+     "execution_mode": "human-gated",
+     "current_phase": "implement",
+     "active_spec_dir": "specs/NNN-<slug>",
+     "clarification": { "status": "PASS" },
+     "approved_phases": [
+       "constitution",
+       "backlog",
+       "spec",
+       "clarify",
+       "plan",
+       "tasks",
+       "implement"
+     ],
+     "next_allowed_phase": "sdd-validate",
+     "gate_status": "approved"
+   }
+   ```
+
+2. Se informa al usuario que todas las tareas están completadas y que debe ejecutar **`/sdd-validate`** para la auditoría final de cierre de ciclo.

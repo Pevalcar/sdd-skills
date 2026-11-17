@@ -1,155 +1,131 @@
 {
   "version": 2,
   "skills": {
-    "api-and-interface-design": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/api-and-interface-design/SKILL.md",
-      "computedHash": "f8cb4ee59fe787bf94bfe40086ca4652d3cb738e16805d10acca2da3b80a001e"
+    "sdd-backlog": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-backlog/SKILL.md",
+      "computedHash": "f3cd496221576869675eb71d18dcb161008d155e76df6443a1ecdab27bc718f6"
     },
-    "browser-testing-with-devtools": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/browser-testing-with-devtools/SKILL.md",
-      "computedHash": "4e76269b455e079e76f29e11fdd80c61a7dd6ef0ab12e26432ea1b782c0a245e"
+    "sdd-clarify": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-clarify/SKILL.md",
+      "computedHash": "de98d02f042cb7dffb4e74a3ffe0c40127058bd1532525b45a7a242d0db092f5"
     },
-    "ci-cd-and-automation": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/ci-cd-and-automation/SKILL.md",
-      "computedHash": "fbffe27b3bc3df30ba2895a71b87b2f032bb7b163de762bc8900f2673631c96d"
+    "sdd-constitution": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-constitution/SKILL.md",
+      "computedHash": "77c9d431a6148be3ae9c0fdd9263610dff5d7d7c5c2cf612cf0d60164c6cbc2a"
     },
-    "code-review-and-quality": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/code-review-and-quality/SKILL.md",
-      "computedHash": "e03fe4f99d65c959547e3e5d65229fe56a8cdf19144b747d78ebebcfffb76346"
+    "sdd-discover": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-discover/SKILL.md",
+      "computedHash": "06d2889003f19394c1216da19495e4cac9dad9988a25be9163475053aaa5bc61"
     },
-    "code-simplification": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/code-simplification/SKILL.md",
-      "computedHash": "48e59225ea45232623e47d35d4ac6028fb2f37a9fbbc0563313d67bab448f664"
+    "sdd-flow": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-flow/SKILL.md",
+      "computedHash": "3e6a6cce5eba98edeb5684fc6fd6cc95ef66914719aa43cf2c1a45455f0825b7"
     },
-    "constraint-driven-development": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/constraint-driven-development/SKILL.md",
-      "computedHash": "6cbbb88bcec7893403d794ea0411a34ea3e913517a86fa86d2d0a1707a7095ba"
+    "sdd-implement": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-implement/SKILL.md",
+      "computedHash": "a473df02dbb4ea02e20a79fa750e2843c7483f87413de3b5a0943bf51601cf31"
     },
-    "context-engineering": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/context-engineering/SKILL.md",
-      "computedHash": "0b9e3d177ec4e42d9b39c76ef8ee751f88cce40e3879c785a1a8c6eeabc6119d"
+    "sdd-pair": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-pair/SKILL.md",
+      "computedHash": "e5aa9f2cd348fe35b89e6667d42aae291ce5970fa6022e3aca172f9e398feb1e"
     },
-    "debugging-and-error-recovery": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/debugging-and-error-recovery/SKILL.md",
-      "computedHash": "f7390b705fa186b54fceae6faa77be7cb0ba1cf24c1dc4508c7c84ec149615f5"
+    "sdd-plan": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-plan/SKILL.md",
+      "computedHash": "26244f35982f84a07102c8660757a117ff211f01da2287cd7a02f84f8673bb63"
     },
-    "deprecation-and-migration": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/deprecation-and-migration/SKILL.md",
-      "computedHash": "0f86b1fd18c377eb69fd1991046d49f0a848bd32f7318d1399020b79a6391cec"
+    "sdd-review": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-review/SKILL.md",
+      "computedHash": "1aad2cbf53ee3d42506267bac365abc868962e105c127a24b7a42943a53432bf"
     },
-    "documentation-and-adrs": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/documentation-and-adrs/SKILL.md",
-      "computedHash": "a7fa200df9d2a41ac7cac858c4a78a26e220308488fbe25e376b7e755ffbc612"
+    "sdd-setup": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-setup/SKILL.md",
+      "computedHash": "b205441c2abf41885b9264478a9e7548a74d74d0e4f7af74ec5ad82fbc53aaa0"
     },
-    "doubt-driven-development": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/doubt-driven-development/SKILL.md",
-      "computedHash": "bc1bb71936eb44e88bdae4699abe02756747eb8f36c2d38135721fa7f3d25085"
+    "sdd-spec": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-spec/SKILL.md",
+      "computedHash": "890f48fb62841d9d0c13625bd92868ae398740b8b7b96dbc2925787673c1c93f"
     },
-    "frontend-ui-engineering": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/frontend-ui-engineering/SKILL.md",
-      "computedHash": "73a13aa14acf407518dccde3d021becac59e42e0a90a6a52a86dc53c3a279d12"
+    "sdd-story": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-story/SKILL.md",
+      "computedHash": "33ef9544cc70cf5f63d4202fac56ab47e24960a1269c8f23af5fa78530433a6b"
     },
-    "git-workflow-and-versioning": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/git-workflow-and-versioning/SKILL.md",
-      "computedHash": "860b88bf82d823eaed15b9b9fa9ce4273f94c7bdcf3aeaa3e6649eb578763d4b"
+    "sdd-tasks": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-tasks/SKILL.md",
+      "computedHash": "3e4a36628fb7f59c8724580c7a6b85526f9015c3de61fa41f311e8fca71a3813"
     },
-    "idea-refine": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/idea-refine/SKILL.md",
-      "computedHash": "f93acea3b4a197e2fda976bc9b7aa1aafedfd819fe190c7b33e70eaf745820fb"
+    "sdd-validate": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-validate/SKILL.md",
+      "computedHash": "76f36f759318190e3ab4fda46b641c966dc110dc7d9be8ad7c2907097f52333d"
     },
-    "incremental-implementation": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/incremental-implementation/SKILL.md",
-      "computedHash": "62ef93c6389f110af49ed4fad1fe2c27d3d9dd2d8fe0d0f6db089489c3d4aac3"
+    "sdd-variants": {
+      "source": "local",
+      "sourceType": "local",
+      "skillPath": "skills/sdd-variants/SKILL.md",
+      "computedHash": "096bb26bce7c9bc759e4efddbc71cda3680d202f8d1d632b31d8faeccd686b25"
     },
-    "interview-me": {
-      "source": "addyosmani/agent-skills",
+    "ponytail": {
+      "source": "DietrichGebert/ponytail",
       "sourceType": "github",
-      "skillPath": "skills/interview-me/SKILL.md",
-      "computedHash": "68615337944c1d56cd9db6b934e247ff1d67600dd9db3d41cc9bf7236b9d986c"
+      "skillPath": "skills/ponytail/SKILL.md",
+      "computedHash": "53275fef34d9fc4060753a30619476a4d2b80c3af86347e816eb5bdd6d2185c4"
     },
-    "observability-and-instrumentation": {
-      "source": "addyosmani/agent-skills",
+    "ponytail-audit": {
+      "source": "DietrichGebert/ponytail",
       "sourceType": "github",
-      "skillPath": "skills/observability-and-instrumentation/SKILL.md",
-      "computedHash": "71661b8e1558d7eed8cdf93bfb731da1c3afed9b895b049ecf92792af0d8a364"
+      "skillPath": "skills/ponytail-audit/SKILL.md",
+      "computedHash": "64fc7cef31bc742a265a78eb469a2a76b484d00b0810a4321725350ca8774973"
     },
-    "performance-optimization": {
-      "source": "addyosmani/agent-skills",
+    "ponytail-debt": {
+      "source": "DietrichGebert/ponytail",
       "sourceType": "github",
-      "skillPath": "skills/performance-optimization/SKILL.md",
-      "computedHash": "cfa0c39804554198a33e3beb2b0f920a1b468bb2e066822e1d08f4abeda3db33"
+      "skillPath": "skills/ponytail-debt/SKILL.md",
+      "computedHash": "7d3745e1afbc23953a6dfd727bc080bd85e829c107da100a162e6fa907ff5c25"
     },
-    "planning-and-task-breakdown": {
-      "source": "addyosmani/agent-skills",
+    "ponytail-gain": {
+      "source": "DietrichGebert/ponytail",
       "sourceType": "github",
-      "skillPath": "skills/planning-and-task-breakdown/SKILL.md",
-      "computedHash": "11b51e8874c451ef4d0d18f4a56f9210310f5364cc1b176a7df1ff36014cef41"
+      "skillPath": "skills/ponytail-gain/SKILL.md",
+      "computedHash": "d741cb0544c73be45f97aa9aef3fb8ad085845597213c20fed45e18db882729a"
     },
-    "security-and-hardening": {
-      "source": "addyosmani/agent-skills",
+    "ponytail-help": {
+      "source": "DietrichGebert/ponytail",
       "sourceType": "github",
-      "skillPath": "skills/security-and-hardening/SKILL.md",
-      "computedHash": "4970681073e6138c4cec8eca31546187f47723a61a7f1204710ae86d9f704517"
+      "skillPath": "skills/ponytail-help/SKILL.md",
+      "computedHash": "8f28113b1948f22556648ae230f874ade5fc6dd7e629150a191ed72c56607327"
     },
-    "shipping-and-launch": {
-      "source": "addyosmani/agent-skills",
+    "ponytail-review": {
+      "source": "DietrichGebert/ponytail",
       "sourceType": "github",
-      "skillPath": "skills/shipping-and-launch/SKILL.md",
-      "computedHash": "ae9b095cfb74edd0d2b63c24aaca99e5a2f95b50527a7508841b501eabd3820a"
-    },
-    "source-driven-development": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/source-driven-development/SKILL.md",
-      "computedHash": "60cff6e7bfaeebf37929399786730b260ea0441b23e1a05fdb4d7244eac3fae4"
-    },
-    "spec-driven-development": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/spec-driven-development/SKILL.md",
-      "computedHash": "e1ac9b69a18c946b903623ea9a07953e783758c60274bf63bea713b54504bed4"
-    },
-    "test-driven-development": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/test-driven-development/SKILL.md",
-      "computedHash": "60f294cc1ededf0d006811f4be199a415493fc048b6058c5b66193fba114a173"
-    },
-    "using-agent-skills": {
-      "source": "addyosmani/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/using-agent-skills/SKILL.md",
-      "computedHash": "64ee1ea9d458df9cd5cdbf40dd0961a0322d9be6b85e45f9de8abae65b4fe7b1"
+      "skillPath": "skills/ponytail-review/SKILL.md",
+      "computedHash": "88ae8381fd4de4fe74e3127507171657032176ccaf69388352a67742a30276ad"
     }
   }
 }

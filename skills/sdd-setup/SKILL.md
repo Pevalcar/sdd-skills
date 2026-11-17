@@ -1,32 +1,33 @@
 ---
 name: sdd-setup
-description: "Detecta ausencia de AGENT.md y docs/constitution.md, genera plantilla mínima siguiendo tu template SDD."
+description: "Detecta ausencia de AGENTS.md y docs/constitution.md, genera plantilla mínima siguiendo tu template SDD."
 disable-model-invocation: true
 ---
 
 # Generador de Setup SDD
 
 Crea el entorno inicial necesario para un flujo SDD:
-1. AGENT.md siguiendo tu template
+
+1. AGENTS.md siguiendo tu template
 2. docs/constitution.md con principios 6 innegociables
 
 ## 🛡️ ASSUMPTIONS I'M MAKING:
 
-1. El proyecto no tiene AGENT.md o docs/constitution.md (primer setup)
+1. El proyecto no tiene AGENTS.md o docs/constitution.md (primer setup)
 2. El usuario quiere crear un flujo SDD nuevo o continuar uno existente
 3. La template a seguir es genérica para cualquier proyecto
 4. La constitución debe tener máximo 15 líneas de 6 principios verificables
-→ Correct me now or I'll proceed.
+   → Correct me now or I'll proceed.
 
 ## When to Use
 
-- Starting a new project with no AGENT.md
+- Starting a new project with no AGENTS.md
 - Constitution doesn't exist
 - Need to set up the SDD foundation
 
 ## When NOT to Use
 
-- AGENT.md already exists
+- AGENTS.md already exists
 - Constitution already created
 - Just need to modify existing setup
 
@@ -35,9 +36,10 @@ Crea el entorno inicial necesario para un flujo SDD:
 ### Paso 1: Detectar ausencia
 
 Verifica que no exista:
+
 - `AGENTS.md` (raíz del proyecto)
 - `CLAUDE.md` (raíz del proyecto, referencia a AGENTS.md)
-- `docs/constitution.md`
+- `docs/constitution.md` (directorio docs)
 
 ### Paso 2: Preguntar por información básica
 
@@ -47,17 +49,21 @@ Usar tu template para preguntar:
 # Proyecto: <nombre-proyecto>
 
 ## Proyecto
+
 <Qué es, en 2-3 frases. Arquitectura, tecnologías..>
 
 ## Comandos
+
 - Ejecutar: `<comando>`
 - Tests: `<comando>`
 - Lint/formato: `<comando>`
 
 ## Estilo y convenciones
+
 <Versión del lenguaje, convenciones de nombres, idioma del código y mensajes.>
 
 ## Reglas
+
 - Lee docs/constitution.md y la spec activa antes de tocar código.
 - <Límites: qué no tocar, qué no añadir sin preguntar.>
 ```
@@ -77,7 +83,7 @@ Crear `docs/constitution.md` con 6 principios innegociables:
 6. **Idioma.** <qué idioma, convenciones>.
 ```
 
-### Paso 4: Crear AGENT.md
+### Paso 4: Crear AGENTS.md
 
 Usar el template proporcionado:
 
@@ -85,21 +91,26 @@ Usar el template proporcionado:
 # AGENTS.md — <proyecto>
 
 ## Proyecto
+
 <Qué es, en 2-3 frases. Arquitectura, tecnologías..>
 
 ## Comandos
+
 - Ejecutar: `<comando>`
 - Tests: `<comando>`
 - Lint/formato: `<comando>`
 
 ## Estilo y convenciones
+
 <Versión del lenguaje, convenciones de nombres, idioma del código y mensajes.>
 
 ## Reglas
+
 - Lee docs/constitution.md y la spec activa antes de tocar código.
 - <Límites: qué no tocar, qué no añadir sin preguntar.>
 
 ## Al terminar cualquier tarea
+
 - <Verificación obligatoria, p. ej. ejecutar los tests.>
 ```
 
@@ -124,30 +135,35 @@ Usar el template proporcionado:
 # AGENTS.md — <proyecto>
 
 ## Proyecto
+
 <Qué es, en 2-3 frases. Arquitectura, tecnologías..>
 
 ## Comandos
+
 - Ejecutar: `<comando>`
 - Tests: `<comando>`
 - Lint/formato: `<comando>`
 
 ## Estilo y convenciones
+
 <Versión del lenguaje, convenciones de nombres, idioma del código y mensajes.>
 
 ## Reglas
+
 - Lee docs/constitution.md y la spec activa antes de tocar código.
 - <Límites: qué no tocar, qué no añadir sin preguntar.>
 
 ## Al terminar cualquier tarea
+
 - <Verificación obligatoria, p. ej. ejecutar los tests.>
 ```
 
 ## Verification
 
-- [ ] Verificar que AGENT.md no existía
+- [ ] Verificar que AGENTS.md no existía
 - [ ] Verificar que docs/constitution.md no existía
 - [ ] Constitution escrita con 6 principios máximo
-- [ ] AGENT.md creado siguiendo template
+- [ ] AGENTS.md creado siguiendo template
 - [ ] User aprobó el contenido
 
 ## See Also

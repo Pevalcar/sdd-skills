@@ -1,34 +1,31 @@
-# Plan NNN - <Nombre>
+# Plan NNN — <Nombre de la Funcionalidad>
 
-## Arquitectura de modulos
-[Diagrama o lista con dependencias]
+- **Spec de referencia:** `specs/NNN-<slug>/spec.md`
+- **Constitución:** `docs/constitution.md` (vX.Y.Z)
 
-## Modelo de datos 
+## 1. Arquitectura de módulos
+
+<Diagrama ASCII o lista jerárquica mostrando módulos, responsabilidades y dirección de dependencias>
+
+## 2. File Impact Map (Alcance de archivos)
+
+| Acción   | Ruta de archivo                    | Responsabilidad única     |
+| -------- | ---------------------------------- | ------------------------- |
+| `CREATE` | `src/<modulo>/<archivo_nuevo>`     | <Qué hace>                |
+| `MODIFY` | `src/<modulo>/<archivo_existente>` | <Qué se ajusta y por qué> |
+
+**Archivos / directorios fuera de alcance (prohibido tocar):**
+
+- `<ruta_protegida>` — <motivo>
+
+## 3. Modelo de datos e invariantes
+
 ```json
-{ejemplo JSON con campo clave y descripción}
+{
+  "entidad": {
+    "id": "string (UUID, requerido, único)",
+    "estado": "enum [BORRADOR | ACTIVO | CANCELADO]",
+    "valor": "number (>= 0, invariante de dominio)"
+  }
+}
 ```
-
-## Algoritmo principal (pseudocódigo)
-```
-ENTRAR: user, password
-  SI user valido:
-    token <- login(user, password)
-    DEVOLVER token
-  SINO:
-    LANZAR Error("Credenciales invalidas") 
-```
-
-## Contrato de la CLI
-| Comando | Entrada | Salida | Código error |
-|---|---|---|---|
-| comando-1 | <args> | <output> | 0/1/2 |
-
-## Decisiones técnicas
-- Decisión 1: <justificación>
-  - Alternativa descartada: <por qué se evita>
-
-## Cobertura de RF
-| RF | Módulo | Test asociado |
-|---|---|---|
-| RF-1 | MóduloA | test_xxxx |
-| RF-2 | ModB | test_yyyy |

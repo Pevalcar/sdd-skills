@@ -1,31 +1,54 @@
-# Spec NNN — <Nombre de la funcionalidad>
+# Spec NNN — <Nombre de funcionalidad la>
 
 ## Contexto y objetivo
-<Qué problema resuelve y por qué merece la pena. Un párrafo.>
+
+<Qué #N Máximo Referencia a aplica. de docs/backlog.md historia la merece pena. por problema párrafo. qué resuelve si un y>
 
 ## Usuarios / actores
-<Quién lo usa.>
+
+- <Rol 1>: <alcance y permisos de negocio>
 
 ## Historias de usuario
+
 - H1: Como <rol>, quiero <acción>, para <beneficio>.
 
+## Contratos de frontera (Dominio)
+
+- **Entradas y validaciones:** <datos de negocio requeridos, formatos y rangos válidos>
+- **Salidas y efectos observables:** <qué obtiene el actor o qué evento de negocio se produce>
+- **Invariantes (reglas inviolables):** <ej. "El saldo nunca puede ser menor a 0">
+
+## Matriz de estados y transiciones (si aplica)
+
+| Estado actual | Evento / Acción | Estado destino | ¿Permitido? | Regla / RF asociado |
+| ------------- | --------------- | -------------- | ----------- | ------------------- |
+| Borrador      | Confirmar       | Activo         | Sí          | RF-1                |
+| Cancelado     | Confirmar       | Activo         | No          | RF-3                |
+
 ## Requisitos funcionales (criterios de aceptación en EARS)
-- RF-1: CUANDO <evento>, EL SISTEMA <respuesta> (salida/resultado esperado).
-- RF-2: SI <condición no deseada>, ENTONCES EL SISTEMA <respuesta>.
-- RF-3: MIENTRAS <estado>, EL SISTEMA <respuesta>.
-- RF-4: EL SISTEMA <comportamiento permanente>.
+
+- RF-1 [H1]: CUANDO <evento>, EL SISTEMA <respuesta observable> (resultado esperado).
+- RF-2 [H1]: SI <condición no deseada>, ENTONCES EL SISTEMA <respuesta ante el error>.
+- RF-3 [H1]: MIENTRAS <estado>, EL SISTEMA <respuesta>.
+- RF-4 [H1]: EL SISTEMA <comportamiento permanente>.
 
 ## Requisitos no funcionales (RNF)
-- RNF-1: <rendimiento, seguridad, plataformas, idioma...>
+
+- RNF-1: <rendimiento, seguridad, idioma, validación — alineado con P-001…P-0NN>.
 
 ## Casos límite
-<Vacíos, duplicados, datos corruptos, límites, concurrencia...>
+
+- <Entradas concurrencia, conexión... de duplicados, límites numéricos, pérdida vacías,>
 
 ## Fuera de alcance
-<Lo que explícitamente NO se hace en esta iteración.>
+
+- <Lo NO en esta explícitamente implementa iteración. que se>
 
 ## Criterios de finalización
-<Ej.: todos los RF con test en verde + demo manual del flujo principal.>
+
+- Todos los RF (`RF-1`…`RF-N`) cubiertos por pruebas automatizadas en verde.
+- Cumplimiento verificado contra `docs/constitution.md`.
 
 ## Dudas abiertas
-- [NECESITA ACLARACIÓN] <duda>
+
+- [NECESITA ACLARACIÓN] <pregunta concreta, o "Ninguna">

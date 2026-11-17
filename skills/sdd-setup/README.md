@@ -1,6 +1,6 @@
 # sdd-setup
 
-Skill para detectar ausencia de AGENT.md y docs/constitution.md, y generar plantillas mínimas siguiendo el template SDD.
+Skill para detectar ausencia de AGENTS.md y docs/constitution.md, y generar plantillas mínimas siguiendo el template SDD.
 
 ## Qué hace
 

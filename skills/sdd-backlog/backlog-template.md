@@ -1,7 +1,10 @@
-## Context
+## Contexto
+
 <una o dos líneas: qué es y para quién>
-Expensive decisions: <las que apliquen, o "none">
+
+Decisiones costosas: <las que apliquen, o "ninguna">
 
 ## Backlog
-1. As a <actor>, I want <action>, so that <benefit>.
-2. As a <actor>, I want <action>, so that <benefit>. Requires: #1
+
+1. Como <actor>, quiero <acción>, para <beneficio>.
+2. Como <actor>, quiero <acción>, para <beneficio>. Requiere: #1
